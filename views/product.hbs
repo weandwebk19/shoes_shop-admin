@@ -1,0 +1,192 @@
+<div class="main-content">
+    <!-- header area start -->
+    <div class="header-area">
+        <div class="row align-items-center">
+            <!-- nav and search button -->
+            <div class="col-md-6 col-sm-8 clearfix">
+                <div class="nav-btn pull-left">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <!-- profile info & task notification -->
+            <div class="col-md-6 col-sm-4 clearfix">
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- header area end -->
+    <!-- page title area start -->
+    <div class="page-title-area">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="breadcrumbs-area clearfix">
+                    <h4 class="page-title pull-left">Dead Shoes</h4>
+                    <ul class="breadcrumbs pull-left">
+                        <li><a href="#">Quản lý</a></li>
+                        <li><span>Quản lý sản phẩm</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6 clearfix">
+                <div class="user-profile pull-right">
+                    <img class="avatar user-thumb" src="/images/author/avatar.png" alt="avatar">
+                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i
+                            class="fa fa-angle-down"></i></h4>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Message</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="/login">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- page title area end -->
+    <div class="main-content-inner">
+        <div class="row">
+            <!-- Primary table start -->
+            <div class="col-12 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Danh sách sản phẩm</h4>
+                        <div class="data-tables datatable-primary">
+                            <table id="dataTable2" class="text-center">
+                                <thead class="text-capitalize">
+                                    <tr>
+                                        <th>Mã sản phẩm</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Màu sắc</th>
+                                        <th>Kích thước</th>
+                                        <th>Mô tả</th>
+                                        <th>Tác vụ</th>
+                                        <th>Hình ảnh</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr prd-id="1">
+                                        <td>prd0001</td>
+                                        <td>Nike Air Force 1</td>
+                                        <td>Xanh</td>
+                                        <td>43</td>
+                                        <td>abcd gì đó</td>
+                                        <td>
+                                            <a href="#" class="edit-data"><i class="fa fa-edit"></i></a>
+                                            <a href="#" class="remove-data"><i class="fa fa-remove"></i></a>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>prd0002</td>
+                                        <td>Nike Air Jordan 1</td>
+                                        <td>Vàng</td>
+                                        <td>41</td>
+                                        <td>abcd gì đó</td>
+                                        <td>
+                                            <a href="#" class="edit-data"><i class="fa fa-edit"></i></a>
+                                            <a href="#" class="remove-data"><i class="fa fa-remove"></i></a>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>prd0003</td>
+                                        <td>dép lào</td>
+                                        <td>Đỏ</td>
+                                        <td>42</td>
+                                        <td>abcd gì đó</td>
+                                        <td>
+                                            <a href="#" class="edit-data"><i class="fa fa-edit"></i></a>
+                                            <a href="#" class="remove-data"><i class="fa fa-remove"></i></a>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="button" class="btn-add btn btn-primary mb-3">Thêm sản phẩm</button>
+                        <!-- Add product form-->
+                        <form class="needs-validation mt-3 hidden" novalidate="">
+                            <h4 class="header-title">Thêm sản phẩm</h4>
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="product-id">Mã sản phẩm</label>
+                                        <input type="text" class="form-control" id="product-id" required="">
+                                        <div class="invalid-feedback">Please provide a valid state.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="product-name">Tên sản phẩm</label>
+                                        <input type="text" class="form-control" id="product-name" required="">
+                                        <div class="invalid-feedback">Please provide a valid state.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="product-color">Màu sắc</label>
+                                        <input type="text" class="form-control" id="product-color"
+                                            aria-describedby="inputGroupPrepend" required="">
+                                        <div class="invalid-feedback">Please provide a valid state.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group mb-3">
+                                        <label for="product-image">Hình ảnh</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="product-image" required="">
+                                            <label class="custom-file-label" for="product-image">Choose
+                                                file</label>
+                                            <div class="invalid-feedback">Please provide a valid state.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col mb-3">
+                                    <div class="form-group">
+                                        <label for="product-size">Kích thước</label>
+                                        <select id="product-size" class="form-control" required="">
+                                            <option value="35" selected>35</option>
+                                            <option value="36">36</option>
+                                            <option value="37">37</option>
+                                            <option value="38">38</option>
+                                            <option value="39">39</option>
+                                            <option value="40">40</option>
+                                            <option value="42">41</option>
+                                            <option value="42">42</option>
+                                            <option value="43">43</option>
+                                            <option value="44">44</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col mb-3">
+                                    <div class="form-group input-group-prepend mb-3">
+                                        <label for="product-descript" class="input-group-text">Mô tả <br> sản
+                                            phẩm</label>
+                                        <textarea class="form-control" aria-label="With textarea"
+                                            required=""></textarea>
+                                        <div class="invalid-feedback">Please provide a valid state.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary" type="submit">Cập nhật</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Primary table end -->
+        </div>
+    </div>
+</div>

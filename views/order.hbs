@@ -1,0 +1,175 @@
+<!-- main content area start -->
+<div class="main-content">
+    <!-- header area start -->
+    <div class="header-area">
+        <div class="row align-items-center">
+            <!-- nav and search button -->
+            <div class="col-md-6 col-sm-8 clearfix">
+                <div class="nav-btn pull-left">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <!-- profile info & task notification -->
+            <div class="col-md-6 col-sm-4 clearfix">
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- header area end -->
+    <!-- page title area start -->
+    <div class="page-title-area">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="breadcrumbs-area clearfix">
+                    <h4 class="page-title pull-left">Shoes Shop</h4>
+                    <ul class="breadcrumbs pull-left">
+                        <li><a href="#">Quản lý</a></li>
+                        <li><span>Quản lý đơn hàng</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6 clearfix">
+                <div class="user-profile pull-right">
+                    <img class="avatar user-thumb" src="/images/author/avatar.png" alt="avatar">
+                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i
+                            class="fa fa-angle-down"></i></h4>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Message</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="/login">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- page title area end -->
+    <div class="main-content-inner">
+        <div class="row">
+            <!-- Primary table start -->
+            <div class="col-12 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Danh sách đơn hàng</h4>
+                        <div class="data-tables datatable-primary">
+                            <table id="dataTable2" class="text-center">
+                                <thead class="text-capitalize">
+                                    <tr>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Tên khách hàng</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th>Đơn giá</th>
+                                        <th>Tác vụ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Giày thể thao</td>
+                                        <td>Nike Air Force 1</td>
+                                        <td>Xanh</td>
+                                        <td>42</td>
+                                        <td>42</td>
+                                        <td>
+                                            <a href="#" class="edit-data"><i class="fa fa-edit"></i></a>
+                                            <a href="#" class="remove-data"><i class="fa fa-remove"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Giày thể thao</td>
+                                        <td>Nike Air Force 1</td>
+                                        <td>Xanh</td>
+                                        <td>42</td>
+                                        <td>42</td>
+                                        <td>
+                                            <a href="#" class="edit-data"><i class="fa fa-edit"></i></a>
+                                            <a href="#" class="remove-data"><i class="fa fa-remove"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Giày thể thao</td>
+                                        <td>Nike Air Force 1</td>
+                                        <td>Xanh</td>
+                                        <td>42</td>
+                                        <td>42</td>
+                                        <td>
+                                            <a href="#" class="edit-data"><i class="fa fa-edit"></i></a>
+                                            <a href="#" class="remove-data"><i class="fa fa-remove"></i></a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="button" class="btn-add btn btn-primary mb-3">Thêm đơn hàng</button>
+                        <!-- Add order form-->
+                        <form class="needs-validation mt-3 hidden" novalidate="">
+                            <h4 class="header-title">Thêm đơn hàng</h4>
+                            <div class="form-row">
+                                <div class="col mb-3">
+                                    <div class="form-group">
+                                        <label for="order-id">Mã đơn hàng</label>
+                                        <input type="text" class="form-control" id="order-id" required="">
+                                        <div class="invalid-feedback">
+                                            Please provide a valid state.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="order-customer">Tên khách hàng</label>
+                                        <input type="text" class="form-control" id="order-customer" value=""
+                                            required="">
+                                        <div class="invalid-feedback">
+                                            Please choose a name.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="order-product">Tên sản phẩm</label>
+                                        <input class="form-control" id="order-product" type="text" value="" required="">
+                                        <div class="invalid-feedback">
+                                            Please choose a name.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="order-amount">Số lượng</label>
+                                        <input class="form-control" type="number" value="1" id="order-amount">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="order-price">Đơn giá</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">$</span>
+                                            <span class="input-group-text">0.00</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="order-price"
+                                            aria-label="Amount (to the nearest dollar)" required="">
+                                        <div class="invalid-feedback">
+                                            Please provide a valid state.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Cập nhật</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Primary table end -->
+        </div>
+    </div>
+</div>
+<!-- main content area end -->
