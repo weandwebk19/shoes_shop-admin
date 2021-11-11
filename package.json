@@ -5,6 +5,19 @@
   "scripts": {
     "start": "nodemon --inspect ./bin/www"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weandwebk19/shoes_shop-admin.git"
+  },
+  "keywords": [
+    "deadshoes"
+  ],
+  "author": "MANH,THO,THINH",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/weandwebk19/shoes_shop-admin/issues"
+  },
+  "homepage": "https://github.com/weandwebk19/shoes_shop-admin#readme",
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
