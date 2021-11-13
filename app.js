@@ -20,14 +20,6 @@ app.engine('.hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-// const hbs = require('hbs')
-// hbs.registerPartials(path.join(__dirname,'views','partials'))
-
-//const siteRouter = require('./routes/index.js');
-//const usersRouter = require('./routes/users');
-//app.use('/', siteRouter);
-//app.use('/users', usersRouter);
-
 //Route init
 route(app);
 

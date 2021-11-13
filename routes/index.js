@@ -8,7 +8,7 @@ const mapsRouter = require('./maps.js');
 const screenLockRouter = require('./screenLock.js');
 const loginRouter = require('./login.js');
 const registerRouter = require('./register.js');
-const siteRouter = require('./home.js');
+const homeRouter = require('./home.js');
 
 function route(app) {
       
@@ -22,7 +22,7 @@ function route(app) {
       app.use('/screenLock', screenLockRouter);
       app.use('/login', loginRouter);
       app.use('/register', registerRouter);
-      app.use('/', siteRouter);             
+      app.use('/', homeRouter);             
 }
 
 module.exports = route;
