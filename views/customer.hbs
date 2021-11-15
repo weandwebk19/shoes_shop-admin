@@ -61,6 +61,7 @@
                                         <th>Mã khách hàng</th>
                                         <th>Họ tên</th>
                                         <th>Số điện thoại</th>
+                                        <th>Email</th>
                                         <th>Địa chỉ</th>
                                         <th>Tác vụ</th>
                                     </tr>
@@ -70,6 +71,7 @@
                                         <td>cus001</td>
                                         <td>Nguyễn Đức Mạnh</td>
                                         <td>19120575</td>
+                                        <td>ndmanh@example.com</td>
                                         <td>universal</td>
                                         <td>
                                             <a href="#" class="edit-data"><i class="fa fa-edit"></i></a>
@@ -80,6 +82,7 @@
                                         <td>cus002</td>
                                         <td>Thọ</td>
                                         <td>191206..</td>
+                                        <td>name@example.com</td>
                                         <td>school</td>
                                         <td>
                                             <a href="#" class="edit-data"><i class="fa fa-edit"></i></a>
@@ -90,6 +93,7 @@
                                         <td>cus003</td>
                                         <td>Nguyễn Văn Thịnh</td>
                                         <td>19120667</td>
+                                        <td>nvthinh@example.com</td>
                                         <td>home</td>
                                         <td>
                                             <a href="#" class="edit-data"><i class="fa fa-edit"></i></a>
@@ -107,8 +111,8 @@
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
-                                        <label for="customer-id">Mã khách hàng</label>
-                                        <input type="text" class="form-control" id="customer-id" required="">
+                                        <label for="customer-name">Họ tên</label>
+                                        <input type="text" class="form-control" id="customer-name" required="">
                                         <div class="invalid-feedback">
                                             Please fill in the input field.
                                         </div>
@@ -116,8 +120,8 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
-                                        <label for="customer-name">Họ tên</label>
-                                        <input type="text" class="form-control" id="customer-name" required="">
+                                        <label for="customer-address">Địa chỉ</label>
+                                        <input type="text" class="form-control" id="customer-address" required="">
                                         <div class="invalid-feedback">
                                             Please fill in the input field.
                                         </div>
@@ -127,8 +131,8 @@
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
-                                        <label for="customer-idcard">Địa chỉ</label>
-                                        <input type="text" class="form-control" id="customer-idcard" required="">
+                                        <label for="customer-phone">Số điện thoại</label>
+                                        <input class="form-control" type="tel" value="" id="employee-phone" required="">
                                         <div class="invalid-feedback">
                                             Please fill in the input field.
                                         </div>
@@ -136,11 +140,8 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
-                                        <label for="customer-phone">Số điện thoại</label>
-                                        <input class="form-control" type="tel" value="" id="employee-phone" required="">
-                                        <div class="invalid-feedback">
-                                            Please fill in the input field.
-                                        </div>
+                                        <label for="customer-email">Email</label>
+                                        <input class="form-control" type="email" value="" id="employee-email">
                                     </div>
                                 </div>
                             </div>

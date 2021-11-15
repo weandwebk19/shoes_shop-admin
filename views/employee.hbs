@@ -62,7 +62,6 @@
                                         <th>Mã nhân viên</th>
                                         <th>Họ tên</th>
                                         <th>Giới tính</th>
-                                        <th>Ngày sinh</th>
                                         <th>CMND/CCCD</th>
                                         <th>Số điện thoại</th>
                                         <th>Email</th>
@@ -74,7 +73,6 @@
                                         <td>emp001</td>
                                         <td>Nguyễn Đức Mạnh</td>
                                         <td>Nam</td>
-                                        <td>01/05/2001</td>
                                         <td>19120575</td>
                                         <td>19120575</td>
                                         <td>19120575</td>
@@ -87,7 +85,6 @@
                                         <td>emp002</td>
                                         <td>Nguyễn Văn Thịnh</td>
                                         <td>Nữ</td>
-                                        <td>12/09/2001</td>
                                         <td>19120667</td>
                                         <td>19120667</td>
                                         <td>19120667</td>
@@ -100,7 +97,6 @@
                                         <td>emp003</td>
                                         <td>Thọ</td>
                                         <td>Nam</td>
-                                        <td>12/09/2001</td>
                                         <td>19120...</td>
                                         <td>19120...</td>
                                         <td>19120...</td>
@@ -118,16 +114,7 @@
                         <form class="needs-validation mt-3 hidden" novalidate="">
                             <h4 class="header-title">Thêm nhân viên</h4>
                             <div class="form-row">
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <label for="employee-id">Mã nhân viên</label>
-                                        <input type="text" class="form-control" id="employee-id" required="">
-                                        <div class="invalid-feedback">
-                                            Please fill in the input field.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col mb-3">
                                     <div class="form-group">
                                         <label for="employee-name">Họ tên</label>
                                         <input type="text" class="form-control" id="employee-name" required="">
@@ -138,17 +125,7 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <label for="employee-birthdate">Ngày sinh</label>
-                                        <input class="form-control" id="employee-birthdate" type="date"
-                                            value="2010-11-11">
-                                        <div class="invalid-feedback">
-                                            Please fill in the input field.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col mb-3">
                                     <div class="form-group">
                                         <label for="employee-idcard">CMND/CCCD</label>
                                         <input type="text" class="form-control" id="employee-idcard" required="">

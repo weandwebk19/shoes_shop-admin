@@ -112,8 +112,8 @@
                             <div class="form-row">
                                 <div class="col mb-3">
                                     <div class="form-group">
-                                        <label for="order-id">Mã đơn hàng</label>
-                                        <input type="text" class="form-control" id="order-id" required="">
+                                        <label for="order-productid">Mã sản phẩm</label>
+                                        <input type="text" class="form-control" id="order-productid" required="">
                                         <div class="invalid-feedback">
                                             Please provide a valid state.
                                         </div>
@@ -123,9 +123,8 @@
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
-                                        <label for="order-customer">Tên khách hàng</label>
-                                        <input type="text" class="form-control" id="order-customer" value=""
-                                            required="">
+                                        <label for="order-customer-name">Tên khách hàng</label>
+                                        <input type="text" class="form-control" id="order-customer-name" value="" required="">
                                         <div class="invalid-feedback">
                                             Please choose a name.
                                         </div>
@@ -133,10 +132,21 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
-                                        <label for="order-product">Tên sản phẩm</label>
-                                        <input class="form-control" id="order-product" type="text" value="" required="">
+                                        <label for="order-customer-phone">Số điện thoại khách hàng</label>
+                                        <input class="form-control" id="order-customer-phone" type="tel" value="" required="">
                                         <div class="invalid-feedback">
                                             Please choose a name.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                 <div class="col mb-3">
+                                    <div class="form-group">
+                                        <label for="order-customer-address">Địa chỉ</label>
+                                        <input type="text" class="form-control" id="order-customer-address" value="" required="">
+                                        <div class="invalid-feedback">
+                                            Please choose a address.
                                         </div>
                                     </div>
                                 </div>
