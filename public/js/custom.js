@@ -6,10 +6,14 @@ const formAdd = $('.needs-validation');
 
 let isHidden = true;
 
-btnAdd.onclick = function() {
-    isHidden = !isHidden;
-    formAdd.classList.toggle('hidden', isHidden);
+try {
+    btnAdd.onclick = function() {
+        isHidden = !isHidden;
+        formAdd.classList.toggle('hidden', isHidden);
+    }
 }
+catch (err) {}
+
 
 function addClassByClick(button){
     button.classList.add("active");

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', function(req, res, next) {
-  res.render('report', {activeReport: 'active'});
+  res.render('report');
 });
 
 module.exports = router;
