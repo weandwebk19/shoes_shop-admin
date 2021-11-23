@@ -1,0 +1,88 @@
+<!-- sidebar menu area start -->
+<div class="sidebar-menu">
+    <div class="sidebar-header">
+        <div class="logo">
+            <a href="/"><img src="/images/icon/logo.png" alt="logo"></a>
+        </div>
+    </div>
+    <div class="main-menu">
+        <div class="menu-inner">
+            <nav>
+                <ul class="metismenu" id="menu">
+                    <li class="nav-dashboard">
+                        <a href="/" aria-expanded="true"><i class="ti ti-dashboard"></i><span>dashboard</span></a>
+                    </li>
+                    <!-- Quản trị danh mục -->
+                    <li>
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-align-left"></i>
+                            <span>Quản lý</span></a>
+                        <ul class="collapse">
+                            <li class="nav-product"><a href="/product">Quản lí sản phẩm</a></li>
+                            <li class="nav-employee"><a href="/employee">Quản lý nhân viên</a></li>
+                            <li class="nav-customer"><a href="/customer">Quản lý khách hàng</a></li>
+                            <li class="nav-order"><a href="/order">Quản lý đơn hàng</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-users"></i>
+                            <span>Quản lý Tài khoản</span></a>
+                        <ul class="collapse">
+                            <li class="nav-account_employee"><a href="/account_employee">Tài khoản nhân viên</a></li>
+                            <li class="nav-account_customer"><a href="/account_customer">Tài khoản khách hàng</a></li>
+                            <li><a href="/screenlock">Thoát</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-report"><a href="/report"><i class="ti-receipt"></i> <span>Báo cáo</span></a></li>
+                    <li class="nav-maps"><a href="/maps"><i class="ti-map-alt"></i> <span>maps</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- sidebar menu area end -->
+
+<script>
+    const documentUri = document.documentURI.replace(document.domain, "").replace("https://");
+    if (documentUri.includes("/product")) {
+        let navItem = document.querySelector('.nav-product');
+        navItem.classList.add('active');
+        navItem.parentElement.parentElement.classList.add('active');
+    }
+    else if (documentUri.includes("/employee")) {
+        let navItem = document.querySelector('.nav-employee');
+        navItem.classList.add('active');
+        navItem.parentElement.parentElement.classList.add('active');
+    }
+    else if (documentUri.includes("/customer")) {
+        let navItem = document.querySelector('.nav-customer');
+        navItem.classList.add('active');
+        navItem.parentElement.parentElement.classList.add('active');
+    }
+    else if (documentUri.includes("/order")) {
+        let navItem = document.querySelector('.nav-order');
+        navItem.classList.add('active');
+        navItem.parentElement.parentElement.classList.add('active');
+    }
+    else if (documentUri.includes("/account_employee")) {
+        let navItem = document.querySelector('.nav-account_employee');
+        navItem.classList.add('active');
+        navItem.parentElement.parentElement.classList.add('active');
+    }
+    else if (documentUri.includes("/account_customer")) {
+        let navItem = document.querySelector('.nav-account_customer');
+        navItem.classList.add('active');
+        navItem.parentElement.parentElement.classList.add('active');
+    }
+    else if (documentUri.includes("/report")) {
+        let navItem = document.querySelector('.nav-report');
+        navItem.classList.add('active');
+    }
+    else if (documentUri.includes("/maps")) {
+        let navItem = document.querySelector('.nav-maps');
+        navItem.classList.add('active');
+    }
+    else {
+        let navItem = document.querySelector('.nav-dashboard');
+        navItem.classList.add('active');
+    }
+</script>

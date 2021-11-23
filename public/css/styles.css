@@ -2745,10 +2745,10 @@ table.dataTable thead td {
     padding: 15px;
 }
 
-/* .recent-activity {
+.recent-activity {
     padding-top: 7px;
     padding-left: 53px;
-} */
+}
 
 .offset-settings h4 {
     font-family: 'lato', sans-serif;
@@ -2834,9 +2834,6 @@ table.dataTable thead td {
     color: #555;
 }
 
-.edit-data {
-    margin-right: 12px;
-}
 
 #datepicker{
     width:180px; 
@@ -2848,3 +2845,16 @@ table.dataTable thead td {
 }
 
 /*-------------------- END Offset Sidebar ------------------- */
+
+/* Custom css */
+.edit-data {
+    margin-right: 16px;
+}
+
+.product-description {
+    line-height: 1.8rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}

@@ -1,0 +1,164 @@
+<!-- main content area start -->
+<div class="main-content">
+    <!-- header area start -->
+    <div class="header-area">
+        <div class="row align-items-center">
+            <!-- nav and search button -->
+            <div class="col-md-6 col-sm-8 clearfix">
+                <div class="nav-btn pull-left">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <!-- profile info & task notification -->
+            <div class="col-md-6 col-sm-4 clearfix">
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- header area end -->
+    <!-- page title area start -->
+    <div class="page-title-area">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="breadcrumbs-area clearfix">
+                    <h4 class="page-title pull-left">Dead Shoes</h4>
+                    <ul class="breadcrumbs pull-left">
+                        <li><a href="#">Tài khoản</a></li>
+                        <li><span>Tài khoản nhân viên</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6 clearfix">
+                <div class="user-profile pull-right">
+                    <img class="avatar user-thumb" src="/images/author/avatar.png" alt="avatar">
+                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i
+                            class="fa fa-angle-down"></i></h4>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Message</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="/login">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- page title area end -->
+    <div class="main-content-inner">
+        <div class="row">
+            <!-- Primary table start -->
+            <div class="col-12 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Danh sách tài khoản nhân viên</h4>
+                        <div class="data-tables datatable-primary">
+                            <table id="dataTable2" class="text-center">
+                                <thead class="text-capitalize">
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Password</th>
+                                        <th>Tên nhân viên</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Email</th>
+                                        <th>Tác vụ</th>
+                                        <th>Mã nhân viên</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each account_employees}}
+                                    <tr>
+                                        <td>{{this.username}}</td>
+                                        <td>{{this.password}}</td>
+                                        <td>{{this.employee.name}}</td>
+                                        <td>{{this.employee.phone}}</td>
+                                        <td>{{this.employee.email}}</td>
+                                        <td>
+                                            <a href="/account_employee/{{this.employeeid}}/edit" class="edit-data" title="Chỉnh sửa tài khoản nhân viên">
+                                                <i class="fa fa-edit"></i>
+
+                                            <a href="" class="remove-data" title="Xóa tài khoản nhân viên"
+                                                data-id="{{this.employeeid}}" data-toggle="modal"
+                                                data-target="#delete-account_employee-modal"><i class="fa fa-remove"></i></a>
+                                        </td>
+                                        <td>{{this.employeeid}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                        <a href="/account_employee/create" class="text-white btn btn-primary mb-3">Thêm tài khoản</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Primary table end -->
+        </div>
+    </div>
+</div>
+<!-- main content area end -->
+
+{{!-- Delete account_employee hidden form--}}
+<form name="delete-account_employee-form" method="POST"></form>
+
+{{!-- Confirm delete account_employee --}}
+<div id="delete-account_employee-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa tài khoản nhân viên ?</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắn muốn xóa tài khoản nhân viên  này?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btn-delete-account_employee">Xóa bỏ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (e) {
+        var account_employeeId;
+
+        //Variable delete account_employee
+        var btnDeleteAccount_employee = document.getElementById("btn-delete-account_employee");
+        var deleteAccount_employeeForm = document.forms["delete-account_employee-form"];
+
+        //Delete account_employee
+        $('#delete-account_employee-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            account_employeeId = button.data('id')
+        })
+
+        btnDeleteAccount_employee.onclick = function () {
+            deleteAccount_employeeForm.action = `/account_employee/${account_employeeId}?_method=DELETE`;
+            deleteAccount_employeeForm.submit();
+        }
+    })
+</script>
+
+<script src="/js/vendor/jquery-2.2.4.min.js"></script>
+
+<!-- bootstrap 4 js -->
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/metisMenu.min.js"></script>
+<script src="/js/jquery.slimscroll.min.js"></script>
+<script src="/js/jquery.slicknav.min.js"></script>
+<!-- Start datatable js -->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+
+<script src="/js/plugins.js"></script>
+<script src="/js/scripts.js"></script>
