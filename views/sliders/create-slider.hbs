@@ -1,0 +1,84 @@
+<div class="main-content">
+    {{>header}}
+
+    <!-- page title area start -->
+    <div class="page-title-area">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="breadcrumbs-area clearfix">
+                    <h4 class="page-title pull-left">Dead Shoes</h4>
+                    <ul class="breadcrumbs pull-left">
+                        <li><a href="/slider">Quản lý slider</a></li>
+                        <li><span>Thêm slider</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6 clearfix">
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- page title area end -->
+    <div class="main-content-inner">
+        <div class="row">
+            <div class="col-12 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Add slider form-->
+                        <h4 class="header-title">Thêm slider</h4>
+                        <form method="POST" action="/slider/store" class="needs-validation mt-3" novalidate="">
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="slider-title">Tiêu đề slider</label>
+                                        <input type="text" class="form-control" id="slider-title" name="title"
+                                            required="">
+                                        <div class="invalid-feedback">Please provide a valid state.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="slider-description">Mô tả slider</label>
+                                        <input type="text" class="form-control" id="slider-description" name="description"
+                                            required="">
+                                        <div class="invalid-feedback">Please provide a valid state.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col mb-3">
+                                    <div class="form-group">
+                                        <label for="slider-image">Hình ảnh</label>
+                                        <input type="text" class="form-control" id="slider-image" name="image" required="">
+                                        <div class="invalid-feedback">Please provide a valid state.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Cập nhật</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jquery latest version -->
+<script src="/js/vendor/jquery-2.2.4.min.js"></script>
+<!-- bootstrap 4 js -->
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/metisMenu.min.js"></script>
+<script src="/js/jquery.slimscroll.min.js"></script>
+<script src="/js/jquery.slicknav.min.js"></script>
+
+<!-- others plugins -->
+<script src="/js/plugins.js"></script>
+<script src="/js/scripts.js"></script>

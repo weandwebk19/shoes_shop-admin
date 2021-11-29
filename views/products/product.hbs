@@ -1,25 +1,6 @@
 <div class="main-content">
-    <!-- header area start -->
-    <div class="header-area">
-        <div class="row align-items-center">
-            <!-- nav and search button -->
-            <div class="col-md-6 col-sm-8 clearfix">
-                <div class="nav-btn pull-left">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <!-- profile info & task notification -->
-            <div class="col-md-6 col-sm-4 clearfix">
-                <ul class="notification-area pull-right">
-                    <li id="full-view"><i class="ti-fullscreen"></i></li>
-                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- header area end -->
+    {{>header}}
+
     <!-- page title area start -->
     <div class="page-title-area">
         <div class="row align-items-center">
@@ -33,16 +14,10 @@
                 </div>
             </div>
             <div class="col-sm-6 clearfix">
-                <div class="user-profile pull-right">
-                    <img class="avatar user-thumb" src="/images/author/avatar.png" alt="avatar">
-                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i
-                            class="fa fa-angle-down"></i></h4>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Message</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="/login">Log Out</a>
-                    </div>
-                </div>
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -51,6 +26,17 @@
         <div class="row">
             <!-- Danh sách sản phẩm start -->
             <div class="col-12 mt-5">
+                <div class="card">
+                    <div class="card-body border-bottom">
+                        <div class="d-flex justify-content-between">
+                            <a href="/product/create" class="text-white btn btn-primary" role="button">Thêm sản phẩm</a>
+                            <a href="/product/trash" class="text-white btn btn-secondary" role="button">
+                                <i class="fa fa-trash mr-2 ml-2"></i>
+                                Thùng rác
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Danh sách sản phẩm</h4>
@@ -63,7 +49,7 @@
                                         <th>Màu sắc</th>
                                         <th>Giá</th>
                                         <th>Mô tả</th>
-                                        <th>Tình trạng</th>
+                                        <th>Tình <br> trạng</th>
                                         <th>Sửa / Xóa</th>
                                         <th>Hình ảnh</th>
                                     </tr>
@@ -78,7 +64,8 @@
                                         <td class="product-description">{{this.description}}</td>
                                         <td>{{this.status}}</td>
                                         <td>
-                                            <a href="/product/{{this.productid}}/edit" class="edit-data" title="Chỉnh sửa sản phẩm">
+                                            <a href="/product/{{this.productid}}/edit" class="edit-data"
+                                                title="Chỉnh sửa sản phẩm">
                                                 <i class="fa fa-edit"></i>
                                             </a>
 
@@ -93,66 +80,22 @@
                                                     alt="product-image">
                                                 {{/each}}
                                             </div>
-                                        </td>
-                                    </tr>
-                                    {{/each}}
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <a href="/product/create" class="text-white btn btn-primary mb-3">Thêm sản phẩm</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Danh sách sản phẩm end -->
-
-            <!-- SneakerSize start -->
-            <div class="col-12 mt-5">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="header-title">Shoes Size</h4>
-                        <div class="data-tables">
-                            <table id="dataTable" class="text-center">
-                                <thead class="bg-light text-capitalize">
-                                    <tr>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Kích thước</th>
-                                        <th>Số lượng</th>
-                                        <th>Sửa / Xóa</th>
-                                        <th>Chi tiết</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each shoessize}}
-                                    <tr>
-                                        <td>{{this.product.productname}}</td>
-                                        <td>{{this.size}}</td>
-                                        <td>{{this.amount}}</td>
-                                        <td>
-                                            <a href="/product/shoessize/{{this.size}}/{{this.productid}}/edit" class="edit-data" title="Chỉnh sửa trường này">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-
-                                            <a href="" class="remove-data" title="Xóa trường này"
-                                                data-id="{{this.productid}}" data-size="{{this.size}}" data-toggle="modal"
-                                                data-target="#delete-shoessize-modal"><i class="fa fa-remove"></i></a>
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-4"><p>Mã sản phẩm: {{this.productid}}</p></div>
-                                                <div class="col-md-4"><p>Màu sắc: {{this.product.color}}</p></div>
-                                                <div class="col-md-4"><p>Giá: {{this.product.price}}$</p></div>
+                                            <div class="row justify-content-around">
+                                                <p><b>Thời gian tạo :</b> {{this.createdAt}}</p>
+                                                <p><b>Sửa gần nhất :</b> {{this.updatedAt}}</p>
                                             </div>
                                         </td>
                                     </tr>
                                     {{/each}}
+
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
                 </div>
             </div>
-            <!-- SneakerSize end -->
+            <!-- Danh sách sản phẩm end -->
         </div>
     </div>
 </div>
@@ -179,38 +122,12 @@
     </div>
 </div>
 
-{{!-- Delete shoessize hidden form--}}
-<form name="delete-shoessize-form" method="POST"></form>
-
-{{!-- Confirm delete shoessize --}}
-<div id="delete-shoessize-modal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Xóa kích thước và số lượng?</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <p>Bạn chắc chắn muốn xóa trường này này?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="btn-delete-shoessize">Xóa bỏ</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     document.addEventListener("DOMContentLoaded", function (e) {
         var productId;
         //Variable delete product
         var btnDeleteProduct = document.getElementById("btn-delete-product");
         var deleteProductForm = document.forms["delete-product-form"];
-        //Variable delete shoessize
-        var size;
-        var btnDeleteShoessize = document.getElementById("btn-delete-shoessize");
-        var deleteShoessizeForm = document.forms["delete-shoessize-form"];
 
         //Delete product
         $('#delete-product-modal').on('show.bs.modal', function (event) {
@@ -221,18 +138,6 @@
         btnDeleteProduct.onclick = function () {
             deleteProductForm.action = `/product/${productId}?_method=DELETE`;
             deleteProductForm.submit();
-        }
-
-        //Delete shoessize
-        $('#delete-shoessize-modal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget)
-            productId = button.data('id')
-            size = button.data('size')
-        })
-
-        btnDeleteShoessize.onclick = function () {
-            deleteShoessizeForm.action = `/product/shoessize/${size}/${productId}?_method=DELETE`;
-            deleteShoessizeForm.submit();
         }
     })
 </script>

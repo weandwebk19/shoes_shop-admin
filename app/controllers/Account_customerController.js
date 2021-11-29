@@ -29,10 +29,8 @@ const findAccountBycustomerid = (id) => {
 
 const listAccount = () => {
     return models.account_customers.findAll({ 
-        //raw: true,
-        attributes: [
-            'username', 'password', 'customerid',
-        ],
+        raw: true,
+        nest: true,
         include: [
             {model: models.customers, as: 'customer', attributes:['customerid', 'name','email', 'phone']}
         ],
@@ -41,7 +39,7 @@ const listAccount = () => {
 
 exports.list = async (req, res) => {
     const account_customers = await listAccount();
-    res.render('account_customers/account_customer', { account_customers: JSON.parse(JSON.stringify(account_customers)) });
+    res.render('account_customers/account_customer', { account_customers });
 }
 
 // [GET] /account_customer/create

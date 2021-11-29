@@ -4,6 +4,10 @@ const listEmployee = () => {
     return models.employees.findAll({ raw: true });
 }
 
+const listEmployeeDeleted = () => {
+    return models.employees.findAll({ raw: true, paranoid: false });
+}
+
 const findEmployeeById = (id) => {
     return models.employees.findOne({
         where: {
@@ -45,24 +49,47 @@ exports.store = async (req, res, next) => {
             }
             models.account_employees.create(account)
                 .then(() => { res.redirect('/employee') })
-                .catch(() => { 
+                .catch(() => {
                     res.render('error', {
-                    message: 'Số điện thoại đã tồn tại trong danh sách!'})
-                });    
+                        message: 'Số điện thoại đã tồn tại trong danh sách!'
+                    })
+                });
         })
-        .catch (next);
+        .catch(next);
 }
 
 //[DELETE] /employee/:id
 exports.delete = async (req, res, next) => {
-    //const employee = await findEmployeeById(req.params.id);
-
     models.account_employees.destroy({
         where: { employeeid: req.params.id }
     })
         .then(() => {
             models.employees.destroy({
                 where: { employeeid: req.params.id }
+            })
+                .then(() => res.redirect('back'))
+                .catch(next);
+        })
+        .catch(next);
+}
+
+
+//[GET] /employee/trash
+exports.trash = async (req, res) => {
+    const employees = await listEmployeeDeleted();
+    res.render('employees/trash-employee', { employees });
+}
+
+//[DELETE] /employee/:id/force
+exports.force = (req, res, next) => {
+    models.account_employees.destroy({
+        where: { employeeid: req.params.id },
+        force: true
+    })
+        .then(() => {
+            models.employees.destroy({
+                where: { employeeid: req.params.id },
+                force: true
             })
                 .then(() => res.redirect('back'))
                 .catch(next);
@@ -84,5 +111,12 @@ exports.update = (req, res, next) => {
         }
     })
         .then(() => res.redirect('/employee'))
+        .catch(next);
+}
+
+//[PATCH] /employee/:id/restore
+exports.restore = (req, res, next) => {
+    models.employees.restore({ where: { employeeid: req.params.id } })
+        .then(() => res.redirect('back'))
         .catch(next);
 }

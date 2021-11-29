@@ -1,0 +1,147 @@
+<div class="main-content">
+    {{>header}}
+
+    <!-- page title area start -->
+    <div class="page-title-area">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="breadcrumbs-area clearfix">
+                    <h4 class="page-title pull-left">Dead Shoes</h4>
+                    <ul class="breadcrumbs pull-left">
+                        <li><a href="#">Quản lý khách hàng</a></li>
+                        <li><span>Quản lý khách hàng đã xóa</span></li>
+                    </ul>
+                </div>
+            </div>
+             <div class="col-sm-6 clearfix">
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- page title area end -->
+    <div class="main-content-inner">
+        <div class="row">
+            <!-- Primary table start -->
+            <div class="col-12 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Danh sách khách hàng đã xóa</h4>
+                        <div class="data-tables datatable-primary">
+                            <table id="dataTable2" class="text-center">
+                                <thead class="text-capitalize">
+                                    <tr>
+                                        <th>Mã khách hàng</th>
+                                        <th>Họ tên</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Thời gian xóa</th>
+                                        <th>Tác vụ</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each customers}}
+                                    {{#if ./deletedAt}}
+                                    <tr>
+                                        <td>{{this.customerid}}</td>
+                                        <td>{{this.name}}</td>
+                                        <td>{{this.phone}}</td>
+                                        <td>{{this.address}}</td>
+                                        <td>{{this.deletedAt}}</td>
+                                        <td>
+                                            <a href="" class="btn-restore-customer mr-3" data-id="{{this.customerid}}"
+                                            title="Khôi phục khách hàng"><i class="fa fa-reply"></i></a>
+
+                                            <a href="" class="remove-data" title="Xóa vĩnh viễn"
+                                                data-id="{{this.customerid}}" data-toggle="modal"
+                                                data-target="#delete-customer-modal"><i class="fa fa-remove"></i></a>
+                                        </td>
+                                        <td>{{this.email}}</td>
+                                    </tr>
+                                    {{/if}}
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Primary table end -->
+        </div>
+    </div>
+</div>
+
+{{!-- Delete customer hidden form--}}
+<form name="delete-customer-form" method="POST"></form>
+<form name="restore-customer-form" method="POST"></form>
+
+{{!-- Confirm delete customer --}}
+<div id="delete-customer-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa vĩnh viễn khách hàng?</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Hành động này không thể khôi phục. Bạn vẫn muốn xóa khách hàng này vĩnh viễn?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btn-delete-customer">Xóa bỏ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (e) {
+        var customerId;
+        //Variable delete customer
+        var btnDeleteCustomer = document.getElementById("btn-delete-customer");
+        var deleteCustomerForm = document.forms["delete-customer-form"];
+        var restoreCustomerBtn = $('.btn-restore-customer');
+        var restoreCustomerForm = document.forms["restore-customer-form"];
+
+        //Delete customer
+        $('#delete-customer-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            customerId = button.data('id')
+        })
+
+        btnDeleteCustomer.onclick = function () {
+            deleteCustomerForm.action = `/customer/${customerId}/force?_method=DELETE`;
+            deleteCustomerForm.submit();
+        }
+
+        //Restore btn customer click
+        restoreCustomerBtn.click( function(e){
+          e.preventDefault();
+          var customerId = $(this).data('id');
+          restoreCustomerForm.action= `/customer/${customerId}/restore?_method=PATCH`;
+          restoreCustomerForm.submit();
+        });
+    })
+</script>
+
+<script src="/js/vendor/jquery-2.2.4.min.js"></script>
+
+<!-- bootstrap 4 js -->
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/metisMenu.min.js"></script>
+<script src="/js/jquery.slimscroll.min.js"></script>
+<script src="/js/jquery.slicknav.min.js"></script>
+<!-- Start datatable js -->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+
+<script src="/js/plugins.js"></script>
+<script src="/js/scripts.js"></script>

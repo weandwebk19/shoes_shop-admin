@@ -1,26 +1,6 @@
 <!-- main content area start -->
 <div class="main-content">
-    <!-- header area start -->
-    <div class="header-area">
-        <div class="row align-items-center">
-            <!-- nav and search button -->
-            <div class="col-md-6 col-sm-8 clearfix">
-                <div class="nav-btn pull-left">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <!-- profile info & task notification -->
-            <div class="col-md-6 col-sm-4 clearfix">
-                <ul class="notification-area pull-right">
-                    <li id="full-view"><i class="ti-fullscreen"></i></li>
-                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- header area end -->
+    {{>header}}
     <!-- page title area start -->
     <div class="page-title-area">
         <div class="row align-items-center">
@@ -33,17 +13,11 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-sm-6 clearfix">
-                <div class="user-profile pull-right">
-                    <img class="avatar user-thumb" src="/images/author/avatar.png" alt="avatar">
-                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i
-                            class="fa fa-angle-down"></i></h4>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Message</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="/login">Log Out</a>
-                    </div>
-                </div>
+           <div class="col-sm-6 clearfix">
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -59,20 +33,20 @@
                             <table id="dataTable2" class="text-center">
                                 <thead class="text-capitalize">
                                     <tr>
+                                        <th>Mã khách hàng</th>
                                         <th>Username</th>
-                                        <th>Password</th>
                                         <th>Tên khách hàng</th>
                                         <th>Số điện thoại</th>
                                         <th>Email</th>
                                         <th>Tác vụ</th>
-                                        <th>Mã khách hàng</th>
+                                        <th>Password</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {{#each account_customers}}
                                     <tr>
+                                        <td>{{this.customerid}}</td>
                                         <td>{{this.username}}</td>
-                                        <td>{{this.password}}</td>
                                         <td>{{this.customer.name}}</td>
                                         <td>{{this.customer.phone}}</td>
                                         <td>{{this.customer.email}}</td>
@@ -86,7 +60,11 @@
                                                     data-target="#delete-account_customer-modal"><i
                                                         class="fa fa-remove"></i></a>
                                         </td>
-                                        <td>{{this.customerid}}</td>
+                                        <td>
+                                            {{this.password}}
+                                            <p><b>Thời gian tạo :</b> {{this.createdAt}}</p>
+                                            <p><b>Sửa gần nhất :</b> {{this.updatedAt}}</p> 
+                                        </td>
                                     </tr>
                                     {{/each}}
                                 </tbody>

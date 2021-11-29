@@ -1,26 +1,6 @@
 <!-- main content area start -->
 <div class="main-content">
-    <!-- header area start -->
-    <div class="header-area">
-        <div class="row align-items-center">
-            <!-- nav and search button -->
-            <div class="col-md-6 col-sm-8 clearfix">
-                <div class="nav-btn pull-left">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <!-- profile info & task notification -->
-            <div class="col-md-6 col-sm-4 clearfix">
-                <ul class="notification-area pull-right">
-                    <li id="full-view"><i class="ti-fullscreen"></i></li>
-                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- header area end -->
+    {{>header}}
     <!-- page title area start -->
     <div class="page-title-area">
         <div class="row align-items-center">
@@ -34,16 +14,10 @@
                 </div>
             </div>
             <div class="col-sm-6 clearfix">
-                <div class="user-profile pull-right">
-                    <img class="avatar user-thumb" src="/images/author/avatar.png" alt="avatar">
-                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i
-                            class="fa fa-angle-down"></i></h4>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Message</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="/login">Log Out</a>
-                    </div>
-                </div>
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -59,32 +33,38 @@
                             <table id="dataTable2" class="text-center">
                                 <thead class="text-capitalize">
                                     <tr>
+                                        <th>Mã nhân viên</th>
                                         <th>Username</th>
-                                        <th>Password</th>
                                         <th>Tên nhân viên</th>
                                         <th>Số điện thoại</th>
                                         <th>Email</th>
                                         <th>Tác vụ</th>
-                                        <th>Mã nhân viên</th>
+                                        <th>Password</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {{#each account_employees}}
                                     <tr>
+                                        <td>{{this.employeeid}}</td>
                                         <td>{{this.username}}</td>
-                                        <td>{{this.password}}</td>
                                         <td>{{this.employee.name}}</td>
                                         <td>{{this.employee.phone}}</td>
                                         <td>{{this.employee.email}}</td>
                                         <td>
-                                            <a href="/account_employee/{{this.employeeid}}/edit" class="edit-data" title="Chỉnh sửa tài khoản nhân viên">
+                                            <a href="/account_employee/{{this.employeeid}}/edit" class="edit-data"
+                                                title="Chỉnh sửa tài khoản nhân viên">
                                                 <i class="fa fa-edit"></i>
 
-                                            <a href="" class="remove-data" title="Xóa tài khoản nhân viên"
-                                                data-id="{{this.employeeid}}" data-toggle="modal"
-                                                data-target="#delete-account_employee-modal"><i class="fa fa-remove"></i></a>
+                                                <a href="" class="remove-data" title="Xóa tài khoản nhân viên"
+                                                    data-id="{{this.employeeid}}" data-toggle="modal"
+                                                    data-target="#delete-account_employee-modal"><i
+                                                        class="fa fa-remove"></i></a>
                                         </td>
-                                        <td>{{this.employeeid}}</td>
+                                        <td>
+                                            {{this.password}}
+                                            <p><b>Thời gian tạo :</b> {{this.createdAt}}</p>
+                                            <p><b>Sửa gần nhất :</b> {{this.updatedAt}}</p> 
+                                        </td>
                                     </tr>
                                     {{/each}}
                                 </tbody>
@@ -112,7 +92,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
             <div class="modal-body">
-                <p>Bạn chắc chắn muốn xóa tài khoản nhân viên  này?</p>
+                <p>Bạn chắc chắn muốn xóa tài khoản nhân viên này?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="btn-delete-account_employee">Xóa bỏ</button>

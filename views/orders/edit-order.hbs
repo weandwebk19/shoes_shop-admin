@@ -1,25 +1,6 @@
 <div class="main-content">
-    <!-- header area start -->
-    <div class="header-area">
-        <div class="row align-items-center">
-            <!-- nav and search button -->
-            <div class="col-md-6 col-sm-8 clearfix">
-                <div class="nav-btn pull-left">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <!-- profile info & task notification -->
-            <div class="col-md-6 col-sm-4 clearfix">
-                <ul class="notification-area pull-right">
-                    <li id="full-view"><i class="ti-fullscreen"></i></li>
-                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- header area end -->
+    {{>header}}
+
     <!-- page title area start -->
     <div class="page-title-area">
         <div class="row align-items-center">
@@ -32,17 +13,11 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-sm-6 clearfix">
-                <div class="user-profile pull-right">
-                    <img class="avatar user-thumb" src="/images/author/avatar.png" alt="avatar">
-                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i
-                            class="fa fa-angle-down"></i></h4>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Message</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="/login">Log Out</a>
-                    </div>
-                </div>
+             <div class="col-sm-6 clearfix">
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -54,23 +29,14 @@
                     <div class="card-body">
                         <!-- Edit order form-->
                         <h4 class="header-title">Chỉnh Sửa đơn hàng</h4>
-                        <form method="POST" action="/order/{{order.orderid}}?_method=PUT" class="needs-validation mt-3" novalidate="">
-                            <div class="form-row">
-                                <div class="col mb-3">
-                                    <div class="form-group">
-                                        <label for="order-productid">Mã sản phẩm</label>
-                                        <input type="text" class="form-control" id="order-productid" name="productid" value="{{order.productid}}" required="">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid state.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <form method="POST" action="/order/{{order.orderid}}?_method=PUT" class="needs-validation mt-3"
+                            novalidate="">
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="order-customer-name">Tên khách hàng</label>
-                                        <input type="text" class="form-control" id="order-customer-name" name="customername" value="{{customer.name}}" required="">
+                                        <input type="text" class="form-control" id="order-customer-name"
+                                            name="customername" value="{{customer.name}}" required="">
                                         <div class="invalid-feedback">
                                             Please choose a name.
                                         </div>
@@ -79,7 +45,8 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="order-customer-phone">Số điện thoại khách hàng</label>
-                                        <input class="form-control" type="tel" id="order-customer-phone" name="customerphone" value="{{customer.phone}}" required="">
+                                        <input class="form-control" type="tel" id="order-customer-phone"
+                                            name="customerphone" value="{{customer.phone}}" required="">
                                         <div class="invalid-feedback">
                                             Please choose a name.
                                         </div>
@@ -87,10 +54,11 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                 <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="order-customer-address">Địa chỉ</label>
-                                        <input type="text" class="form-control" id="order-customer-address" name="customeraddress" value="{{customer.address}}" required="">
+                                        <input type="text" class="form-control" id="order-customer-address"
+                                            name="customeraddress" value="{{customer.address}}" required="">
                                         <div class="invalid-feedback">
                                             Please choose a address.
                                         </div>
@@ -99,18 +67,47 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="order-customer-email">Email</label>
-                                        <input class="form-control" type="email" id="order-customer-email" name="customeremail" value="{{customer.email}}">
+                                        <input class="form-control" type="email" id="order-customer-email"
+                                            name="customeremail" value="{{customer.email}}">
                                     </div>
                                 </div>
                             </div>
+                            {{#each orderProducts}}
                             <div class="form-row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="order-productid">Mã sản phẩm</label>
+                                        <input type="text" class="form-control" id="order-productid" name="productid" value="{{this.productid}}" readonly>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="order-amount">Số lượng</label>
-                                        <input class="form-control" type="number" value="1" id="order-amount" name="amount" value="{{order.amount}}">
+                                        <input class="form-control" type="number" id="order-amount"
+                                            name="amount" value="{{this.amount}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="order-product-size">Kích thước</label>
+                                        <select id="order-product-size" class="form-control pb-1" name="size">
+                                            <option value="{{this.size}}">{{this.size}}</option>
+                                            <option value="35">35</option>
+                                            <option value="36">36</option>
+                                            <option value="37">37</option>
+                                            <option value="38">38</option>
+                                            <option value="39">39</option>
+                                            <option value="40">40</option>
+                                            <option value="42">41</option>
+                                            <option value="42">42</option>
+                                            <option value="43">43</option>
+                                            <option value="44">44</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+                            {{/each}}
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Cập nhật</button>
                             </div>

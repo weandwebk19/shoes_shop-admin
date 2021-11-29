@@ -23,7 +23,8 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'sliders',
     schema: 'public',
-    timestamps: false,
+    timestamps: true,
+    paranoid: true,
     indexes: [
       {
         name: "sliders_pkey",

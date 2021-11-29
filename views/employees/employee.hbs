@@ -1,26 +1,7 @@
 <!-- main content area start -->
 <div class="main-content">
-    <!-- header area start -->
-    <div class="header-area">
-        <div class="row align-items-center">
-            <!-- nav and search button -->
-            <div class="col-md-6 col-sm-8 clearfix">
-                <div class="nav-btn pull-left">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <!-- profile info & task notification -->
-            <div class="col-md-6 col-sm-4 clearfix">
-                <ul class="notification-area pull-right">
-                    <li id="full-view"><i class="ti-fullscreen"></i></li>
-                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- header area end -->
+    {{>header}}
+
     <!-- page title area start -->
     <div class="page-title-area">
         <div class="row align-items-center">
@@ -34,16 +15,10 @@
                 </div>
             </div>
             <div class="col-sm-6 clearfix">
-                <div class="user-profile pull-right">
-                    <img class="avatar user-thumb" src="/images/author/avatar.png" alt="avatar">
-                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i
-                            class="fa fa-angle-down"></i></h4>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Message</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="/login">Log Out</a>
-                    </div>
-                </div>
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -52,6 +27,16 @@
         <div class="row">
             <!-- Primary table start -->
             <div class="col-12 mt-5">
+                <div class="card">
+                    <div class="card-body border-bottom">
+                        <div class="d-flex justify-content-between">
+                            <a href="/employee/create" class="text-white btn btn-primary" role="button">Thêm nhân viên</a>
+                            <a href="/employee/trash" class="text-white btn btn-secondary" role="button">
+                                <i class="fa fa-trash mr-2 ml-2"></i>Thùng rác
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Danh sách nhân viên</h4>
@@ -79,20 +64,24 @@
                                         <td>{{this.phone}}</td>
                                         <td>{{this.email}}</td>
                                         <td>
-                                            <a href="/employee/{{this.employeeid}}/edit" class="edit-data" title="Chỉnh sửa nhân viên">
+                                            <a href="/employee/{{this.employeeid}}/edit" class="edit-data"
+                                                title="Chỉnh sửa nhân viên">
                                                 <i class="fa fa-edit"></i>
 
-                                            <a href="" class="remove-data" title="Xóa nhân viên"
-                                                data-id="{{this.employeeid}}" data-toggle="modal"
-                                                data-target="#delete-employee-modal"><i class="fa fa-remove"></i></a>
+                                                <a href="" class="remove-data" title="Xóa nhân viên"
+                                                    data-id="{{this.employeeid}}" data-toggle="modal"
+                                                    data-target="#delete-employee-modal"><i
+                                                        class="fa fa-remove"></i></a>
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            <p><b>Thời gian tạo :</b> {{this.createdAt}}</p>
+                                            <p><b>Sửa gần nhất :</b> {{this.updatedAt}}</p>
+                                        </td>
                                     </tr>
                                     {{/each}}
                                 </tbody>
                             </table>
                         </div>
-                        <a href="/employee/create" class="text-white btn btn-primary mb-3">Thêm nhân viên</a>
                     </div>
                 </div>
             </div>

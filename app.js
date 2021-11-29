@@ -28,7 +28,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
 // view engine setup
-app.engine('.hbs', exphbs({ extname: '.hbs' }));
+app.engine('.hbs', exphbs({ extname: '.hbs',
+  helpers: {
+    mul: (a, b) => a * b,
+    sum: (a, b) => a + b,
+}
+}));
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
 

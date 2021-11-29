@@ -1,0 +1,151 @@
+<!-- main content area start -->
+<div class="main-content">
+    {{>header}}
+    
+    <!-- page title area start -->
+    <div class="page-title-area">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="breadcrumbs-area clearfix">
+                    <h4 class="page-title pull-left">Dead Shoes</h4>
+                    <ul class="breadcrumbs pull-left">
+                        <li><a href="#">Quản lý nhân viên</a></li>
+                        <li><span>Nhân viên đã xóa</span></li>
+                    </ul>
+                </div>
+            </div>
+           <div class="col-sm-6 clearfix">
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- page title area end -->
+    <div class="main-content-inner">
+        <div class="row">
+            <!-- Primary table start -->
+            <div class="col-12 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Danh sách nhân viên đã xóa</h4>
+                        <div class="data-tables datatable-primary">
+                            <table id="dataTable2" class="text-center">
+                                <thead class="text-capitalize">
+                                    <tr>
+                                        <th>Mã nhân viên</th>
+                                        <th>Họ tên</th>
+                                        <th>Giới tính</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Email</th>
+                                        <th>Thời gian xóa</th>
+                                        <th>Tác vụ</th>
+                                        <th>CMND/CCCD</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each employees}}
+                                    {{#if ./deletedAt}}
+                                    <tr>
+                                        <td>{{this.employeeid}}</td>
+                                        <td>{{this.name}}</td>
+                                        <td>{{this.gender}}</td>
+                                        <td>{{this.phone}}</td>
+                                        <td>{{this.email}}</td>
+                                        <td>{{this.deletedAt}}</td>
+                                        <td>
+                                            <a href="" class="btn-restore-employee mr-3" data-id="{{this.employeeid}}"
+                                            title="Khôi phục nhân viên"><i class="fa fa-reply"></i></a>
+
+                                            <a href="" class="remove-data" title="Xóa vĩnh viễn"
+                                                data-id="{{this.employeeid}}" data-toggle="modal"
+                                                data-target="#delete-employee-modal"><i class="fa fa-remove"></i></a>
+                                        </td>
+                                        <td>{{this.citizenid}}</td>
+                                    </tr>
+                                    {{/if}}
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Primary table end -->
+        </div>
+    </div>
+</div>
+<!-- main content area end -->
+
+{{!-- Delete employee hidden form--}}
+<form name="delete-employee-form" method="POST"></form>
+<form name="restore-employee-form" method="POST"></form>
+
+{{!-- Confirm delete employee --}}
+<div id="delete-employee-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa vĩnh viễn nhân viên?</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Hành động này không thể khôi phục. Bạn vẫn muốn xóa nhân viên này vĩnh viễn?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btn-delete-employee">Xóa bỏ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (e) {
+        var employeeId;
+        //Variable delete employee
+        var btnDeleteEmployee = document.getElementById("btn-delete-employee");
+        var deleteEmployeeForm = document.forms["delete-employee-form"];
+        var restoreEmployeeBtn = $('.btn-restore-employee');
+        var restoreEmployeeForm = document.forms["restore-employee-form"];
+
+        //Delete employee
+        $('#delete-employee-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            employeeId = button.data('id')
+        })
+
+        btnDeleteEmployee.onclick = function () {
+            deleteEmployeeForm.action = `/employee/${employeeId}/force?_method=DELETE`;
+            deleteEmployeeForm.submit();
+        }
+
+        //Restore btn employee click
+        restoreEmployeeBtn.click( function(e){
+          e.preventDefault();
+          var employeeId = $(this).data('id');
+          restoreEmployeeForm.action= `/employee/${employeeId}/restore?_method=PATCH`;
+          restoreEmployeeForm.submit();
+        });
+    })
+</script>
+
+<script src="/js/vendor/jquery-2.2.4.min.js"></script>
+
+<!-- bootstrap 4 js -->
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/metisMenu.min.js"></script>
+<script src="/js/jquery.slimscroll.min.js"></script>
+<script src="/js/jquery.slicknav.min.js"></script>
+<!-- Start datatable js -->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+
+<script src="/js/plugins.js"></script>
+<script src="/js/scripts.js"></script>

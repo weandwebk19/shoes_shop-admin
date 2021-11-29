@@ -1,0 +1,129 @@
+<!-- main content area start -->
+<div class="main-content">
+    {{>header}}
+    
+    <!-- page title area start -->
+    <div class="page-title-area">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="breadcrumbs-area clearfix">
+                    <h4 class="page-title pull-left">Dead Shoes</h4>
+                    <ul class="breadcrumbs pull-left">
+                        <li><a href="/order">Quản lý đơn hàng</a></li>
+                        <li><span>In hóa đơn</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6 clearfix">
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- page title area end -->
+        <div class="main-content-inner">
+        <div class="row">
+            <div class="col-lg-12 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="invoice-area">
+                            <div class="invoice-head">
+                                <div class="row">
+                                    <div class="iv-left col-6">
+                                        <span>HÓA ĐƠN BÁN HÀNG </span>
+                                    </div>
+                                    <div class="iv-right col-6 text-md-right">
+                                        <span>#{{order.orderid}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-md-4">
+                                    <div class="invoice-address">
+                                        <h3>Dead Shoes</h3>
+                                        <p>KHTN, Linh Trung, Thủ Đức</p>
+                                        <p>0989480059</p>
+                                        <p>k19weandweb@gmail.com</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="invoice-address">
+                                        <h5>Khách hàng</h5>
+                                        <h6>{{customer.name}}</h6>
+                                        <p>{{customer.address}}</p>
+                                        <p>{{customer.phone}}</p>
+                                        <p>{{customer.email}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-md-right">
+                                    <ul class="invoice-date">
+                                        <li>Ngày mua :</li>
+                                        <li>{{order.createdAt}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="invoice-table table-responsive mt-5">
+                                <table class="table table-bordered table-hover text-right">
+                                    <thead>
+                                        <tr class="text-capitalize">
+                                            <th class="text-center" style="width: 5%;">STT</th>
+                                            <th class="text-left" style="width: 45%; min-width: 130px;">Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Màu sắc</th>
+                                            <th>Kích thước</th>
+                                            <th style="min-width: 100px">Giá</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each orderProducts}}
+                                        <tr>
+                                            <td class="text-center">{{sum @index 1}}</td>
+                                            <td class="text-left">{{this.product.productname}}</td>
+                                            <td>{{this.amount}}</td>
+                                            <td>{{this.product.color}}</td>
+                                            <td>{{this.size}}</td>
+                                            <td>{{mul ./product.price ./amount}} $</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5">Tổng thanh toán :</td>
+                                            <td>{{order.price}} $</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="invoice-buttons text-right">
+                            <a href="#" class="invoice-btn">print invoice</a>
+                            <a href="#" class="invoice-btn">send invoice</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main content area end -->
+
+<script src="/js/vendor/jquery-2.2.4.min.js"></script>
+
+<!-- bootstrap 4 js -->
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/metisMenu.min.js"></script>
+<script src="/js/jquery.slimscroll.min.js"></script>
+<script src="/js/jquery.slicknav.min.js"></script>
+<!-- Start datatable js -->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+
+<script src="/js/plugins.js"></script>
+<script src="/js/scripts.js"></script>

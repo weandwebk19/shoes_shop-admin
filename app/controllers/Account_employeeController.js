@@ -29,10 +29,8 @@ const findAccountByEmployeeid = (id) => {
 
 const listAccount = () => {
     return models.account_employees.findAll({ 
-        //raw: true,
-        attributes: [
-            'username', 'password', 'employeeid',
-        ],
+        raw: true,
+        nest: true,
         include: [
             {model: models.employees, as: 'employee', attributes:['employeeid', 'name','email', 'phone']}
         ],
@@ -41,7 +39,7 @@ const listAccount = () => {
 
 exports.list = async (req, res) => {
     const account_employees = await listAccount();
-    res.render('account_employees/account_employee', { account_employees: JSON.parse(JSON.stringify(account_employees)) });
+    res.render('account_employees/account_employee', { account_employees });
 }
 
 // [GET] /account_employee/create

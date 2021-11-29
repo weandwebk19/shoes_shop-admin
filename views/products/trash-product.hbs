@@ -1,0 +1,149 @@
+<div class="main-content">
+    {{>header}}
+
+    <!-- page title area start -->
+    <div class="page-title-area">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="breadcrumbs-area clearfix">
+                    <h4 class="page-title pull-left">Dead Shoes</h4>
+                    <ul class="breadcrumbs pull-left">
+                        <li><a href="/product">Quản lý sản phẩm</a></li>
+                        <li><span>Sản phẩm đã xóa</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6 clearfix">
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- page title area end -->
+    <div class="main-content-inner">
+        <div class="row">
+            <!-- Danh sách sản phẩm start -->
+            <div class="col-12 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Danh sách sản phẩm đã xóa</h4>
+                        <div class="data-tables datatable-primary">
+                            <table id="dataTable2" class="text-center">
+                                <thead class="text-capitalize">
+                                    <tr>
+                                        <th>Mã sản phẩm</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Màu sắc</th>
+                                        <th>Giá</th>
+                                        <th>Thời gian xóa</th>
+                                        <th>Tình <br> trạng</th>
+                                        <th>Khôi phục / Xóa </th>
+                                        <th>Mô tả</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each products}}
+                                    {{#if ./deletedAt}}
+                                    <tr>
+                                        <td>{{this.productid}}</td>
+                                        <td>{{this.productname}}</td>
+                                        <td>{{this.color}}</td>
+                                        <td>{{this.price}}$</td>
+                                        <td>{{this.deletedAt}}</td>
+                                        <td>{{this.status}}</td>
+                                        <td>
+                                            <a href="" class="btn-restore-product mr-3" data-id="{{this.productid}}"
+                                            title="Khôi phục sản phẩm"><i class="fa fa-reply"></i></a>
+
+                                            <a href="" class="remove-data" title="Xóa vĩnh viễn"
+                                                data-id="{{this.productid}}" data-toggle="modal"
+                                                data-target="#delete-product-modal"><i class="fa fa-remove"></i></a>
+                                        </td>
+                                        <td class="product-description">{{this.description}}</td>
+                                    </tr>
+                                    {{/if}}
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Danh sách sản phẩm end -->
+        </div>
+    </div>
+</div>
+
+{{!-- Delete product hidden form--}}
+<form name="delete-product-form" method="POST"></form>
+{{!-- restore product hidden form--}}
+<form name="restore-product-form" method="POST"></form>
+
+{{!-- Confirm delete product --}}
+<div id="delete-product-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa vĩnh viễn sản phẩm?</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Hành động này không thể khôi phục. Bạn vẫn muốn xóa sản phẩm này vĩnh viễn?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btn-delete-product">Xóa bỏ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (e) {
+        var productId;
+        var restoreProductBtn = $('.btn-restore-product');
+        var btnDeleteProduct = document.getElementById("btn-delete-product");
+        var deleteProductForm = document.forms["delete-product-form"];
+        var restoreProductForm = document.forms["restore-product-form"];
+
+        //Delete product
+        $('#delete-product-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            productId = button.data('id')
+        })
+
+        btnDeleteProduct.onclick = function () {
+            deleteProductForm.action = `/product/${productId}/force?_method=DELETE`;
+            deleteProductForm.submit();
+        }
+        //Restore btn product click
+        restoreProductBtn.click( function(e){
+          e.preventDefault();
+          var productId = $(this).data('id');
+          restoreProductForm.action= `/product/${productId}/restore?_method=PATCH`;
+          restoreProductForm.submit();
+        });
+    })
+</script>
+
+<script src="/js/vendor/jquery-2.2.4.min.js"></script>
+
+<!-- bootstrap 4 js -->
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/metisMenu.min.js"></script>
+<script src="/js/jquery.slimscroll.min.js"></script>
+<script src="/js/jquery.slicknav.min.js"></script>
+<!-- Start datatable js -->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+
+<script src="/js/plugins.js"></script>
+<script src="/js/scripts.js"></script>

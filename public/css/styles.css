@@ -396,7 +396,7 @@
 /*-------------------- 2.2 Header Area -------------------*/
 
 .header-area {
-    padding: 15px 30px;
+    padding: 0px 30px;
     background: #fff;
     border-bottom: 1px solid #d8e3e7;
 }
@@ -649,7 +649,7 @@
 /*-------------------- 2.3 Page Title Area -------------------*/
 
 .page-title-area {
-    padding: 0 30px;
+    padding: 20px 30px;
     background: #fff;
     position: relative;
 }
@@ -2856,5 +2856,5 @@ table.dataTable thead td {
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 4;
 }

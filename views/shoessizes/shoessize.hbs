@@ -1,0 +1,164 @@
+<div class="main-content">
+    {{>header}}
+
+    <!-- page title area start -->
+    <div class="page-title-area">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="breadcrumbs-area clearfix">
+                    <h4 class="page-title pull-left">Dead Shoes</h4>
+                    <ul class="breadcrumbs pull-left">
+                        <li><a href="#">Quản lý</a></li>
+                        <li><span>Quản lý sản phẩm</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6 clearfix">
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- page title area end -->
+    <div class="main-content-inner">
+        <div class="row">
+            <!-- Shoes size start -->
+            <div class="col-12 mt-5">
+                <div class="card">
+                    <div class="card-body border-bottom">
+                        <div class="d-flex justify-content-between">
+                            <a href="/shoessize/create" class="text-white btn btn-primary" role="button">Thêm số lượng</a>
+                            <a href="/shoessize/trash" class="text-white btn btn-secondary" role="button">
+                                <i class="fa fa-trash mr-2 ml-2"></i>
+                                Thùng rác
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Số lượng sản phẩm</h4>
+                        <div class="data-tables">
+                            <table id="dataTable" class="text-center">
+                                <thead class="bg-light text-capitalize">
+                                    <tr>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Kích thước</th>
+                                        <th>Số lượng</th>
+                                        <th>Sửa / Xóa</th>
+                                        <th>Chi tiết</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each shoessize}}
+                                    <tr>
+                                        <td>{{this.product.productname}}</td>
+                                        <td>{{this.size}}</td>
+                                        <td>{{this.amount}}</td>
+                                        <td>
+                                            <a href="/shoessize/{{this.size}}/{{this.productid}}/edit"
+                                                class="edit-data" title="Chỉnh sửa trường này">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+
+                                            <a href="" class="remove-data" title="Xóa trường này"
+                                                data-id="{{this.productid}}" data-size="{{this.size}}"
+                                                data-toggle="modal" data-target="#delete-shoessize-modal"><i
+                                                    class="fa fa-remove"></i></a>
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p>Mã sản phẩm: {{this.productid}}</p>
+                                                </div>
+                                                <div class="col">
+                                                    <p>Màu sắc: {{this.product.color}}</p>
+                                                </div>
+                                                <div class="col">
+                                                    <p>Giá: {{this.product.price}}$</p>
+                                                </div>
+                                                <div class="col">
+                                                    <p>Thời gian tạo :<br>{{this.createdAt}}</p>
+                                                </div>
+                                                <div class="col">
+                                                    <p>Sửa gần nhất :<br>{{this.updatedAt}}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- SneakerSize end -->
+        </div>
+    </div>
+</div>
+
+
+{{!-- Delete shoessize hidden form--}}
+<form name="delete-shoessize-form" method="POST"></form>
+
+{{!-- Confirm delete shoessize --}}
+<div id="delete-shoessize-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa kích thước và số lượng?</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắn muốn xóa trường này này?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btn-delete-shoessize">Xóa bỏ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (e) {
+        var productId;
+        var size;
+        var btnDeleteShoessize = document.getElementById("btn-delete-shoessize");
+        var deleteShoessizeForm = document.forms["delete-shoessize-form"];
+
+        //Delete shoessize
+        $('#delete-shoessize-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            productId = button.data('id')
+            size = button.data('size')
+        })
+
+        btnDeleteShoessize.onclick = function () {
+            deleteShoessizeForm.action = `/shoessize/${size}/${productId}?_method=DELETE`;
+            deleteShoessizeForm.submit();
+        }
+    })
+</script>
+
+<script src="/js/vendor/jquery-2.2.4.min.js"></script>
+
+<!-- bootstrap 4 js -->
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/metisMenu.min.js"></script>
+<script src="/js/jquery.slimscroll.min.js"></script>
+<script src="/js/jquery.slicknav.min.js"></script>
+<!-- Start datatable js -->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+
+<script src="/js/plugins.js"></script>
+<script src="/js/scripts.js"></script>

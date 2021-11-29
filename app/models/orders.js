@@ -7,14 +7,6 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    productid: {
-      type: DataTypes.UUID,
-      allowNull: true,
-      references: {
-        model: 'products',
-        key: 'productid'
-      }
-    },
     customerid: {
       type: DataTypes.UUID,
       allowNull: true,
@@ -22,10 +14,6 @@ module.exports = function(sequelize, DataTypes) {
         model: 'customers',
         key: 'customerid'
       }
-    },
-    amount: {
-      type: DataTypes.INTEGER,
-      allowNull: true
     },
     price: {
       type: DataTypes.DOUBLE,
@@ -35,7 +23,8 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'orders',
     schema: 'public',
-    timestamps: false,
+    timestamps: true,
+    paranoid: true,
     indexes: [
       {
         name: "orders_pkey",

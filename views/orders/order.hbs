@@ -1,26 +1,7 @@
 <!-- main content area start -->
 <div class="main-content">
-    <!-- header area start -->
-    <div class="header-area">
-        <div class="row align-items-center">
-            <!-- nav and search button -->
-            <div class="col-md-6 col-sm-8 clearfix">
-                <div class="nav-btn pull-left">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <!-- profile info & task notification -->
-            <div class="col-md-6 col-sm-4 clearfix">
-                <ul class="notification-area pull-right">
-                    <li id="full-view"><i class="ti-fullscreen"></i></li>
-                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- header area end -->
+    {{>header}}
+    
     <!-- page title area start -->
     <div class="page-title-area">
         <div class="row align-items-center">
@@ -34,16 +15,10 @@
                 </div>
             </div>
             <div class="col-sm-6 clearfix">
-                <div class="user-profile pull-right">
-                    <img class="avatar user-thumb" src="/images/author/avatar.png" alt="avatar">
-                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i
-                            class="fa fa-angle-down"></i></h4>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Message</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="/login">Log Out</a>
-                    </div>
-                </div>
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -52,6 +27,16 @@
         <div class="row">
             <!-- Primary table start -->
             <div class="col-12 mt-5">
+                <div class="card">
+                    <div class="card-body border-bottom">
+                        <div class="d-flex justify-content-between">
+                            <a href="/order/create" class="text-white btn btn-primary" role="button">Thêm đơn hàng</a>
+                            <a href="/order/trash" class="text-white btn btn-secondary" role="button">
+                                <i class="fa fa-trash mr-2 ml-2"></i>Thùng rác
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Danh sách đơn hàng</h4>
@@ -62,9 +47,12 @@
                                         <th>Mã đơn hàng</th>
                                         <th>Tên khách hàng</th>
                                         <th>Tên sản phẩm</th>
-                                        <th>Số lượng</th>
-                                        <th>Đơn giá</th>
-                                        <th>Tác vụ</th>
+                                        <th>Màu sắc</th>
+                                        <th>Kích <br> thước</th>
+                                        <th>Số <br> lượng</th>
+                                        <th>Tổng <br> thanh toán</th>
+                                        <th>Sửa / Xóa</th>
+                                        <th>In hóa <br> đơn</th>
                                         <th>Chi tiết</th>
                                     </tr>
                                 </thead>
@@ -73,22 +61,46 @@
                                     <tr>
                                         <td>{{this.orderid}}</td>
                                         <td>{{this.customer.name}}</td>
-                                        <td>{{this.product.productname}}</td>
-                                        <td>{{this.amount}}</td>
-                                        <td>{{this.price}}</td>
                                         <td>
-                                             <a href="/order/{{this.orderid}}/edit" class="edit-data" title="Chỉnh sửa đơn hàng">
+                                            {{#each ./orderProducts}}
+                                            {{this.product.productname}} <br><br>
+                                            {{/each}}
+                                        </td>
+                                        <td>
+                                            {{#each ./orderProducts}}
+                                            {{this.product.color}} <br><br>
+                                            {{/each}}
+                                        </td>
+                                        <td>
+                                            {{#each ./orderProducts}}
+                                            {{this.size}} <br><br>
+                                            {{/each}}
+                                        </td>
+                                        <td>
+                                            {{#each ./orderProducts}}
+                                            {{this.amount}} <br><br>
+                                            {{/each}}
+                                        </td>
+                                        <td>{{this.price}} $</td>
+                                        <td>
+                                              <a href="/order/{{this.orderid}}/edit" class="edit-data"
+                                                title="Chỉnh sửa đơn hàng">
                                                 <i class="fa fa-edit"></i>
 
-                                            <a href="" class="remove-data" title="Xóa đơn hàng"
-                                                data-id="{{this.orderid}}" data-toggle="modal"
-                                                data-target="#delete-order-modal"><i class="fa fa-remove"></i></a>
+                                                <a href="" class="remove-data" title="Xóa đơn hàng"
+                                                    data-id="{{this.orderid}}" data-toggle="modal"
+                                                    data-target="#delete-order-modal"><i
+                                                        class="fa fa-remove"></i></a>
+                                        </td>
+                                        <td>
+                                              <a href="/order/{{this.orderid}}/invoice" title="In đơn hàng này">
+                                                <i class="fa fa-print"></i>
                                         </td>
                                         <td>
                                             <div class="row">
                                                 <p class="col-md-4">Số điện thoại khách hàng: {{this.customer.phone}}</p>
-                                                <p class="col-md-4">Màu sắc sản phẩm: {{this.product.color}}</p>
-                                                <p class="col-md-4">Giá một sản phẩm: {{this.product.price}}</p>
+                                                <div class="col-md-4"><p>Thời gian tạo :<br>{{this.createdAt}}</p></div>
+                                                <div class="col-md-4"><p>Sửa gần nhất :<br>{{this.updatedAt}}</p> </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -96,7 +108,6 @@
                                 </tbody>
                             </table>
                         </div>
-                         <a href="/order/create" class="text-white btn btn-primary mb-3">Thêm đơn hàng </a>
                     </div>
                 </div>
             </div>
