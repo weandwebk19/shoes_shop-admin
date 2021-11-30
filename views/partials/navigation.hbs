@@ -39,7 +39,6 @@
                             <li><a href="/screenlock">Thoát</a></li>
                         </ul>
                     </li>
-                    <li class="nav-slider"><a href="/slider"><i class="fa fa-file-image-o"></i> <span>Slider trang chủ</span></a></li>
                     <li class="nav-feedback"><a href="/feedback"><i class="fa fa-file-image-o"></i> <span>Quản lý Feedback</span></a></li>
                     <li class="nav-maps"><a href="/maps"><i class="ti-map-alt"></i> <span>maps</span></a></li>
                 </ul>
@@ -86,8 +85,8 @@
         navItem.classList.add('active');
         navItem.parentElement.parentElement.classList.add('active');
     }
-    else if (documentUri.includes("/slider")) {
-        let navItem = document.querySelector('.nav-slider');
+    else if (documentUri.includes("/feedback")) {
+        let navItem = document.querySelector('.nav-feedback');
         navItem.classList.add('active');
     }
     else if (documentUri.includes("/maps")) {

@@ -6,7 +6,6 @@ const orderRouter = require('./order.js');
 const account_employeeRouter = require('./account_employee.js');
 const account_customerRouter = require('./account_customer.js');
 const reportRouter = require('./report.js');
-const sliderRouter = require('./slider.js');
 const feedbackRouter = require('./feedback.js');
 const mapsRouter = require('./maps.js');
 const screenLockRouter = require('./screenLock.js');
@@ -25,7 +24,6 @@ function route(app) {
       app.use('/account_employee', account_employeeRouter);
       app.use('/account_customer', account_customerRouter);
       app.use('/report', reportRouter);
-      app.use('/slider', sliderRouter);
       app.use('/feedback', feedbackRouter);
       app.use('/maps', mapsRouter);
       app.use('/screenLock', screenLockRouter);
