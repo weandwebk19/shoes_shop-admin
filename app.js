@@ -7,6 +7,8 @@ const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const route = require('./app/routes');
 const { sequelize } = require('./app/models');
+const session = require('express-session');
+const passport = require('./app/auth/passport');
 
 const app = express();
 
@@ -27,6 +29,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
+app.use(session({ secret: "cats" }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 // view engine setup
 app.engine('.hbs', exphbs({ extname: '.hbs',
   helpers: {
