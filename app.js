@@ -43,6 +43,10 @@ app.engine('.hbs', exphbs({ extname: '.hbs',
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use((req, res, next) => {
+  res.locals.user=req.user;
+  next();
+});
 //Route init
 route(app);
 
@@ -54,6 +58,7 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
+  
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

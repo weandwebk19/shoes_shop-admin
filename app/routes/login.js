@@ -4,13 +4,14 @@ const router = express.Router();
 
 router.get('/', function(req, res, next) {
   res.render('login', {
-    layout: null
+    layout: null,
+    wrong: req.query.wrong
   });
 });
 
 router.post('/',
   passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/login',})
+                                   failureRedirect: '/login?wrong',})
 );
 
 module.exports = router;

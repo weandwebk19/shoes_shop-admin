@@ -8,24 +8,26 @@
                     <span></span>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-8 clearfix">
-                <div class="nav-btn pull-right">
-                    <a class="btn btn-success" href="./login" role="button">Đăng nhập</a>
-                </div>
-            </div>
-            {{!-- <div class="col-md-6 col-sm-4 clearfix">
-                <a class="btn btn-success" href="./login" role="button">Đăng nhập</a>
-                <div class="user-profile pull-right">
-                    <img class="avatar user-thumb" src="/images/author/avatar.png" alt="avatar">
-                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i
+            {{#if user}}
+                <div class="col-md-6 col-sm-4 clearfix">
+                    <div class="user-profile pull-right">
+                        <img class="avatar user-thumb" src="/images/author/avatar.png" alt="avatar">
+                        <h4 class="user-name dropdown-toggle" data-toggle="dropdown">{{user.name}}<i
                             class="fa fa-angle-down"></i></h4>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Message</a>
-                        <a class="dropdown-item" href="/profile">Trang cá nhân</a>
-                        <a class="dropdown-item" href="/login">Đăng xuất</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Message</a>
+                            <a class="dropdown-item" href="/profile">Trang cá nhân</a>
+                            <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                        </div>
+                    </div>
+                 </div> 
+            {{else}}
+                <div class="col-md-6 col-sm-8 clearfix">
+                    <div class="nav-btn pull-right">
+                        <a class="btn btn-success" href="/login" role="button">Đăng nhập</a>
                     </div>
                 </div>
-            </div> --}}
+            {{/if}}
 
         </div>
     </div>

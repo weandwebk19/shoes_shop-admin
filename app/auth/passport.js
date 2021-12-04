@@ -1,5 +1,4 @@
 const { models } = require('../models');
-
 const Account = models.account_employees;
 
 const passport = require('passport')
@@ -10,9 +9,11 @@ passport.use(new LocalStrategy(
     Account.findOne({
         where: {
             username: username
-        }
+        },
+        raw: true
     })
         .then( function (user) {
+          console.log(user);
             if (!user) {
                 return done(null, false, { message: 'Incorrect username.' });
             }
@@ -26,15 +27,15 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser(function(user, done) {
-    done(null, user);
+    done(null, {id: user.accountid, name: user.username});
   });
   
-  passport.deserializeUser(function(user, done) {
+passport.deserializeUser(function(user, done) {
     done(null, user);
   });
 
 function validPassword(user, password) {
-    return user.dataValues.password===password;
+    return user.password===password;
 }
 
 module.exports = passport;
