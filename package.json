@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon --inspect ./bin/www"
+    "test": "nodemon --inspect ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -21,10 +21,7 @@
   "homepage": "https://github.com/weandwebk19/shoes_shop-admin#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
-<<<<<<< HEAD
-=======
     "bootstrap-icons": "^1.7.1",
->>>>>>> 1d37f491d84203b9cd1be91684b147b5c80e80f0
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",

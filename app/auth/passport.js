@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 const bcrypt = require('bcrypt');
-=======
->>>>>>> 1d37f491d84203b9cd1be91684b147b5c80e80f0
 const { models } = require('../models');
 const Account = models.account_employees;
 
@@ -9,7 +6,6 @@ const passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 
 passport.use(new LocalStrategy(
-<<<<<<< HEAD
   function (username, password, done) {
     Account.findOne({
       where: {
@@ -28,26 +24,6 @@ passport.use(new LocalStrategy(
         return done(null, user);
       })
       .catch((err) => done(err));
-=======
-  function(username, password, done) {
-    Account.findOne({
-        where: {
-            username: username
-        },
-        raw: true
-    })
-        .then( function (user) {
-          console.log(user);
-            if (!user) {
-                return done(null, false, { message: 'Incorrect username.' });
-            }
-            if (!validPassword(user, password)) {
-                return done(null, false, { message: 'Incorrect password.' });
-            }
-            return done(null, user);
-            })
-        .catch((err)=> done(err));
->>>>>>> 1d37f491d84203b9cd1be91684b147b5c80e80f0
   }
 ));
 
