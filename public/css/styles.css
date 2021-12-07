@@ -53,6 +53,38 @@
 
 
 /*------------------------- 1. Core Css -------------------*/
+body, html {
+    height: 100%;
+    margin: 0;
+  }
+
+.border-text {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    /* margin-top: 100px; */
+}
+
+.mt-250 {
+    margin-top:250px;
+}
+
+.fs-70 {
+    font-size: 70px
+}
+
+.bg {
+    /* The image used */
+    background-image: url("../images/admin-background.jpg");
+  
+    /* Full height */
+    height: 100%; 
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 
 .page-container {
     width: 100%;
