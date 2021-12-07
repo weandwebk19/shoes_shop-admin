@@ -9,7 +9,6 @@ const feedbackRouter = require('./feedback.js');
 const mapsRouter = require('./maps.js');
 const loginRouter = require('./login.js');
 const logoutRouter = require('./logout.js');
-const registerRouter = require('./register.js');
 const profileRouter = require('./profile.js');
 const homeRouter = require('./home.js');
 
@@ -33,14 +32,8 @@ function route(app) {
       app.use('/account_customer', account_customerRouter);
       app.use('/feedback', feedbackRouter);
       app.use('/maps', mapsRouter);
-      app.use('/logout', logoutRouter);
-      app.use('/profile', profileRouter);
-      app.use('/', homeRouter);
 
-      app.use('/screenLock', screenLockRouter);
-      app.use('/login', loginRouter);
       app.use('/logout', logoutRouter);
-      app.use('/register', registerRouter);
       app.use('/profile', profileRouter);             
       app.use('/', homeRouter);             
 }

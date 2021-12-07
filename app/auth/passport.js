@@ -28,7 +28,6 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser(function(user, done) {
-<<<<<<< HEAD
   done(null, {accountid: user.accountid, employeeid: user.employeeid, name: user.username, avatar: user.avatar});
 });
 
@@ -38,17 +37,6 @@ passport.deserializeUser(function(user, done) {
 
 async function validPassword(user, password) {
   return await bcrypt.compare(password, user.password); 
-=======
-    done(null, {id: user.accountid, name: user.username});
-  });
-  
-passport.deserializeUser(function(user, done) {
-    done(null, user);
-  });
-
-function validPassword(user, password) {
-    return user.password===password;
->>>>>>> 1d37f491d84203b9cd1be91684b147b5c80e80f0
 }
 
 module.exports = passport;

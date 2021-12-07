@@ -10,6 +10,7 @@ const route = require('./app/routes');
 const { sequelize } = require('./app/models');
 const session = require('express-session');
 const passport = require('./app/auth/passport');
+
 const app = express();
 
 // Connect to Db
@@ -29,7 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
-app.use(session({ secret: "cats" }));
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 
 app.use(passport.initialize());
 app.use(passport.session());
