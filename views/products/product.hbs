@@ -40,58 +40,106 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Danh sách sản phẩm</h4>
-                        <div class="data-tables datatable-primary">
-                            <table id="dataTable2" class="text-center">
-                                <thead class="text-capitalize">
-                                    <tr>
-                                        <th>Mã sản phẩm</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Màu sắc</th>
-                                        <th>Giá</th>
-                                        <th>Mô tả</th>
-                                        <th>Tình <br> trạng</th>
-                                        <th>Sửa / Xóa</th>
-                                        <th>Hình ảnh</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each products}}
-                                    <tr>
-                                        <td>{{this.productid}}</td>
-                                        <td>{{this.productname}}</td>
-                                        <td>{{this.color}}</td>
-                                        <td>{{this.price}}$</td>
-                                        <td class="product-description">{{this.description}}</td>
-                                        <td>{{this.status}}</td>
-                                        <td>
-                                            <a href="/product/{{this.productid}}/edit" class="edit-data"
-                                                title="Chỉnh sửa sản phẩm">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
+                        <div class="data-tables">
+                            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="row mb-3">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="dataTables_length" id="dataTable_length"><label>Show
+                                                <select name="dataTable_length" aria-controls="dataTable"
+                                                    class="custom-select custom-select-sm form-control form-control-sm">
+                                                    <option value="10">10</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select> entries</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div id="dataTable_filter" class="dataTables_filter">
+                                            <form name="search-form" method="GET">
+                                                <input type="search" name="search-input"
+                                                    class="form-control form-control-sm" placeholder="Search"
+                                                    aria-controls="dataTable">
+                                                <button type="submit" class="btn btn-outline-light btn-rounded btn-xs">
+                                                    <i class="ti-search text-dark"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <table class="table text-center">
+                                        <thead class="text-uppercase bg-primary">
+                                            <tr class="text-white">
+                                                <th>Mã sản phẩm</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Màu sắc</th>
+                                                <th>Giá</th>
+                                                <th>Mô tả</th>
+                                                <th>Tình <br> trạng</th>
+                                                <th>Sửa / Xóa</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each products}}
+                                            <tr>
+                                                <td>{{this.productid}}</td>
+                                                <td>{{this.productname}}</td>
+                                                <td>{{this.color}}</td>
+                                                <td>{{this.price}}$</td>
+                                                <td class="product-description">{{this.description}}</td>
+                                                <td>{{this.status}}</td>
+                                                <td>
+                                                    <a href="/product/{{this.productid}}/edit" class="edit-data"
+                                                        title="Chỉnh sửa sản phẩm">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
 
-                                            <a href="" class="remove-data" title="Xóa sản phẩm"
-                                                data-id="{{this.productid}}" data-toggle="modal"
-                                                data-target="#delete-product-modal"><i class="fa fa-remove"></i></a>
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                {{#each this.image}}
-                                                <img class="col-md-4 product-img" src="{{this}}" class="img-fluid"
-                                                    alt="product-image">
+                                                    <a href="" class="remove-data" title="Xóa sản phẩm"
+                                                        data-id="{{this.productid}}" data-toggle="modal"
+                                                        data-target="#delete-product-modal"><i
+                                                            class="fa fa-remove"></i></a>
+                                                </td>
+                                            </tr>
+                                            {{/each}}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="dataTables_info" id="dataTable_info" role="status"
+                                            aria-live="polite">Showing {{calcOffset totalPages totalItems currentPage}}
+                                            to
+                                            {{calcLimit totalPages totalItems currentPage}} of {{totalItems}} entries
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                            <ul class="pagination">
+                                                <li class="page-item previous" id="dataTable_previous">
+                                                    <a href="" aria-controls="dataTable"
+                                                        data-page="{{sub currentPage 1}}" tabindex="0"
+                                                        class="page-link">Previous</a>
+                                                </li>
+
+                                                {{#paginate totalPages totalItems currentPage}}
+                                                {{#each .}}
+                                                <li class="page-item page"><a href="" aria-controls="dataTable"
+                                                        data-page="{{this}}" tabindex="0" class="page-link">{{this}}</a>
+                                                </li>
                                                 {{/each}}
-                                            </div>
-                                            <div class="row justify-content-around">
-                                                <p><b>Thời gian tạo :</b> {{this.createdAt}}</p>
-                                                <p><b>Sửa gần nhất :</b> {{this.updatedAt}}</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    {{/each}}
+                                                {{/paginate}}
 
-                                </tbody>
-                            </table>
+                                                <li class="page-item next" id="dataTable_next"><a href=""
+                                                        aria-controls="dataTable" data-page="{{sum currentPage 1}}"
+                                                        tabindex="0" class="page-link">Next</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -139,6 +187,9 @@
             deleteProductForm.action = `/product/${productId}?_method=DELETE`;
             deleteProductForm.submit();
         }
+
+        updatePaginate({{totalPages}}, {{currentPage}});
+        updateSelectSize({{totalPages}}, {{totalItems}});
     })
 </script>
 
@@ -151,12 +202,7 @@
 <script src="/js/metisMenu.min.js"></script>
 <script src="/js/jquery.slimscroll.min.js"></script>
 <script src="/js/jquery.slicknav.min.js"></script>
-<!-- Start datatable js -->
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
 
 <script src="/js/plugins.js"></script>
 <script src="/js/scripts.js"></script>
+<script src="/js/custom.js"></script>

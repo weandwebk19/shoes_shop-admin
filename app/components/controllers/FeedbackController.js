@@ -1,25 +1,12 @@
-const { models } = require('../models');
-
-const listFeedback = () => {
-    return models.feedbacks.findAll({ raw: true });
-}
-
-const listFeedbackDeleted = () => {
-    return models.feedbacks.findAll({ raw: true, paranoid: false});
-}
-
-const findFeedbackById = (id) => {
-    return models.feedbacks.findOne({
-        where: {
-            feedbackid: id,
-        },
-        raw: true
-    })
-}
+const { models } = require('../../models');
+const { Op } = require("sequelize");
+const { getPagination } = require('../../../helpers/pagination');
+const { getPagingData } = require('../../../helpers/pagination');
+const feedbackService = require('../services/FeedbackService');
 
 //[GET] /feedback
 exports.list = async (req, res) => {
-    const feedbacks = await listFeedback();
+    const feedbacks = await feedbackService.listFeedback();
     res.render('feedbacks/feedback', { feedbacks });
 }
 
@@ -36,7 +23,7 @@ exports.store = async (req, res, next) => {
 
 //[GET] /feedback/trash
 exports.trash = async (req, res) => {
-    const feedbacks = await listFeedbackDeleted();
+    const feedbacks = await feedbackService.listFeedbackDeleted();
     res.render('feedbacks/trash-feedback', { feedbacks});
 }
 
@@ -54,7 +41,7 @@ exports.force = async (req, res, next) => {
 
 //[GET] /feedback/:id/edit
 exports.edit = async (req, res) => {
-    const feedback = await findFeedbackById(req.params.id);
+    const feedback = await feedbackService.findFeedbackById(req.params.id);
     res.render('feedbacks/edit-feedback', {feedback});
 }
 

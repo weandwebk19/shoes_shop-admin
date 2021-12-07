@@ -1,108 +1,50 @@
-const { models } = require('../models');
+const { models } = require('../../models');
+const { Op } = require("sequelize");
+const { getPagination } = require('../../../helpers/pagination');
+const { getPagingData } = require('../../../helpers/pagination');
+const orderService = require('../services/OrderService');
 
-function findCustomerById(id) {
-    return models.customers.findOne({
-        where: {
-            customerid: id
-        },
-        raw: true
-    })
-}
-
-function findCustomerByPhone(phone) {
-    return models.customers.findOne({
-        where: {
-            phone: phone
-        },
-        raw: true
-    })
-}
-
-function findProductById(id) {
-    return models.products.findOne({
-        where: {
-            productid: id,
-        },
-        raw: true
-    })
-}
-
-function findOrderById(id) {
-    return models.orders.findOne({
-        where: {
-            orderid: id,
-        },
-        raw: true
-    })
-}
-
-function listOrder() {
-    return models.orders.findAll({
-        raw: true,
-        nest: true,
-        include: [
-            { model: models.customers, as: 'customer', attributes: ['name', 'phone', 'address'] },
-        ],
-    });
-}
-
-function listOrderDeleted() {
-    return models.orders.findAll({
-        raw: true,
-        nest: true,
-        include: [
-            { model: models.customers, as: 'customer', attributes: ['name', 'phone', 'address'] },
-        ],
-        paranoid: false,
-    });
-}
-
-function listOrderProduct(orderid) {
-    return models.order_products.findAll({
-        raw: true,
-        nest: true,
-        include: [
-            { model: models.products, as: 'product', attributes: ['productname', 'price', 'color'] },
-        ],
-        where: { orderid }
-    })
-}
-
-function listOrderProductDeleted(orderid) {
-    return models.order_products.findAll({
-        raw: true,
-        nest: true,
-        include: [
-            { model: models.products, as: 'product', attributes: ['productname', 'price', 'color'] },
-        ],
-        paranoid: false,
-        where: { orderid }
-    })
-}
-
-async function checkProductId(productids) {
-    for (const id of productids) {
-        const count = await models.products.count({ where: { productid: id } });
-        if (count == 0) { return false }
-    }
-    return true;
-}
-
-async function printOrder(orderid) {
-    const order = await findOrderById(orderid);
-    const customer = await findCustomerById(order.customerid);
-    const orderProducts = await listOrderProduct(order.orderid);
-    return { order, customer, orderProducts };
-}
 
 // [GET] /order
 exports.list = async (req, res) => {
-    let orders = await listOrder();
-    for (let order of orders) {
-        const orderProducts = await listOrderProduct(order.orderid);
-        order.orderProducts = orderProducts;
+    const { page, size, term } = req.query;
+    const { limit, offset } = getPagination(page, size);
+
+    let orders = await orderService.listOrder(term, limit, offset);
+
+    for (let i = 0, j = orders.count; i < j; i++) {
+        const orderProducts = await orderService.listOrderProduct(orders.rows[i].orderid, term);
+        orders.rows[i].orderProducts = orderProducts;
     }
-    res.render('orders/order', { orders });
+    const response  = getPagingData(orders, page, limit);
+
+    res.render('orders/order', { 
+        orders: response.tutorials, 
+        totalPages: response.totalPages,  
+        currentPage: response.currentPage,
+        totalItems: response.totalItems,
+    });
+}
+
+//[GET] /order/trash
+exports.trash = async (req, res) => {
+    const { page, size, term } = req.query;
+    const { limit, offset } = getPagination(page, size);
+
+    let orders = await orderService.listOrderDeleted(term, limit, offset);
+
+    for (let i = 0, j = orders.count; i < j; i++) {
+        const orderProducts = await orderService.listOrderProductDeleted(orders.rows[i].orderid, term);
+        orders.rows[i].orderProducts = orderProducts;
+    }
+    const response  = getPagingData(orders, page, limit);
+
+    res.render('orders/trash-order', { 
+        orders: response.tutorials, 
+        totalPages: response.totalPages,  
+        currentPage: response.currentPage,
+        totalItems: response.totalItems,
+    });
 }
 
 // [GET] /order/create
@@ -112,14 +54,15 @@ exports.create = (req, res) => {
 
 // [POST] /order/store
 exports.store = async (req, res) => {
-    const productids = [].concat(req.body.productid);
+    const productnames = [].concat(req.body.productname);
     const amounts = [].concat(req.body.amount);
     const sizes = [].concat(req.body.size);
-    const len = productids.length;
+    const len = productnames.length;
 
-    checkProductId(productids).then(async (isExists) => {
-        if (isExists) {
-            let customer = await findCustomerByPhone(req.body.customerphone);
+    orderService.checkProductName(productnames).then(async (products) => {
+        // console.log('================================',products)
+        if (products.length == len) {
+            let customer = await orderService.findCustomerByPhone(req.body.customerphone);
 
             if (!customer) {
                 customer = await models.customers.create({
@@ -142,7 +85,7 @@ exports.store = async (req, res) => {
             for (let i = 0; i < len; i++) {
                 await models.order_products.create({
                     orderid: newOrder.orderid,
-                    productid: productids[i],
+                    productid: products[i].productid,
                     amount: amounts[i],
                     size: parseInt(sizes[i]),
                 });
@@ -150,18 +93,18 @@ exports.store = async (req, res) => {
 
             let totalPrice = 0;
             for (let i = 0; i < len; i++) {
-                const product = await findProductById(productids[i]);
-                totalPrice += product.price * amounts[i];
+                //const product = await orderService.findProductById(products[i].productid);
+                totalPrice += products[i].price * amounts[i];
             }
             await models.orders.update({ price: totalPrice.toFixed(2) }, { where: { orderid: newOrder.orderid } });
             if (req.body.print == 'true') {
-                res.render('orders/invoice', await printOrder(newOrder.orderid));
+                res.render('orders/invoice', await orderService.printOrder(newOrder.orderid));
             }
             else { res.redirect('/order') }
         }
-        else { res.render('error', { message: `Mã sản phẩm chưa đúng! Vui lòng kiểm tra lại!` }) }
+        else { res.render('error', { message: `Tên sản phẩm chưa đúng! Vui lòng kiểm tra lại!` }) }
     })
-        .catch(err => { res.render('error', { message: `Mã sản phẩm chưa đúng định dạng! Vui lòng kiểm tra lại!` }) });
+    .catch(err => { res.render('error', { message: `Tên sản phẩm chưa đúng định dạng! Vui lòng kiểm tra lại!` }) });
 }
 
 //[DELETE] /order/:id
@@ -169,16 +112,6 @@ exports.delete = async (req, res, next) => {
     await models.order_products.destroy({ where: { orderid: req.params.id } });
     await models.orders.destroy({ where: { orderid: req.params.id } });
     res.redirect('back');
-}
-
-//[GET] /order/trash
-exports.trash = async (req, res) => {
-    let orders = await listOrderDeleted();
-    for (let order of orders) {
-        const orderProducts = await listOrderProductDeleted(order.orderid);
-        order.orderProducts = orderProducts;
-    }
-    res.render('orders/trash-order', { orders });
 }
 
 //[DELETE] /order/:id/force
@@ -190,9 +123,9 @@ exports.force = async (req, res, next) => {
 
 //[GET] /order/:id/edit
 exports.edit = async (req, res) => {
-    const order = await findOrderById(req.params.id);
-    const customer = await findCustomerById(order.customerid);
-    const orderProducts = await listOrderProduct(req.params.id);
+    const order = await orderService.findOrderById(req.params.id);
+    const customer = await orderService.findCustomerById(order.customerid);
+    const orderProducts = await orderService.listOrderProduct(req.params.id);
     res.render('orders/edit-order', { order, customer, orderProducts });
 }
 
@@ -203,7 +136,7 @@ exports.update = async (req, res) => {
     const productids = [].concat(req.body.productid);
     const len = amounts.length;
 
-    let customer = await findCustomerByPhone(req.body.customerphone);
+    let customer = await orderService.findCustomerByPhone(req.body.customerphone);
 
     if (!customer) {
         customer = await models.customers.create({
@@ -241,7 +174,7 @@ exports.update = async (req, res) => {
 
     let totalPrice = 0;
     for (let i = 0; i < len; i++) {
-        const product = await findProductById(productids[i]);
+        const product = await orderService.findProductById(productids[i]);
         totalPrice += product.price * amounts[i];
     }
     await models.orders.update({ price: totalPrice.toFixed(2) }, { where: { orderid: req.params.id } });
@@ -259,5 +192,5 @@ exports.restore = async (req, res, next) => {
 
 //[GET] /order/:id/invoice
 exports.invoice = async (req, res) => {
-    res.render('orders/invoice', await printOrder(req.params.id))
+    res.render('orders/invoice', await orderService.printOrder(req.params.id))
 }

@@ -23,6 +23,15 @@ module.exports = function(sequelize, DataTypes) {
         model: 'employees',
         key: 'employeeid'
       }
+    },
+    avatar: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    type: {
+      type: DataTypes.STRING(2048),
+      allowNull: true,
+      defaultValue: "employee"
     }
   }, {
     sequelize,

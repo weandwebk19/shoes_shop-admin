@@ -30,6 +30,10 @@ module.exports = function(sequelize, DataTypes) {
     image: {
       type: DataTypes.ARRAY(DataTypes.TEXT),
       allowNull: true
+    },
+    branch: {
+      type: DataTypes.STRING(2048),
+      allowNull: true
     }
   }, {
     sequelize,

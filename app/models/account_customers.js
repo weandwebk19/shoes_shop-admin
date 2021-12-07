@@ -23,6 +23,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'customers',
         key: 'customerid'
       }
+    },
+    avatar: {
+      type: DataTypes.STRING(2048),
+      allowNull: true
     }
   }, {
     sequelize,

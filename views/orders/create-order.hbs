@@ -72,12 +72,11 @@
                                     </div>
                                 </div>
                             </div>
-                            {{!-- <h4 class="header-title">Sản phẩm 1</h4> --}}
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="order-productid">Mã sản phẩm</label>
-                                        <input type="text" class="form-control" id="order-productid" name="productid"
+                                        <label for="order-productname">Tên sản phẩm (Vui lòng nhập chính xác từng ký tự kể cả in hoa, in thường)</label>
+                                        <input type="text" class="form-control" id="order-productname" name="productname"
                                             required="">
                                         <div class="invalid-feedback">
                                             Please provide a valid state.
@@ -162,8 +161,8 @@
             <div class="form-row">
             <div class="col-md-6 mt-3">
                 <div class="form-group">
-                        <label for="order-productid${index}">Mã sản phẩm</label>
-                        <input type="text" class="form-control" id="order-productid${index}" name="productid" required="">
+                        <label for="order-productname${index}">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="order-productname${index}" name="productname" required="">
                         <div class="invalid-feedback">
                         Please provide a valid state.
                         </div>

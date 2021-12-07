@@ -2852,9 +2852,10 @@ table.dataTable thead td {
 }
 
 .product-description {
-    line-height: 1.8rem;
+    max-width: 500px;
+    line-height: 2.2rem;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 3;
 }

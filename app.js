@@ -4,10 +4,12 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const exphbs = require('express-handlebars');
+const handlebars  = require('./helpers/handlebars')(exphbs);
 const methodOverride = require('method-override');
 const route = require('./app/routes');
 const { sequelize } = require('./app/models');
-
+const session = require('express-session');
+const passport = require('./app/auth/passport');
 const app = express();
 
 // Connect to Db
@@ -27,15 +29,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
+// passport config
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true })); //,resave: false, saveUninitialized: true, cookie: { secure: true }
+app.use(passport.initialize());
+app.use(passport.session());
+
 // view engine setup
-app.engine('.hbs', exphbs({ extname: '.hbs',
-  helpers: {
-    mul: (a, b) => a * b,
-    sum: (a, b) => a + b,
-}
-}));
+app.engine('.hbs', handlebars.engine);
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
+
+// Information user
+app.use((req, res, next) => {
+  res.locals.user=req.user;
+  next();
+});
 
 //Route init
 route(app);

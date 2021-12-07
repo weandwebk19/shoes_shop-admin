@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const feedbackController = require('../controllers/FeedbackController');
+const feedbackController = require('../components/controllers/FeedbackController');
 
 router.get('/trash', feedbackController.trash);
 router.get('/:id/edit', feedbackController.edit);

@@ -30,7 +30,8 @@
                 <div class="card">
                     <div class="card-body border-bottom">
                         <div class="d-flex justify-content-between">
-                            <a href="/employee/create" class="text-white btn btn-primary" role="button">Thêm nhân viên</a>
+                            <a href="/employee/create" class="text-white btn btn-primary" role="button">Thêm nhân
+                                viên</a>
                             <a href="/employee/trash" class="text-white btn btn-secondary" role="button">
                                 <i class="fa fa-trash mr-2 ml-2"></i>Thùng rác
                             </a>
@@ -40,47 +41,104 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Danh sách nhân viên</h4>
-                        <div class="data-tables datatable-primary">
-                            <table id="dataTable2" class="text-center">
-                                <thead class="text-capitalize">
-                                    <tr>
-                                        <th>Mã nhân viên</th>
-                                        <th>Họ tên</th>
-                                        <th>Giới tính</th>
-                                        <th>CMND/CCCD</th>
-                                        <th>Số điện thoại</th>
-                                        <th>Email</th>
-                                        <th>Tác vụ</th>
-                                        <th>Chi tiết</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each employees}}
-                                    <tr>
-                                        <td>{{this.employeeid}}</td>
-                                        <td>{{this.name}}</td>
-                                        <td>{{this.gender}}</td>
-                                        <td>{{this.citizenid}}</td>
-                                        <td>{{this.phone}}</td>
-                                        <td>{{this.email}}</td>
-                                        <td>
-                                            <a href="/employee/{{this.employeeid}}/edit" class="edit-data"
-                                                title="Chỉnh sửa nhân viên">
-                                                <i class="fa fa-edit"></i>
+                        <div class="data-tables">
+                            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="row mb-3">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="dataTables_length" id="dataTable_length"><label>Show
+                                                <select name="dataTable_length" aria-controls="dataTable"
+                                                    class="custom-select custom-select-sm form-control form-control-sm">
+                                                    <option value="10">10</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select> entries</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div id="dataTable_filter" class="dataTables_filter">
+                                            <form name="search-form" method="GET">
+                                                <input type="search" name="search-input"
+                                                    class="form-control form-control-sm" placeholder="Search"
+                                                    aria-controls="dataTable">
+                                                <button type="submit" class="btn btn-outline-light btn-rounded btn-xs">
+                                                    <i class="ti-search text-dark"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <table class="table text-center">
+                                        <thead class="text-uppercase bg-primary">
+                                            <tr class="text-white">
+                                                <th>Mã nhân viên</th>
+                                                <th>Họ tên</th>
+                                                <th>Giới tính</th>
+                                                <th>CMND/CCCD</th>
+                                                <th>Số điện thoại</th>
+                                                <th>Email</th>
+                                                <th>Tác vụ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each employees}}
+                                            <tr>
+                                                <td>{{this.employeeid}}</td>
+                                                <td>{{this.name}}</td>
+                                                <td>{{this.gender}}</td>
+                                                <td>{{this.citizenid}}</td>
+                                                <td>{{this.phone}}</td>
+                                                <td>{{this.email}}</td>
+                                                <td>
+                                                    <a href="/employee/{{this.employeeid}}/edit" class="edit-data"
+                                                        title="Chỉnh sửa nhân viên">
+                                                        <i class="fa fa-edit"></i>
 
-                                                <a href="" class="remove-data" title="Xóa nhân viên"
-                                                    data-id="{{this.employeeid}}" data-toggle="modal"
-                                                    data-target="#delete-employee-modal"><i
-                                                        class="fa fa-remove"></i></a>
-                                        </td>
-                                        <td>
-                                            <p><b>Thời gian tạo :</b> {{this.createdAt}}</p>
-                                            <p><b>Sửa gần nhất :</b> {{this.updatedAt}}</p>
-                                        </td>
-                                    </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
+                                                        <a href="" class="remove-data" title="Xóa nhân viên"
+                                                            data-id="{{this.employeeid}}" data-toggle="modal"
+                                                            data-target="#delete-employee-modal"><i
+                                                                class="fa fa-remove"></i></a>
+                                                </td>
+
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="dataTables_info" id="dataTable_info" role="status"
+                                            aria-live="polite">Showing {{calcOffset totalPages totalItems currentPage}}
+                                            to
+                                            {{calcLimit totalPages totalItems currentPage}} of {{totalItems}} entries
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                            <ul class="pagination">
+                                                <li class="page-item previous" id="dataTable_previous">
+                                                    <a href="" aria-controls="dataTable"
+                                                        data-page="{{sub currentPage 1}}" tabindex="0"
+                                                        class="page-link">Previous</a>
+                                                </li>
+
+                                                {{#paginate totalPages totalItems currentPage}}
+                                                {{#each .}}
+                                                <li class="page-item page"><a href="" aria-controls="dataTable"
+                                                        data-page="{{this}}" tabindex="0" class="page-link">{{this}}</a>
+                                                </li>
+                                                {{/each}}
+                                                {{/paginate}}
+
+                                                <li class="page-item next" id="dataTable_next"><a href=""
+                                                        aria-controls="dataTable" data-page="{{sum currentPage 1}}"
+                                                        tabindex="0" class="page-link">Next</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -124,12 +182,15 @@
         $('#delete-employee-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
             employeeId = button.data('id')
-        })
+        });
 
         btnDeleteEmployee.onclick = function () {
             deleteEmployeeForm.action = `/employee/${employeeId}?_method=DELETE`;
             deleteEmployeeForm.submit();
-        }
+        };
+
+        updatePaginate({{ totalPages }}, {{ currentPage }});
+    updateSelectSize({{ totalPages }}, {{ totalItems }});
     })
 </script>
 
@@ -142,12 +203,7 @@
 <script src="/js/metisMenu.min.js"></script>
 <script src="/js/jquery.slimscroll.min.js"></script>
 <script src="/js/jquery.slicknav.min.js"></script>
-<!-- Start datatable js -->
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
 
 <script src="/js/plugins.js"></script>
 <script src="/js/scripts.js"></script>
+<script src="/js/custom.js"></script>

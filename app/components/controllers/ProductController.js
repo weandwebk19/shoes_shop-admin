@@ -1,37 +1,28 @@
-const { models } = require('../models');
-
-const listProduct = () => {
-    return models.products.findAll({ raw: true });
-}
-
-const listProductDeleted = () => {
-    return models.products.findAll({ raw: true, paranoid: false});
-}
-
-const findProductByReq = (reqBody) => {
-    return models.products.findOne({
-        where: {
-            productname: reqBody.productname,
-            price: reqBody.price,
-            color: reqBody.color,
-        },
-        raw: true
-    })
-}
-
-const findProductById = (id) => {
-    return models.products.findOne({
-        where: {
-            productid: id,
-        },
-        raw: true
-    })
-}
+const { models } = require('../../models');
+const { Op } = require("sequelize");
+const { getPagination } = require('../../../helpers/pagination');
+const { getPagingData } = require('../../../helpers/pagination');
+const productService = require('../services/ProductServeice');
 
 //[GET] /product
-exports.list = async (req, res) => {
-    const products = await listProduct();
-    res.render('products/product', { products });
+exports.list = (req, res) => {
+    const { page, size, term } = req.query;
+    const { limit, offset } = getPagination(page, size);
+
+    productService.listProduct(term, limit, offset)
+    .then((data) => {
+        const response  = getPagingData(data, page, limit);
+        res.render('products/product', { 
+            products: response.tutorials, 
+            totalPages: response.totalPages,  
+            currentPage: response.currentPage,
+            totalItems: response.totalItems,
+        });
+        // res.send(response);
+    })
+    .catch(err => {
+        res.render('error', {message: 'Có một vài lỗi xảy ra! Thử lại với thông tin khác!'})
+    })
 }
 
 // [GET] /product/create
@@ -40,9 +31,24 @@ exports.create = (req, res) => {
 }
 
 //[GET] /product/trash
-exports.trash = async (req, res) => {
-    const products = await listProductDeleted();
-    res.render('products/trash-product', { products});
+exports.trash = (req, res) => {
+    const { page, size, term } = req.query;
+    const { limit, offset } = getPagination(page, size);
+
+    productService.listProductDeleted(term, limit, offset)
+    .then((data) => {
+        const response  = getPagingData(data, page, limit);
+        res.render('products/trash-product', { 
+            products: response.tutorials, 
+            totalPages: response.totalPages,  
+            currentPage: response.currentPage,
+            totalItems: response.totalItems,
+        });
+        // res.send(response);
+    })
+    .catch(err => {
+        res.render('error', {message: 'Có một vài lỗi xảy ra! Thử lại với thông tin khác!'})
+    })
 }
 
 // [POST] /product/store
@@ -58,7 +64,7 @@ exports.store = (req, res, next) => {
     }
     models.products.create(productObject)
         .then(async () => {
-            const currentProduct = await findProductByReq(reqBody);
+            const currentProduct = await productService.findProductByReq(reqBody);
             const shoessizeObject = {
                 productid: currentProduct.productid,
                 size: reqBody.size,
@@ -112,7 +118,7 @@ exports.force = (req, res, next) => {
 
 //[GET] /product/:id/edit
 exports.edit = async (req, res) => {
-    const product = await findProductById(req.params.id);
+    const product = await productService.findProductById(req.params.id);
     res.render('products/edit-product', {product});
 }
 

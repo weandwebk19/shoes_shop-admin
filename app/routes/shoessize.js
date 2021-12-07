@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const shoessizeController = require('../controllers/ShoessizeController');
+const shoessizeController = require('../components/controllers/ShoessizeController');
 
 router.get('/create', shoessizeController.create);
 router.post('/store', shoessizeController.store);

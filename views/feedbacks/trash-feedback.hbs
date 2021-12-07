@@ -45,7 +45,6 @@
                                 </thead>
                                 <tbody>
                                     {{#each feedbacks}}
-                                    {{#if ./deletedAt}}
                                     <tr>
                                         <td>{{this.feedbackid}}</td>
                                         <td>{{this.customer_name}}</td>
@@ -65,7 +64,6 @@
                                         <td>{{this.content}}</td>
 
                                     </tr>
-                                    {{/if}}
                                     {{/each}}
                                 </tbody>
                             </table>

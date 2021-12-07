@@ -1,0 +1,204 @@
+<div class="main-content">
+    {{>header}}
+
+    <!-- page title area start -->
+    <div class="page-title-area">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="breadcrumbs-area clearfix">
+                    <h4 class="page-title pull-left">Dead Shoes</h4>
+                    <ul class="breadcrumbs pull-left">
+                        <li><a href="/account_employee">Quản lý tài khoản</a></li>
+                        <li><span>Tài khoản đã xóa</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6 clearfix">
+                <ul class="notification-area pull-right">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- page title area end -->
+    <div class="main-content-inner">
+        <div class="row">
+            <!-- account start -->
+            <div class="col-12 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Danh sách tài khoản đã xóa</h4>
+                        <div class="data-tables">
+                            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="row mb-3">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="dataTables_length" id="dataTable_length"><label>Show
+                                                <select name="dataTable_length" aria-controls="dataTable"
+                                                    class="custom-select custom-select-sm form-control form-control-sm">
+                                                    <option value="10">10</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select> entries</label></div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div id="dataTable_filter" class="dataTables_filter">
+                                            <form name="search-form" method="GET">
+                                                <input type="search" name="search-input"
+                                                    class="form-control form-control-sm" placeholder="Search"
+                                                    aria-controls="dataTable">
+                                                <button type="submit" class="btn btn-outline-light btn-rounded btn-xs">
+                                                    <i class="ti-search text-dark"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <table class="table text-center">
+                                        <thead class="text-uppercase bg-primary">
+                                            <tr class="text-white">
+                                                <th>Mã nhân viên</th>
+                                                <th>Username</th>
+                                                <th>Tên nhân viên</th>
+                                                <th>Số điện thoại</th>
+                                                <th>Email</th>
+                                                <th>Loại</th>
+                                                <th>Tác vụ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each account_employees}}
+                                            <tr>
+                                                <td>{{this.employeeid}}</td>
+                                                <td>{{this.username}}</td>
+                                                <td>{{this.employee.name}}</td>
+                                                <td>{{this.employee.phone}}</td>
+                                                <td>{{this.employee.email}}</td>
+                                                <td>{{this.type}}</td>
+                                                <td>
+                                                    <a href="" class="btn-restore-account_employee mr-3"
+                                                        data-id="{{this.accountid}}"
+                                                        title="Khôi phục"><i class="fa fa-reply"></i></a>
+
+                                                    <a href="" class="remove-data" title="Xóa vĩnh viễn"
+                                                        data-id="{{this.accountid}}" data-toggle="modal" data-target="#delete-account_employee-modal"><i
+                                                            class="fa fa-remove"></i></a>
+                                                </td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="dataTables_info" id="dataTable_info" role="status"
+                                            aria-live="polite">Showing {{calcOffset totalPages totalItems currentPage}}
+                                            to
+                                            {{calcLimit totalPages totalItems currentPage}} of {{totalItems}} entries
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                            <ul class="pagination">
+                                                <li class="page-item previous" id="dataTable_previous">
+                                                    <a href="" aria-controls="dataTable"
+                                                        data-page="{{sub currentPage 1}}" tabindex="0"
+                                                        class="page-link">Previous</a>
+                                                </li>
+
+                                                {{#paginate totalPages totalItems currentPage}}
+                                                {{#each .}}
+                                                <li class="page-item page"><a href="" aria-controls="dataTable"
+                                                        data-page="{{this}}" tabindex="0" class="page-link">{{this}}</a>
+                                                </li>
+                                                {{/each}}
+                                                {{/paginate}}
+
+                                                <li class="page-item next" id="dataTable_next"><a href=""
+                                                        aria-controls="dataTable" data-page="{{sum currentPage 1}}"
+                                                        tabindex="0" class="page-link">Next</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- SneakerSize end -->
+        </div>
+    </div>
+</div>
+
+{{!-- Delete account_employee hidden form--}}
+<form name="delete-account_employee-form" method="POST"></form>
+{{!-- restore account_employee hidden form--}}
+<form name="restore-account_employee-form" method="POST"></form>
+
+{{!-- Confirm delete account_employee --}}
+<div id="delete-account_employee-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa vĩnh viễn tài khoản?</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Hành động này không thể khôi phục. Bạn vẫn muốn xóa tài khoản này vĩnh viễn?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btn-delete-account_employee">Xóa bỏ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (e) {
+        var accountId;
+        var restoreAccount_employeeBtn = $('.btn-restore-account_employee');
+        var btnDeleteaccount_employee = document.getElementById("btn-delete-account_employee");
+        var deleteAccount_employeeForm = document.forms["delete-account_employee-form"];
+        var restoreAccount_employeeForm = document.forms["restore-account_employee-form"];
+
+
+        //Delete account_employee
+        $('#delete-account_employee-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            accountId = button.data('id')
+        })
+
+        btnDeleteaccount_employee.onclick = function () {
+            deleteAccount_employeeForm.action = `/account_employee/${accountId}/force?_method=DELETE`;
+            deleteAccount_employeeForm.submit();
+        }
+        //Restore btn account_employee click
+        restoreAccount_employeeBtn.click(function (e) {
+            e.preventDefault();
+            var accountId = $(this).data('id');
+            restoreAccount_employeeForm.action = `/account_employee/${accountId}/restore?_method=PATCH`;
+            restoreAccount_employeeForm.submit();
+        });
+
+        updatePaginate({{totalPages}}, {{currentPage}});
+        updateSelectSize({{totalPages}}, {{totalItems}});
+    })
+</script>
+
+<script src="/js/vendor/jquery-2.2.4.min.js"></script>
+
+<!-- bootstrap 4 js -->
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/metisMenu.min.js"></script>
+<script src="/js/jquery.slimscroll.min.js"></script>
+<script src="/js/jquery.slicknav.min.js"></script>
+
+<script src="/js/plugins.js"></script>
+<script src="/js/scripts.js"></script>
+<script src="/js/custom.js"></script>

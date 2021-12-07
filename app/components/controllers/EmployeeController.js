@@ -1,34 +1,27 @@
-const { models } = require('../models');
+const { models } = require('../../models');
+const { Op } = require("sequelize");
+const { getPagination } = require('../../../helpers/pagination');
+const { getPagingData } = require('../../../helpers/pagination');
+const employeeService = require('../services/EmployeeService');
 
-const listEmployee = () => {
-    return models.employees.findAll({ raw: true });
-}
+exports.list = (req, res) => {
+    const { page, size, term } = req.query;
+    const { limit, offset } = getPagination(page, size);
 
-const listEmployeeDeleted = () => {
-    return models.employees.findAll({ raw: true, paranoid: false });
-}
-
-const findEmployeeById = (id) => {
-    return models.employees.findOne({
-        where: {
-            employeeid: id
-        },
-        raw: true
+    employeeService.listEmployee(term, limit, offset)
+    .then((data) => {
+        const response  = getPagingData(data, page, limit);
+        res.render('employees/employee', { 
+            employees: response.tutorials, 
+            totalPages: response.totalPages,  
+            currentPage: response.currentPage,
+            totalItems: response.totalItems,
+        });
+        // res.send(response);
     })
-}
-
-const findEmployeeByPhone = (phone) => {
-    return models.employees.findOne({
-        where: {
-            phone: phone
-        },
-        raw: true
+    .catch(err => {
+        res.render('error', {message: 'Có một vài lỗi xảy ra! Thử lại với thông tin khác!'})
     })
-}
-
-exports.list = async (req, res) => {
-    const employees = await listEmployee();
-    res.render('employees/employee', { employees });
 }
 
 // [GET] /employee/create
@@ -40,7 +33,7 @@ exports.create = (req, res) => {
 exports.store = async (req, res, next) => {
     models.employees.create(req.body)
         .then(async () => {
-            const employee = await findEmployeeByPhone(req.body.phone);
+            const employee = await employeeService.findEmployeeByPhone(req.body.phone);
 
             const account = {
                 username: employee.phone,
@@ -75,9 +68,24 @@ exports.delete = async (req, res, next) => {
 
 
 //[GET] /employee/trash
-exports.trash = async (req, res) => {
-    const employees = await listEmployeeDeleted();
-    res.render('employees/trash-employee', { employees });
+exports.trash = (req, res) => {
+    const { page, size, term } = req.query;
+    const { limit, offset } = getPagination(page, size);
+
+    employeeService.listEmployeeDeleted(term, limit, offset)
+    .then((data) => {
+        const response  = getPagingData(data, page, limit);
+        res.render('employees/trash-employee', { 
+            employees: response.tutorials, 
+            totalPages: response.totalPages,  
+            currentPage: response.currentPage,
+            totalItems: response.totalItems,
+        });
+        // res.send(response);
+    })
+    .catch(err => {
+        res.render('error', {message: 'Có một vài lỗi xảy ra! Thử lại với thông tin khác!'})
+    })
 }
 
 //[DELETE] /employee/:id/force
@@ -99,7 +107,7 @@ exports.force = (req, res, next) => {
 
 //[GET] /employee/:id/edit
 exports.edit = async (req, res) => {
-    const employee = await findEmployeeById(req.params.id);
+    const employee = await employeeService.findEmployeeById(req.params.id);
     res.render('employees/edit-employee', { employee });
 }
 

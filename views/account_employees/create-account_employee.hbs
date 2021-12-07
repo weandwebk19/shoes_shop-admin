@@ -1,6 +1,6 @@
 <div class="main-content">
     {{>header}}
-    
+
     <!-- page title area start -->
     <div class="page-title-area">
         <div class="row align-items-center">
@@ -13,7 +13,7 @@
                     </ul>
                 </div>
             </div>
-           <div class="col-sm-6 clearfix">
+            <div class="col-sm-6 clearfix">
                 <ul class="notification-area pull-right">
                     <li id="full-view"><i class="ti-fullscreen"></i></li>
                     <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
@@ -28,47 +28,77 @@
                 <div class="card">
                     <div class="card-body">
                         <!-- Add account_employee form-->
-                        <h4 class="header-title">Thêm tài khoản nhân viên</h4>
-                        <form method="POST" action="/account_employee/store" class="needs-validation mt-3" novalidate="">
-                            <div class="form-row">
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <label for="account-username">Username</label>
-                                        <input type="text" class="form-control" id="account-username" name="username" required="">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid state.
-                                        </div>
-                                    </div>
+                        <div class="login-box ptb--100">
+                            <form method="POST" action="/account_employee/store" class="needs-validation mt-3"
+                                novalidate="">
+                                <div class="login-form-head">
+                                    <h4>Thêm tài khoản</h4>
+                                    <p>Đăng ký tài khoản cho nhân viên hoặc admin.</p>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <label for="account-password" class="">Password</label>
-                                        <input type="password" class="form-control" id="account-password" name="password"
-                                            placeholder="" required="">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid state.
-                                        </div>
+                                <div class="login-form-body">
+                                    <div class="form-gp">
+                                        <label for="register-name">Họ tên</label>
+                                        <input type="text" id="register-name" name="name">
+                                        <i class="ti-user"></i>
+                                        <div class="text-danger"></div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col mb-3">
-                                    <div class="form-group">
-                                        <label for="account-employeeid">Mã nhân viên</label>
-                                        <input class="form-control" type="text" id="account-employeeid" name="employeeid">
+                                    <div class="form-gp">
+                                        <label for="register-email">Email</label>
+                                        <input type="email" id="register-email" name="email">
+                                        <i class="ti-email"></i>
+                                        <div class="text-danger"></div>
                                     </div>
-                                </div>
-                            </div>
+                                    <div class="form-gp">
+                                        <label for="register-phone">Số điện thoại</label>
+                                        <input type="tel" id="register-phone" name="phone" required="">
+                                        <i class="ti-mobile"></i>
+                                        <div class="text-danger"></div>
+                                    </div>
+                                    <div class="form-gp">
+                                        <label for="register-username">Username</label>
+                                        <input type="text" id="register-username" name="username" required="">
+                                        <i class="ti-user"></i>
+                                        <div class="text-danger"></div>
+                                    </div>
+                                    <div class="form-gp">
+                                        <label for="register-password1">Password</label>
+                                        <input type="password" id="register-password1" name="password" required="">
+                                        <i class="ti-lock"></i>
+                                        <div class="text-danger"></div>
+                                    </div>
+                                    <div class="form-gp">
+                                        <label for="register-password2">Confirm Password</label>
+                                        <input type="password" id="register-password2" name="confirmPassword">
+                                        <i class="ti-lock"></i>
+                                        <div class="text-danger"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="register-type">Loại tài khoản</label>
+                                         <select id="register-type" class="form-control" name="type">
+                                            <option value="employee">Nhân viên</option>
+                                            <option value="admin">Admin</option>
+                                        </select>
+                                        <div class="text-danger"></div>
+                                    </div>
+                                    {{#wrongPassword}}
+                                    <div class="form-gp">
+                                        <b style="color: #dc3545">Mật khẩu không trùng khớp !</b>
+                                    </div>
+                                    {{/wrongPassword}}
+                                    <div class="submit-btn-area">
+                                        <button id="form_submit" type="submit">Submit <i
+                                                class="ti-arrow-right"></i></button>
 
-                            <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Cập nhật</button>
-                            </div>
+                                    </div>
+                                </div>
+                        </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- jquery latest version -->

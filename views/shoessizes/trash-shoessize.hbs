@@ -13,7 +13,7 @@
                     </ul>
                 </div>
             </div>
-             <div class="col-sm-6 clearfix">
+            <div class="col-sm-6 clearfix">
                 <ul class="notification-area pull-right">
                     <li id="full-view"><i class="ti-fullscreen"></i></li>
                     <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
@@ -30,52 +30,97 @@
                     <div class="card-body">
                         <h4 class="header-title">Danh sách Shoes Size đã xóa</h4>
                         <div class="data-tables">
-                            <table id="dataTable" class="text-center">
-                                <thead class="bg-light text-capitalize">
-                                    <tr>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Kích thước</th>
-                                        <th>Số lượng</th>
-                                        <th>Thời gian xóa</th>
-                                        <th>Khôi phục/ Xóa</th>
-                                        <th>Chi tiết</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each shoessize}}
-                                    {{#if ./deletedAt}}
-                                    <tr>
-                                        <td>{{this.product.productname}}</td>
-                                        <td>{{this.size}}</td>
-                                        <td>{{this.amount}}</td>
-                                        <td>{{this.deletedAt}}</td>
-                                        <td>
-                                            <a href="" class="btn-restore-shoessize mr-3" data-id="{{this.productid}}" data-size="{{this.size}}"
-                                             title="Khôi phục"><i class="fa fa-reply"></i></a>
+                            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="row mb-3">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="dataTables_length" id="dataTable_length"><label>Show
+                                                <select name="dataTable_length" aria-controls="dataTable"
+                                                    class="custom-select custom-select-sm form-control form-control-sm">
+                                                    <option value="10">10</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select> entries</label></div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div id="dataTable_filter" class="dataTables_filter">
+                                            <form name="search-form" method="GET">
+                                                <input type="search" name="search-input"
+                                                    class="form-control form-control-sm" placeholder="Search"
+                                                    aria-controls="dataTable">
+                                                <button type="submit" class="btn btn-outline-light btn-rounded btn-xs">
+                                                    <i class="ti-search text-dark"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <table class="table text-center">
+                                        <thead class="text-uppercase bg-primary">
+                                            <tr class="text-white">
+                                                <th>Tên sản phẩm</th>
+                                                <th>Kích thước</th>
+                                                <th>Số lượng</th>
+                                                <th>Thời gian xóa</th>
+                                                <th>Khôi phục/ Xóa</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each shoessize}}
+                                            <tr>
+                                                <td>{{this.product.productname}}</td>
+                                                <td>{{this.size}}</td>
+                                                <td>{{this.amount}}</td>
+                                                <td>{{this.deletedAt}}</td>
+                                                <td>
+                                                    <a href="" class="btn-restore-shoessize mr-3"
+                                                        data-id="{{this.productid}}" data-size="{{this.size}}"
+                                                        title="Khôi phục"><i class="fa fa-reply"></i></a>
 
-                                            <a href="" class="remove-data" title="Xóa vĩnh viễn"
-                                                data-id="{{this.productid}}" data-size="{{this.size}}"
-                                                data-toggle="modal" data-target="#delete-shoessize-modal"><i
-                                                    class="fa fa-remove"></i></a>
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <p>Mã sản phẩm: {{this.productid}}</p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <p>Màu sắc: {{this.product.color}}</p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <p>Giá: {{this.product.price}}$</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    {{/if}}
-                                    {{/each}}
-                                </tbody>
-                            </table>
+                                                    <a href="" class="remove-data" title="Xóa vĩnh viễn"
+                                                        data-id="{{this.productid}}" data-size="{{this.size}}"
+                                                        data-toggle="modal" data-target="#delete-shoessize-modal"><i
+                                                            class="fa fa-remove"></i></a>
+                                                </td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="dataTables_info" id="dataTable_info" role="status"
+                                            aria-live="polite">Showing {{calcOffset totalPages totalItems currentPage}}
+                                            to
+                                            {{calcLimit totalPages totalItems currentPage}} of {{totalItems}} entries
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                            <ul class="pagination">
+                                                <li class="page-item previous" id="dataTable_previous">
+                                                    <a href="" aria-controls="dataTable"
+                                                        data-page="{{sub currentPage 1}}" tabindex="0"
+                                                        class="page-link">Previous</a>
+                                                </li>
+
+                                                {{#paginate totalPages totalItems currentPage}}
+                                                {{#each .}}
+                                                <li class="page-item page"><a href="" aria-controls="dataTable"
+                                                        data-page="{{this}}" tabindex="0" class="page-link">{{this}}</a>
+                                                </li>
+                                                {{/each}}
+                                                {{/paginate}}
+
+                                                <li class="page-item next" id="dataTable_next"><a href=""
+                                                        aria-controls="dataTable" data-page="{{sum currentPage 1}}"
+                                                        tabindex="0" class="page-link">Next</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -131,13 +176,16 @@
             deleteShoessizeForm.submit();
         }
         //Restore btn shoessize click
-        restoreShoessizeBtn.click( function(e){
-          e.preventDefault();
-          var productId = $(this).data('id');
-          var size = $(this).data('size');
-          restoreShoessizeForm.action= `/shoessize/${size}/${productId}/restore?_method=PATCH`;
-          restoreShoessizeForm.submit();
+        restoreShoessizeBtn.click(function (e) {
+            e.preventDefault();
+            var productId = $(this).data('id');
+            var size = $(this).data('size');
+            restoreShoessizeForm.action = `/shoessize/${size}/${productId}/restore?_method=PATCH`;
+            restoreShoessizeForm.submit();
         });
+
+        updatePaginate({{totalPages}}, {{currentPage}});
+        updateSelectSize({{totalPages}}, {{totalItems}});
     })
 </script>
 
@@ -150,12 +198,7 @@
 <script src="/js/metisMenu.min.js"></script>
 <script src="/js/jquery.slimscroll.min.js"></script>
 <script src="/js/jquery.slicknav.min.js"></script>
-<!-- Start datatable js -->
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
 
 <script src="/js/plugins.js"></script>
 <script src="/js/scripts.js"></script>
+<script src="/js/custom.js"></script>
