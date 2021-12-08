@@ -1,24 +1,25 @@
 <!-- header area start -->
-    <div class="header-area">
-        <div class="row align-items-center">
-            <div class="col-md-6 col-sm-8 clearfix">
-                <div class="nav-btn pull-left">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+<div class="header-area">
+    <div class="row align-items-center">
+        <div class="col-md-6 col-sm-8 clearfix">
+            <div class="nav-btn pull-left">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-4 clearfix">
+            <div class="user-profile pull-right">
+                <img class="avatar user-thumb"
+                    src="{{#if user.avatar}}{{user.avatar}}{{else}}/images/author/avatar.png{{/if}}" alt="avatar">
+                <h4 class="user-name dropdown-toggle" data-toggle="dropdown">{{user.name}}<i
+                        class="fa fa-angle-down"></i></h4>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/profile">Trang cá nhân</a>
+                    <a class="dropdown-item" href="/logout">Đăng xuất</a>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-4 clearfix">
-                <div class="user-profile pull-right">
-                    <img class="avatar user-thumb" src="{{#if user.avatar}}{{user.avatar}}{{else}}/images/author/avatar.png{{/if}}" alt="avatar">
-                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">{{user.name}}<i
-                            class="fa fa-angle-down"></i></h4>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/profile">Trang cá nhân</a>
-                        <a class="dropdown-item" href="/logout">Đăng xuất</a>
-                    </div>
-                 </div> 
-
         </div>
     </div>
-    <!-- header area end -->
+</div>
+<!-- header area end -->

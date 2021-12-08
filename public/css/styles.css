@@ -53,38 +53,6 @@
 
 
 /*------------------------- 1. Core Css -------------------*/
-body, html {
-    height: 100%;
-    margin: 0;
-  }
-
-.border-text {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    /* margin-top: 100px; */
-}
-
-.mt-250 {
-    margin-top:250px;
-}
-
-.fs-70 {
-    font-size: 70px
-}
-
-.bg {
-    /* The image used */
-    background-image: url("../images/admin-background.jpg");
-  
-    /* Full height */
-    height: 100%; 
-  
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
 
 .page-container {
     width: 100%;
@@ -267,24 +235,6 @@ body, html {
     background: #F3F8FB;
 }
 
-.horizontal-main-wrapper {
-    min-height: 100vh;
-}
-
-.horizontal-main-wrapper .container {
-    max-width: 1440px;
-}
-
-.horizontal-main-wrapper .header-area,
-.horizontal-main-wrapper .mainheader-area {
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.horizontal-main-wrapper .main-content-inner {
-    padding: 0 0 50px;
-}
-
 .mainheader-area .notification-area {
     -webkit-transform: translateY(-11px);
             transform: translateY(-11px);
@@ -302,77 +252,10 @@ body, html {
     color: #843df9;
 }
 
-.horizontal-menu {
-    position: relative;
-}
-
-.horizontal-menu ul li {
-    display: inline-block;
-    position: relative;
-}
-
-.horizontal-menu ul li a {
-    display: block;
-    font-size: 13px;
-    padding: 10px 20px;
-    color: #000000;
-    text-transform: capitalize;
-}
-
-.horizontal-menu ul li:hover>a,
-.horizontal-menu ul li.active>a {
-    color: #007BFF;
-}
-
-.horizontal-menu nav>ul>li:first-child>a {
-    padding-left: 0;
-}
-
-.horizontal-menu ul li a i {
-    margin-right: 5px;
-}
-
-.horizontal-menu .submenu {
-    position: absolute;
-    left: 0;
-    top: 100%;
-    z-index: 99;
-    width: 200px;
-    background: #fff;
-    opacity: 0;
-    visibility: hidden;
-    border-top: 4px solid #007BFF;
-    border-radius: 3px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.03);
-}
-
-.horizontal-menu .submenu li {
-    display: block;
-}
-
-.horizontal-menu ul li:hover>.submenu {
-    opacity: 1;
-    visibility: visible;
-}
-
-.horizontal-menu .mega-menu {
-    position: inherit;
-}
-
-.horizontal-menu .mega-menu .submenu {
-    width: 100%;
-    max-width: 900px;
-}
-
-.horizontal-menu .mega-menu .submenu li {
-    display: inline-block;
-    width: calc(100% * (1/3) - 5px);
-}
-
-/* .header-bottom .search-box input {
+.header-bottom .search-box input {
     max-width: 350px;
     width: 100%;
-} */
+}
 
 /* mobile menu */
 
@@ -469,11 +352,11 @@ body, html {
     opacity: 1;
 }
 
-/* .search-box form {
+.search-box form {
     position: relative;
-} */
+}
 
-/* .search-box input {
+.search-box input {
     width: 350px;
     border-radius: 33px;
     border: none;
@@ -482,13 +365,13 @@ body, html {
     padding-right: 40px;
     letter-spacing: 0;
     background: #f3eeff;
-} */
+}
 
-/* .search-box input::-webkit-input-placeholder {
+.search-box input::-webkit-input-placeholder {
     color: #b1a7a7;
-} */
+}
 
-/* .search-box input::-moz-placeholder {
+.search-box input::-moz-placeholder {
     color: #b1a7a7;
 }
 
@@ -502,7 +385,7 @@ body, html {
     top: 14px;
     font-size: 14px;
     color: #b1a7a7;
-} */
+}
 
 
 /* notification-area */
@@ -681,7 +564,7 @@ body, html {
 /*-------------------- 2.3 Page Title Area -------------------*/
 
 .page-title-area {
-    padding: 20px 30px;
+    padding: 30px 30px;
     background: #fff;
     position: relative;
 }
@@ -1225,111 +1108,6 @@ table.dbkit-table tr td {
 }
 
 /*-------------------- END Letest Post ------------------- */
-
-
-/*-------------------- 3. Dashboard Two ------------------- */
-
-.sales-style-two .single-report {
-    background: #fff;
-    overflow: hidden;
-    position: relative;
-    padding: 10px 15px 10px;
-}
-
-#visitor_graph {
-    height: 400px;
-}
-
-
-
-/* Todays Order List */
-
-.dbkit-table .heading-td td {
-    color: #444;
-    font-weight: 500;
-}
-
-.pagination_area ul li {
-    display: inline-block;
-}
-
-.pagination_area ul li a {
-    display: block;
-    height: 45px;
-    line-height: 44px;
-    width: 45px;
-    border: 2px solid #f1ebeb;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 600;
-    color: #4d4d4d;
-    margin-left: 3px;
-}
-
-.pagination_area ul li a:hover {
-    background: #8553fa;
-    color: #fff;
-}
-
-.pagination_area ul li a i {
-    font-size: 14px;
-}
-
-/* team member area */
-
-.team-search input {
-    height: 40px;
-    padding-left: 12px;
-    border: 1px solid #e1e1e1;
-    letter-spacing: 0;
-    font-size: 13px;
-    border-radius: 2px;
-}
-
-.team-search input::-webkit-input-placeholder {
-    color: #e1e1e1;
-}
-
-.team-search input::-moz-placeholder {
-    color: #e1e1e1;
-}
-
-.team-search input:-ms-input-placeholder {
-    color: #e1e1e1;
-}
-
-.member-box .media-body {}
-
-.member-box .media-body p {
-    font-size: 18px;
-    font-weight: 500;
-    color: #4d4d4d;
-}
-
-.member-box .media-body span {
-    display: block;
-    font-size: 15px;
-    font-weight: 500;
-    color: #4d4d4d;
-    letter-spacing: 0;
-}
-
-.tm-social a {
-    display: inline-block;
-    margin-left: 15px;
-    font-size: 22px;
-    color: #555;
-}
-
-.s-member {
-    padding: 16px 15px 17px;
-    background: #f9f9f9;
-    margin: 15px 0;
-}
-
-/*-------------------- END Dashboard Two ------------------- */
-
 
 /*-------------------- 4. Dashboard Three ------------------- */
 
@@ -2864,16 +2642,6 @@ table.dataTable thead td {
 .s-sw-title h5 {
     font-size: 16px;
     color: #555;
-}
-
-
-#datepicker{
-    width:180px; 
-    margin: 0 20px 20px 20px;
-}
-
-#datepicker > span:hover{
-    cursor: pointer;
 }
 
 /*-------------------- END Offset Sidebar ------------------- */
