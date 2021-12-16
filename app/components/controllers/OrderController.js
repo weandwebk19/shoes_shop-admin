@@ -60,7 +60,6 @@ exports.store = async (req, res) => {
     const len = productnames.length;
 
     orderService.checkProductName(productnames).then(async (products) => {
-        // console.log('================================',products)
         if (products.length == len) {
             let customer = await orderService.findCustomerByPhone(req.body.customerphone);
 
@@ -115,7 +114,7 @@ exports.delete = async (req, res, next) => {
 }
 
 //[DELETE] /order/:id/force
-exports.force = async (req, res, next) => {
+exports.force = async (req, res) => {
     await models.order_products.destroy({ where: { orderid: req.params.id }, force: true });
     await models.orders.destroy({ where: { orderid: req.params.id }, force: true });
     res.redirect('back');
@@ -183,7 +182,7 @@ exports.update = async (req, res) => {
 }
 
 //[PATCH] /order/:id/restore
-exports.restore = async (req, res, next) => {
+exports.restore = async (req, res) => {
     await models.orders.restore({ where: { orderid: req.params.id } });
     await models.order_products.restore({ where: { orderid: req.params.id } });
 

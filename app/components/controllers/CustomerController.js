@@ -5,24 +5,19 @@ const { getPagingData } = require('../../../helpers/pagination');
 const customerService = require('../services/CustomerService');
 
 // [GET] /customer
-exports.list = (req, res) => {
+exports.list = async (req, res) => {
     const { page, size, term } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    customerService.listCustomer(term, limit, offset)
-        .then((data) => {
-            const response = getPagingData(data, page, limit);
-            res.render('customers/customer', {
-                customers: response.tutorials,
-                totalPages: response.totalPages,
-                currentPage: response.currentPage,
-                totalItems: response.totalItems,
-            });
-            // res.send(response);
-        })
-        .catch(err => {
-            res.render('error', {message: 'Có một vài lỗi xảy ra! Thử lại với thông tin khác!'})
-        })
+    const data = await customerService.listCustomer(term, limit, offset);
+
+    const response = getPagingData(data, page, limit);
+    res.render('customers/customer', {
+        customers: response.tutorials,
+        totalPages: response.totalPages,
+        currentPage: response.currentPage,
+        totalItems: response.totalItems,
+    });
 }
 
 // [GET] /customer/create
@@ -31,24 +26,19 @@ exports.create = (req, res) => {
 }
 
 //[GET] /customer/trash
-exports.trash = (req, res) => {
+exports.trash = async (req, res) => {
     const { page, size, term } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    customerService.listCustomerDeleted(term, limit, offset)
-        .then((data) => {
-            const response = getPagingData(data, page, limit);
-            res.render('customers/trash-customer', {
-                customers: response.tutorials,
-                totalPages: response.totalPages,
-                currentPage: response.currentPage,
-                totalItems: response.totalItems,
-            });
-            // res.send(response);
-        })
-        .catch(err => {
-            res.render('error', {message: 'Có một vài lỗi xảy ra! Thử lại với thông tin khác!'})
-        })
+    const data = await customerService.listCustomerDeleted(term, limit, offset);
+
+    const response = getPagingData(data, page, limit);
+    res.render('customers/trash-customer', {
+        customers: response.tutorials,
+        totalPages: response.totalPages,
+        currentPage: response.currentPage,
+        totalItems: response.totalItems,
+    });
 }
 
 // [POST] /customer/store
@@ -65,7 +55,7 @@ exports.store = async (req, res, next) => {
         res.redirect('/customer');
     }
     else {
-        res.render('error', {message: 'Số điện thoại này đã tồn tại! Thử lại với thông tin khác!'})
+        res.render('error', { message: 'Số điện thoại này đã tồn tại! Thử lại với thông tin khác!' })
     }
 }
 
@@ -92,13 +82,13 @@ exports.edit = async (req, res) => {
 }
 
 //[PUT] /customer/:id
-exports.update = async (req, res, next) => {
+exports.update = async (req, res) => {
     await models.customers.update(req.body, { where: { customerid: req.params.id } })
     res.redirect('/customer');
 }
 
 //[PATCH] /customer/:id/restore
-exports.restore = async (req, res, next) => {
+exports.restore = async (req, res) => {
     await models.customers.restore({ where: { customerid: req.params.id } })
     res.redirect('back');
 }

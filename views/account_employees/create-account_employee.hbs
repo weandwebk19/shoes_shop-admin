@@ -68,37 +68,35 @@
                                     </div>
                                     <div class="form-gp">
                                         <label for="register-password2">Confirm Password</label>
-                                        <input type="password" id="register-password2" name="confirmPassword">
+                                        <input type="password" id="register-password2" name="confirmPassword"
+                                            required="">
                                         <i class="ti-lock"></i>
                                         <div class="text-danger"></div>
                                     </div>
                                     <div class="form-group">
                                         <label for="register-type">Loại tài khoản</label>
-                                         <select id="register-type" class="form-control" name="type">
+                                        <select id="register-type" class="form-control" name="type">
                                             <option value="employee">Nhân viên</option>
                                             <option value="admin">Admin</option>
                                         </select>
                                         <div class="text-danger"></div>
                                     </div>
-                                    {{#wrongPassword}}
                                     <div class="form-gp">
-                                        <b style="color: #dc3545">Mật khẩu không trùng khớp !</b>
+                                        <b style="color: #dc3545">{{message}}</b>
                                     </div>
-                                    {{/wrongPassword}}
                                     <div class="submit-btn-area">
                                         <button id="form_submit" type="submit">Submit <i
                                                 class="ti-arrow-right"></i></button>
 
                                     </div>
                                 </div>
+                            </form>
                         </div>
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <!-- jquery latest version -->

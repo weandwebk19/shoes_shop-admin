@@ -53,12 +53,31 @@ exports.findCustomerByPhone = (phone) => {
     })
 }
 
-exports.findAccountBycustomerid = (id) => {
+exports.findAccountById = (id) => {
     return models.account_customers.findOne({
+        where: { accountid: id },
+        raw: true,
+    });
+}
+
+exports.isHasAccount = async (customerid) => {
+    const count = await models.account_customers.count({ where: { customerid} });
+    if(count > 0) {
+        return true;
+    }
+    else return false;
+}
+
+exports.isDuplicateUsername= async (username) => {
+    const count = await models.account_customers.count({
         where: {
-            accountid: id
+            username
         },
         raw: true
-    })
+    });
+    if(count > 0) {
+        return true;
+    }
+    else return false;
 }
 

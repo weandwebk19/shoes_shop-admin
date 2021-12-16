@@ -76,7 +76,8 @@
                                                 <td>{{this.email}}</td>
                                                 <td>{{this.deletedAt}}</td>
                                                 <td>
-                                                    <a href="" class="btn-restore-customer mr-3"
+                                                    <div class="row justify-content-around">
+                                                    <a href="" class="btn-restore-customer"
                                                         data-id="{{this.customerid}}" title="Khôi phục khách hàng"><i
                                                             class="fa fa-reply"></i></a>
 
@@ -84,6 +85,7 @@
                                                         data-id="{{this.customerid}}" data-toggle="modal"
                                                         data-target="#delete-customer-modal"><i
                                                             class="fa fa-remove"></i></a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             {{/each}}

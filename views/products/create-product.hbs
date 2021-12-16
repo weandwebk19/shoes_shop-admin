@@ -73,32 +73,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <div class="form-group mb-3">
-                                        <label for="product-image-1">Hình ảnh 1</label>
-                                        <input type="text" class="form-control" id="product-image-1" name="image1"
-                                            aria-describedby="inputGroupPrepend" required="">
-                                        <div class="invalid-feedback">Please provide a valid state.</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="form-group mb-3">
-                                        <label for="product-image-2">Hình ảnh 2</label>
-                                        <input type="text" class="form-control" id="product-image-2" name="image2"
-                                            aria-describedby="inputGroupPrepend" required="">
-                                        <div class="invalid-feedback">Please provide a valid state.</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="form-group mb-3">
-                                        <label for="product-image-3">Hình ảnh 3</label>
-                                        <input type="text" class="form-control" id="product-image-3" name="image3"
-                                            aria-describedby="inputGroupPrepend" required="">
-                                        <div class="invalid-feedback">Please provide a valid state.</div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
@@ -126,6 +101,21 @@
                                 </div>
                             </div>
                             <div class="form-row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="product-image">Hình ảnh</label>
+                                        <input type="text" class="form-control" id="product-image" name="image"
+                                            aria-describedby="inputGroupPrepend" required="">
+                                        <div class="invalid-feedback">Please provide a valid state.</div>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="mb-4">
+                                <button class="btn btn-rounded btn-success btn-xs btn-add-image mt-1" type="button"><i
+                                    class="fa fa-plus-circle"></i></button>
+                            </div>
+                            
+                            <div class="form-row">
                                 <div class="col mb-3">
                                     <div class="form-group input-group-prepend mb-3">
                                         <label for="product-description" class="input-group-text">Mô tả <br> sản
@@ -136,6 +126,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Cập nhật</button>
                             </div>
@@ -146,6 +137,29 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (e) {
+        const btnAddImage = $('.btn-add-image');
+        let index = 1;
+
+        btnAddImage.on('click', function() {
+            const html = `
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="product-image${index}">Hình ảnh</label>
+                        <input type="text" class="form-control" id="product-image${index}" name="image"
+                            aria-describedby="inputGroupPrepend">
+                    </div>
+                </div> 
+            </div>
+            `;
+            btnAddImage.parent().prepend(html);
+            index++;
+        });
+    })
+</script>
 
 <!-- jquery latest version -->
 <script src="/js/vendor/jquery-2.2.4.min.js"></script>

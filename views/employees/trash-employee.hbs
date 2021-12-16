@@ -62,12 +62,12 @@
                                             <tr class="text-white">
                                                 <th>Mã nhân viên</th>
                                                 <th>Họ tên</th>
-                                                <th>Giới tính</th>
+                                                <th>CMND/CCCD</th>
+                                                <th>Địa chỉ</th>
                                                 <th>Số điện thoại</th>
                                                 <th>Email</th>
                                                 <th>Thời gian xóa</th>
                                                 <th>Tác vụ</th>
-                                                <th>CMND/CCCD</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -75,12 +75,14 @@
                                             <tr>
                                                 <td>{{this.employeeid}}</td>
                                                 <td>{{this.name}}</td>
-                                                <td>{{this.gender}}</td>
+                                                <td>{{this.citizenid}}</td>
+                                                <td>{{this.address}}</td>
                                                 <td>{{this.phone}}</td>
                                                 <td>{{this.email}}</td>
                                                 <td>{{this.deletedAt}}</td>
                                                 <td>
-                                                    <a href="" class="btn-restore-employee mr-3"
+                                                    <div class="row justify-content-around">
+                                                    <a href="" class="btn-restore-employee"
                                                         data-id="{{this.employeeid}}" title="Khôi phục nhân viên"><i
                                                             class="fa fa-reply"></i></a>
 
@@ -88,8 +90,8 @@
                                                         data-id="{{this.employeeid}}" data-toggle="modal"
                                                         data-target="#delete-employee-modal"><i
                                                             class="fa fa-remove"></i></a>
+                                                    </div>
                                                 </td>
-                                                <td>{{this.citizenid}}</td>
                                             </tr>
                                             {{/each}}
                                         </tbody>

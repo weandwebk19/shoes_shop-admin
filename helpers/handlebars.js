@@ -8,7 +8,7 @@ function hbsHelpers(hbs) {
         sub: function(a, b) {
             return a - b;
           }, 
-        mul: function(a, b) { return a * b; },
+        mul: function(a, b) { return (a * b).toFixed(2); },
 
         paginate: function(totalPages, totalItems, currentPage, options) {
             let result = [];

@@ -31,21 +31,10 @@
                         <h4 class="header-title">Chỉnh Sửa tài khoản</h4>
                         <form method="POST" action="/account_customer/{{account_customer.accountid}}?_method=PUT" class="needs-validation mt-3" novalidate="">
                             <div class="form-row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col mb-3">
                                     <div class="form-group">
                                         <label for="account-username">Username</label>
                                         <input type="text" class="form-control" id="account-username" name="username" value="{{account_customer.username}}" required="">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid state.
-                                        </div>
-                                    </div>
-                                </div>
-                        
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <label for="account-password" class="">Password</label>
-                                        <input type="password" class="form-control" id="account-password" name="password" value="{{account_customer.password}}"
-                                            placeholder="" required="">
                                         <div class="invalid-feedback">
                                             Please provide a valid state.
                                         </div>

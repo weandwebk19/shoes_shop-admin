@@ -42,6 +42,14 @@ exports.findEmployeeById = (id) => {
     })
 }
 
+exports.isExists = async (phone) => {
+    const count = await models.employees.count({ where: { phone } });
+    if(count > 0) {
+        return true;
+    }
+    else return false;
+}
+
 exports.findEmployeeByPhone = (phone) => {
     return models.employees.findOne({
         where: {

@@ -42,13 +42,16 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col mb-3">
+                                <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="employee-citizenid">CMND/CCCD</label>
-                                        <input type="text" class="form-control" id="employee-citizenid" name="citizenid" value="{{employee.citizenid}}" required="">
-                                        <div class="invalid-feedback">
-                                            Please fill in the input field.
-                                        </div>
+                                        <input type="text" class="form-control" id="employee-citizenid" name="citizenid" value="{{employee.citizenid}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="employee-address">Địa chỉ</label>
+                                        <input type="text" class="form-control" id="employee-address" name="address" value="{{employee.address}}">
                                     </div>
                                 </div>
                             </div>

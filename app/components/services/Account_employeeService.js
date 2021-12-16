@@ -49,11 +49,25 @@ exports.findEmployeeByPhone = (phone) => {
     })
 }
 
-exports.findAccountByEmployeeid = (id) => {
+exports.findAccountById = (id) => {
     return models.account_employees.findOne({
-        where: {
-            accountid: id
-        },
-        raw: true
-    })
+        where: { accountid: id },
+        raw: true,
+    });
+}
+
+exports.isHasAccount = async (employeeid) => {
+    const count = await models.account_employees.count({ where: { employeeid} });
+    if(count > 0) {
+        return true;
+    }
+    else return false;
+}
+
+exports.isDuplicateUsername= async (username) => {
+    const count = await models.account_employees.count({ where: { username } });
+    if(count > 0) {
+        return true;
+    }
+    else return false;
 }

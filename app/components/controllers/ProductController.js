@@ -5,24 +5,19 @@ const { getPagingData } = require('../../../helpers/pagination');
 const productService = require('../services/ProductServeice');
 
 //[GET] /product
-exports.list = (req, res) => {
+exports.list = async (req, res) => {
     const { page, size, term } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    productService.listProduct(term, limit, offset)
-    .then((data) => {
-        const response  = getPagingData(data, page, limit);
-        res.render('products/product', { 
-            products: response.tutorials, 
-            totalPages: response.totalPages,  
-            currentPage: response.currentPage,
-            totalItems: response.totalItems,
-        });
-        // res.send(response);
-    })
-    .catch(err => {
-        res.render('error', {message: 'Có một vài lỗi xảy ra! Thử lại với thông tin khác!'})
-    })
+    const data = await productService.listProduct(term, limit, offset);
+    const response = getPagingData(data, page, limit);
+    res.render('products/product', {
+        products: response.tutorials,
+        totalPages: response.totalPages,
+        currentPage: response.currentPage,
+        totalItems: response.totalItems,
+    });
+
 }
 
 // [GET] /product/create
@@ -31,111 +26,88 @@ exports.create = (req, res) => {
 }
 
 //[GET] /product/trash
-exports.trash = (req, res) => {
+exports.trash = async (req, res) => {
     const { page, size, term } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    productService.listProductDeleted(term, limit, offset)
-    .then((data) => {
-        const response  = getPagingData(data, page, limit);
-        res.render('products/trash-product', { 
-            products: response.tutorials, 
-            totalPages: response.totalPages,  
-            currentPage: response.currentPage,
-            totalItems: response.totalItems,
-        });
-        // res.send(response);
-    })
-    .catch(err => {
-        res.render('error', {message: 'Có một vài lỗi xảy ra! Thử lại với thông tin khác!'})
-    })
+    const data = await productService.listProductDeleted(term, limit, offset);
+    const response = getPagingData(data, page, limit);
+    res.render('products/trash-product', {
+        products: response.tutorials,
+        totalPages: response.totalPages,
+        currentPage: response.currentPage,
+        totalItems: response.totalItems,
+    });
 }
 
 // [POST] /product/store
-exports.store = (req, res, next) => {
-    const reqBody = req.body;
-    const productObject = {
-        productname: reqBody.productname,
-        price: reqBody.price,
-        color: reqBody.color,
-        status: reqBody.status,
-        description: reqBody.description,
-        image: [reqBody.image1, reqBody.image2, reqBody.image3]
-    }
-    models.products.create(productObject)
-        .then(async () => {
-            const currentProduct = await productService.findProductByReq(reqBody);
-            const shoessizeObject = {
-                productid: currentProduct.productid,
-                size: reqBody.size,
-                amount: reqBody.amount,
-            }
-            models.shoessize.create(shoessizeObject)
-                .then(() => {
-                    res.redirect('/product');
-                })
-                .catch(next);
-        })
-        .catch(next);
+exports.store = async (req, res) => {
+    const product = await models.products.create({
+        productname: req.body.productname,
+        price: req.body.price,
+        color: req.body.color,
+        status: req.body.status,
+        description: req.body.description,
+        image: [].concat(req.body.image)
+    });
+
+    await models.shoessize.create({
+        productid: product.productid,
+        size: req.body.size,
+        amount: req.body.amount,
+    });
+    res.redirect('/product');
 }
 
 //[DELETE] /product/:id
-exports.delete = (req, res, next) => {
-    models.shoessize.destroy({
+exports.delete = async (req, res) => {
+    await models.shoessize.destroy({
+        where: { productid: req.params.id }
+    });
+
+    await models.products.destroy({
         where: { productid: req.params.id }
     })
-        .then(() => {
-            models.products.destroy({
-                where: { productid: req.params.id }
-            })
-                .then(() => res.redirect('back'))
-                .catch(next);
-        })
-        .catch(next);
+    res.redirect('back');
 }
 
 //[DELETE] /product/:id/force
-exports.force = (req, res, next) => {
-    models.orders.destroy({
+exports.force = async (req, res) => {
+    await models.order_products.destroy({
         where: { productid: req.params.id },
         force: true
     });
 
-    models.shoessize.destroy({
+    await models.shoessize.destroy({
+        where: { productid: req.params.id },
+        force: true
+    });
+    await models.products.destroy({
         where: { productid: req.params.id },
         force: true
     })
-        .then(() => {
-            models.products.destroy({
-                where: { productid: req.params.id },
-                force: true
-            })
-                .then(() => res.redirect('back'))
-                .catch(next);
-        })
-        .catch(next);
+    res.redirect('back');
 }
 
 //[GET] /product/:id/edit
 exports.edit = async (req, res) => {
     const product = await productService.findProductById(req.params.id);
-    res.render('products/edit-product', {product});
+    res.render('products/edit-product', { product });
 }
 
 //[PUT] /product/:id
-exports.update = (req, res, next) => {
-    models.products.update(req.body, {
+exports.update = async (req, res) => {
+    req.body.image = [].concat(req.body.image);
+    await models.products.update(req.body, {
         where: {
             productid: req.params.id
         }
-    })
-        .then(() => res.redirect('/product'))
-        .catch(next);
+    });
+    res.redirect('/product');
 }
 
 //[PATCH] /product/:id/restore
-exports.restore = (req, res, next) => {
-    models.products.restore({where: { productid: req.params.id }})
-        .then(() => res.redirect('back'))
-        .catch(next);
+exports.restore = async (req, res) => {
+    await models.products.restore({ where: { productid: req.params.id } })
+    res.redirect('back');
 }
