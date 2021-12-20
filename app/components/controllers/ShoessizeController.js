@@ -11,6 +11,7 @@ exports.list = async (req, res) => {
 
     const data = await shoessizeService.listShoesSize(term, limit, offset);
     const response = getPagingData(data, page, limit);
+
     res.render('shoessizes/shoessize', {
         shoessize: response.tutorials,
         totalPages: response.totalPages,

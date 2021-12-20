@@ -80,7 +80,6 @@
                                         <tbody>
                                             {{#each shoessize}}
                                             <tr>
-                                                {{!-- <th scope="row">{{sum @index 1}}</th> --}}
                                                 <td>{{this.product.productname}}</td>
                                                 <td>{{this.size}}</td>
                                                 <td>{{this.amount}}</td>
@@ -188,22 +187,6 @@
         }
 
         updatePaginate({{ totalPages }}, {{ currentPage }});
-    updateSelectSize({{ totalPages }}, {{ totalItems }});
+        updateSelectSize({{ totalPages }}, {{ totalItems }});
     })
 </script>
-
-<script src="/js/vendor/jquery-2.2.4.min.js"></script>
-
-<!-- bootstrap 4 js -->
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/owl.carousel.min.js"></script>
-<script src="/js/metisMenu.min.js"></script>
-<script src="/js/jquery.slimscroll.min.js"></script>
-<script src="/js/jquery.slicknav.min.js"></script>
-
-<script src="/js/plugins.js"></script>
-<script src="/js/scripts.js"></script>
-<script src="/js/custom.js"></script>
-{{!--
-<script src="/js/paginate.js"></script> --}}

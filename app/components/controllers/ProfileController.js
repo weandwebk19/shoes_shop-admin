@@ -15,27 +15,36 @@ exports.changePassword = async (req, res) => {
     res.render('profiles/change-password');
 }
 
-//[PUT] /profile/password/:id
+//[PUT] /profile/password
 exports.updatePassword = async (req, res) => {
     if (req.body.newPassword !== req.body.confirmPassword) {
-        res.render('profiles/change-password', { message: "Mật khẩu không trùng khớp! Vui lòng nhập lại!" });
-        return;
+        res.status(500).send("Mật khẩu không trùng khớp! Vui lòng nhập lại!");
     }
     else {
         const hashPassword = await bcrypt.hash(req.body.newPassword, saltRounds);
-        await models.account_employees.update({ password: hashPassword }, { where: { accountid: req.params.id } })
-        res.redirect('/profile');
+        await models.account_employees.update({ password: hashPassword }, { where: { accountid: req.body.accountid } })
+        res.json({message: 'Cập nhật thành công!!'});
     }
 }
 
-//[PUT] /profile/info/:id
+//[PUT] /profile/info
 exports.updateInfo = async (req, res) => {
-    await models.employees.update(req.body, { where: { employeeid: req.params.id } })
-    res.redirect('/profile');
+    try {
+        await models.employees.update(req.body, { where: { employeeid: req.body.employeeid } })
+        res.json({message: 'Cập nhật thành công!!'});
+    }
+    catch (err) {
+       res.render('error', { message: "Cập nhật không thành công!"});
+    }
 }
 
-//[PUT] /profile/account/:id
+//[PUT] /profile/account
 exports.updateAccount = async (req, res) => {
-    await models.account_employees.update(req.body, { where: { accountid: req.params.id } });
-    res.redirect('/profile');
+    try {
+        await models.account_employees.update(req.body, { where: { accountid: req.body.accountid } });
+        res.json({message: 'Cập nhật thành công!!', account: req.body});
+    }
+    catch (err) {
+       res.render('error', { message: "Cập nhật không thành công!"});
+    }
 }

@@ -1,29 +1,14 @@
-
-// module.exports = {
-//   HOST: "localhost",
-//   USER: "postgres",
-//   PASSWORD: "1234",
-//   DB: "deadshoes",
-//   dialect: "postgres",
-//   pool: {
-//     max: 5,
-//     min: 0,
-//     acquire: 30000,
-//     idle: 10000
-//   }
-// };
-
-
+require('dotenv').config();
 module.exports = {
-  HOST: "ec2-54-161-164-220.compute-1.amazonaws.com",
-  USER: "ltycnfjfjecaoe",
-  PASSWORD: "d77f1188636ce9def8de42338015a6debc0b62fc6cb8a7a9f111ea3be095ab14",
-  DB: "dfbs6670bg8rs3",
-  dialect: "postgres",
+  HOST: process.env.DB_HOST,
+  USER: process.env.DB_USER,
+  PASSWORD: process.env.DB_PASSWORD,
+  DB: process.env.DB_DATABASE,
+  dialect:process.env.DB_DIALECT,
   pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
+    max: parseInt(process.env.DB_BOOL_MAX),
+    min: parseInt(process.env.DB_BOOL_MIN),
+    acquire: parseInt(process.env.DB_BOOL_ACQUIRE),
+    idle: parseInt(process.env.DB_BOOL_IDLE)
   }
 };

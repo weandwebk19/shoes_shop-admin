@@ -45,8 +45,9 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h4 class="header-title">Thông tin cá nhân</h4>
-                                                <form method="POST" action="/profile/info/{{info.employeeid}}?_method=PUT" class="needs-validation mt-3"
-                                                    novalidate="">
+                                                <form method="POST" name="profile-info-form"
+                                                    action="/profile/info?_method=PUT"
+                                                    class="needs-validation mt-3" novalidate="">
 
                                                     <div class="form-row">
                                                         <div class="col-md-6 mb-3">
@@ -114,9 +115,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                    <input type="hidden" name="employeeid" value="{{info.employeeid}}">
+                                                    <div id="info-message"></div>
                                                     <div class="form-group">
-                                                        <button class="btn btn-primary" type="submit">Cập nhật</button>
+                                                        <button class="btn btn-primary" id="profile-info-btn" type="submit">Cập nhật</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -130,23 +132,24 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h4 class="header-title">Thông tin tài khoản</h4>
-                                                <form method="POST" action="/profile/account/{{account.accountid}}?_method=PUT" class="needs-validation mt-3"
-                                                    novalidate="">
+                                                <form method="POST" name="profile-account-form"
+                                                    class="needs-validation mt-3" novalidate="">
                                                     <div class="form-row">
                                                         <div class="col-md-6 mb-3">
                                                             <div class="form-group">
                                                                 <label for="profile-avatar">Avatar</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="profile-avatar" name="avatar" value="{{account.avatar}}" required="">
+                                                                    id="profile-avatar" name="avatar"
+                                                                    value="{{account.avatar}}" required="">
                                                                 <div class="invalid-feedback">Please provide a valid
                                                                     state.</div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 mb-3">
                                                             <div class="form-group">
-                                                                <img class="col-md-4 product-img"
-                                                                    src="{{#if account.avatar}}{{account.avatar}}{{else}}/images/author/avatar.png{{/if}}" 
-                                                                    class="img-fluid" alt="product-image">
+                                                                <img class="col-md-4" id="profile-avatar-img"
+                                                                    src="{{#if account.avatar}}{{account.avatar}}{{else}}/images/author/avatar.png{{/if}}"
+                                                                    class="img-fluid" alt="avatar">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -155,32 +158,23 @@
                                                             <div class="form-group">
                                                                 <label for="profile-username">Username</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="profile-username" name="username" value="{{account.username}}" required="">
+                                                                    id="profile-username" name="username"
+                                                                    value="{{account.username}}" required="">
                                                                 <div class="invalid-feedback">Please provide a valid
                                                                     state.</div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {{!-- <div class="form-row">
-                                                        <div class="col-md-6 mb-3">
-                                                            <div class="form-group">
-                                                                <label for="profile-password">Password</label>
-                                                                <input type="password" class="form-control"
-                                                                    id="profile-password" name="password">
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
-                                                    <div class="form-row">
-                                                        <div class="col-md-6 mb-3">
-                                                            <div class="form-group">
-                                                                <label for="profile-type">Loại tài khoản</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="profile-type" name="type" value="{{account.type}}" readonly>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <input type="hidden" class="form-control"
+                                                                    id="profile-type" name="type"
+                                                                    value="{{account.type}}">
+                                                    <input type="hidden" class="form-control"
+                                                                    id="profile-accountid" name="accountid"
+                                                                    value="{{account.accountid}}">
+
+                                                    <div id="account-message"></div>
                                                     <div class="form-group">
-                                                        <button class="btn btn-primary" type="submit">Cập nhật</button>
+                                                        <button class="btn btn-primary" id="profile-account-btn" type="submit">Cập nhật</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -194,21 +188,66 @@
             </div>
         </div>
     </div>
-
-
 </div>
 <!-- main content area end -->
 
-<!-- jquery latest version -->
-<script src="/js/vendor/jquery-2.2.4.min.js"></script>
-<!-- bootstrap 4 js -->
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/owl.carousel.min.js"></script>
-<script src="/js/metisMenu.min.js"></script>
-<script src="/js/jquery.slimscroll.min.js"></script>
-<script src="/js/jquery.slicknav.min.js"></script>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(e) {
+        $('#profile-info-btn').on('click', function(e) {
+            e.preventDefault();
+            let name = $('input[name="name"]').val();
+            let gender = $('input[name="gender"]').val();
+            let citizenid = $('input[name="citizenid"]').val();
+            let address = $('input[name="address"]').val();
+            let email = $('input[name="email"]').val();
+            let phone = $('input[name="phone"]').val();
+            let employeeid = $('input[name="employeeid"]').val();
 
-<!-- others plugins -->
-<script src="/js/plugins.js"></script>
-<script src="/js/scripts.js"></script>
+            $.ajax({
+                url: '/profile/info?_method=PUT',
+                method: 'POST',
+                data: {
+                    name,
+                    gender,
+                    citizenid,
+                    address,
+                    email,
+                    phone,
+                    employeeid
+                },
+                success: function (data) {
+                    $('#info-message').html(`
+                    <div class="alert alert-success" role="alert"><strong>Well done!</strong>${data.message}</div>
+                    `)
+                }
+            })
+        })
+
+        $('#profile-account-btn').on('click', function(e) {
+            e.preventDefault();
+            let avatar = $('input[name="avatar"]').val();
+            let username = $('input[name="username"]').val();
+            let type = $('input[name="type"]').val();
+            let accountid = $('input[name="accountid"]').val();
+
+            $.ajax({
+                url: '/profile/account?_method=PUT',
+                method: 'POST',
+                data: {
+                    avatar,
+                    username,
+                    type,
+                    accountid
+                },
+                success: function (data) {
+                    $('#account-message').html(`
+                    <div class="alert alert-success" role="alert"><strong>Well done!</strong>${data.message}</div>
+                    `)
+
+                    $('#profile-avatar-img').attr('src', data.account.avatar);
+                }
+            })
+        })
+
+    })
+</script>

@@ -1,4 +1,5 @@
 const createError = require('http-errors');
+const dotenv = require('dotenv');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -12,6 +13,7 @@ const session = require('express-session');
 const passport = require('./app/auth/passport');
 
 const app = express();
+dotenv.config({ path: '.env' });
 
 // Connect to Db
 sequelize.authenticate()
@@ -19,8 +21,8 @@ sequelize.authenticate()
     console.log('Connection has been established successfully.');
   })
   .catch(() => {
-    console.error('Unable to connect to the database:', error);
-    exit(1);
+    console.error('Unable to connect to the database');
+    return;
   })
 
 app.use(logger('dev'));
@@ -62,6 +64,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
 
 module.exports = app;
