@@ -45,9 +45,8 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h4 class="header-title">Thông tin cá nhân</h4>
-                                                <form method="POST" name="profile-info-form"
-                                                    action="/profile/info?_method=PUT"
-                                                    class="needs-validation mt-3" novalidate="">
+                                                <form method="POST" name="profile-info-form" class="needs-validation mt-3"
+                                                    novalidate="">
 
                                                     <div class="form-row">
                                                         <div class="col-md-6 mb-3">
@@ -63,11 +62,12 @@
                                                         <div class="col-md-6 mb-3">
                                                             <div class="form-group">
                                                                 <label for="profile-gender">Giới tính</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="profile-gender" name="gender"
-                                                                    value="{{info.gender}}" required="">
-                                                                <div class="invalid-feedback">Please provide a valid
-                                                                    state.</div>
+                                                                <select id="profile-gender" class="form-control" name="gender">
+                                                                    <option value="{{info.gender}}">{{info.gender}}</option>
+                                                                    <option value="Nam">Nam</option>
+                                                                    <option value="Nữ">Nữ</option>
+                                                                    <option value="Khác">Khác</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -118,7 +118,8 @@
                                                     <input type="hidden" name="employeeid" value="{{info.employeeid}}">
                                                     <div id="info-message"></div>
                                                     <div class="form-group">
-                                                        <button class="btn btn-primary" id="profile-info-btn" type="submit">Cập nhật</button>
+                                                        <button class="btn btn-primary" id="profile-info-btn"
+                                                            type="submit">Cập nhật</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -165,16 +166,15 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <input type="hidden" class="form-control"
-                                                                    id="profile-type" name="type"
-                                                                    value="{{account.type}}">
-                                                    <input type="hidden" class="form-control"
-                                                                    id="profile-accountid" name="accountid"
-                                                                    value="{{account.accountid}}">
+                                                    <input type="hidden" class="form-control" id="profile-type"
+                                                        name="type" value="{{account.type}}">
+                                                    <input type="hidden" class="form-control" id="profile-accountid"
+                                                        name="accountid" value="{{account.accountid}}">
 
                                                     <div id="account-message"></div>
                                                     <div class="form-group">
-                                                        <button class="btn btn-primary" id="profile-account-btn" type="submit">Cập nhật</button>
+                                                        <button class="btn btn-primary" id="profile-account-btn"
+                                                            type="submit">Cập nhật</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -192,11 +192,11 @@
 <!-- main content area end -->
 
 <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function(e) {
-        $('#profile-info-btn').on('click', function(e) {
+    document.addEventListener("DOMContentLoaded", function (e) {
+        $('#profile-info-btn').on('click', function (e) {
             e.preventDefault();
             let name = $('input[name="name"]').val();
-            let gender = $('input[name="gender"]').val();
+            let gender = $('select[name="gender"]').val();
             let citizenid = $('input[name="citizenid"]').val();
             let address = $('input[name="address"]').val();
             let email = $('input[name="email"]').val();
@@ -223,7 +223,7 @@
             })
         })
 
-        $('#profile-account-btn').on('click', function(e) {
+        $('#profile-account-btn').on('click', function (e) {
             e.preventDefault();
             let avatar = $('input[name="avatar"]').val();
             let username = $('input[name="username"]').val();

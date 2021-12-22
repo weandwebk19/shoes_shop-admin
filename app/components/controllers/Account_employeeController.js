@@ -6,10 +6,10 @@ const { getPagination } = require('../../../helpers/pagination');
 const { getPagingData } = require('../../../helpers/pagination');
 
 exports.list = async (req, res) => {
-    const { page, size, term } = req.query;
+    const { page, size, term, column, type } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    const data = await accountEmployeeService.listAccount(term, limit, offset);
+    const data = await accountEmployeeService.listAccount(term, limit, offset, column, type);
 
     const response = getPagingData(data, page, limit);
     res.render('account_employees/account_employee', {
@@ -22,10 +22,10 @@ exports.list = async (req, res) => {
 
 //[GET] /account_employee/trash
 exports.trash = async (req, res) => {
-    const { page, size, term } = req.query;
+    const { page, size, term, column, type } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    const data = await accountEmployeeService.listAccountDeleted(term, limit, offset);
+    const data = await accountEmployeeService.listAccountDeleted(term, limit, offset, column, type);
 
     const response = getPagingData(data, page, limit);
     res.render('account_employees/trash-account_employee', {

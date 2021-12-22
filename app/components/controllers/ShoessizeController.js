@@ -6,10 +6,10 @@ const shoessizeService = require('../services/ShoessizeServices');
 
 //[GET] /shoessize
 exports.list = async (req, res) => {
-    const { page, size, term } = req.query;
+    const { page, size, term, column, type } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    const data = await shoessizeService.listShoesSize(term, limit, offset);
+    const data = await shoessizeService.listShoesSize(term, limit, offset, column, type);
     const response = getPagingData(data, page, limit);
 
     res.render('shoessizes/shoessize', {
@@ -27,10 +27,10 @@ exports.create = (req, res) => {
 
 //[GET] /shoessize/trash
 exports.trash = async (req, res) => {
-    const { page, size, term } = req.query;
+    const { page, size, term, column, type } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    const data = await shoessizeService.listShoesSizeDeleted(term, limit, offset);
+    const data = await shoessizeService.listShoesSizeDeleted(term, limit, offset, column, type);
 
     const response = getPagingData(data, page, limit);
     res.render('shoessizes/trash-shoessize', {

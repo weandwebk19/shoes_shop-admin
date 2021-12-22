@@ -5,10 +5,10 @@ const { getPagingData } = require('../../../helpers/pagination');
 const employeeService = require('../services/EmployeeService');
 
 exports.list = async (req, res) => {
-    const { page, size, term } = req.query;
+    const { page, size, term, column, type } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    const data = await employeeService.listEmployee(term, limit, offset);
+    const data = await employeeService.listEmployee(term, limit, offset, column, type);
 
     const response = getPagingData(data, page, limit);
     res.render('employees/employee', {
@@ -57,10 +57,10 @@ exports.delete = async (req, res) => {
 
 //[GET] /employee/trash
 exports.trash = async (req, res) => {
-    const { page, size, term } = req.query;
+    const { page, size, term, column, type } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    const data = await employeeService.listEmployeeDeleted(term, limit, offset);
+    const data = await employeeService.listEmployeeDeleted(term, limit, offset, column, type);
 
     const response = getPagingData(data, page, limit);
     res.render('employees/trash-employee', {

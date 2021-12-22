@@ -6,10 +6,10 @@ const customerService = require('../services/CustomerService');
 
 // [GET] /customer
 exports.list = async (req, res) => {
-    const { page, size, term } = req.query;
+    const { page, size, term, column, type } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    const data = await customerService.listCustomer(term, limit, offset);
+    const data = await customerService.listCustomer(term, limit, offset, column, type);
 
     const response = getPagingData(data, page, limit);
     res.render('customers/customer', {
@@ -27,10 +27,10 @@ exports.create = (req, res) => {
 
 //[GET] /customer/trash
 exports.trash = async (req, res) => {
-    const { page, size, term } = req.query;
+    const { page, size, term, column, type } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    const data = await customerService.listCustomerDeleted(term, limit, offset);
+    const data = await customerService.listCustomerDeleted(term, limit, offset, column, type);
 
     const response = getPagingData(data, page, limit);
     res.render('customers/trash-customer', {
@@ -64,7 +64,6 @@ exports.delete = async (req, res, next) => {
     await models.account_customers.destroy({ where: { customerid: req.params.id } })
     await models.customers.destroy({ where: { customerid: req.params.id } })
     res.redirect('back');
-
 }
 
 //[DELETE] /customer/:id/force

@@ -4,7 +4,7 @@ const pagePrev = $('#dataTable_previous');
 const pageNext = $('#dataTable_next');
 const selectSize = $('select[name="dataTable_length"]');
 const searchForm = $('form[name="search-form"]');
-//console.log(searchForm.length);
+const sortBtn = $('.sort-btn');
 
 // Paginate
 pageLinks.on('click', (event) => {
@@ -52,10 +52,23 @@ function updateSelectSize(totalPages, totalItems) {
 // Search
 searchForm.on('submit', function(event) {
   event.preventDefault();
-  const url = updateQueryStringParameter(event.target.baseURI, 'term', $('input[name="search-input"]').val());
+  let url = updateQueryStringParameter(event.target.baseURI, 'page', 0);
+  url = updateQueryStringParameter(url, 'term', $('input[name="search-input"]').val());
   window.location = url;
 })
 
+//Sort
+sortBtn.on('click', function(event) {
+  event.preventDefault();
+  const field = $(this).data('field');
+  const type = $(this).data('type');
+
+  let url = updateQueryStringParameter(event.target.baseURI, '_sort', '');
+  url = updateQueryStringParameter(url, 'column', field);
+  url = updateQueryStringParameter(url, 'type', type);
+  
+  window.location = url;
+})
 
 function updateQueryStringParameter(uri, key, value) {
   var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");

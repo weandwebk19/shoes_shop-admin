@@ -59,12 +59,12 @@
                                     <table class="table text-center">
                                         <thead class="text-uppercase bg-primary">
                                             <tr class="text-white">
-                                                <th>Mã nhân viên</th>
-                                                <th>Username</th>
-                                                <th>Tên nhân viên</th>
-                                                <th>Số điện thoại</th>
-                                                <th>Email</th>
-                                                <th>Loại</th>
+                                                <th>Mã nhân viên {{{sortable 'employeeid' _sort}}}</th>
+                                                <th>Username {{{sortable 'username' _sort}}}</th>
+                                                <th>Tên nhân viên {{{sortable 'name' _sort}}}</th>
+                                                <th>Số điện thoại {{{sortable 'phone' _sort}}}</th>
+                                                <th>Email {{{sortable 'email' _sort}}}</th>
+                                                <th>Thời gian xóa{{{sortable 'deletedAt' _sort}}}</th>
                                                 <th>Tác vụ</th>
                                             </tr>
                                         </thead>
@@ -76,7 +76,7 @@
                                                 <td>{{this.employee.name}}</td>
                                                 <td>{{this.employee.phone}}</td>
                                                 <td>{{this.employee.email}}</td>
-                                                <td>{{this.type}}</td>
+                                                <td>{{this.deletedAt}}</td>
                                                 <td>
                                                     <a href="" class="btn-restore-account_employee mr-3"
                                                         data-id="{{this.accountid}}"

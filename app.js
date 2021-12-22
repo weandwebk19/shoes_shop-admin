@@ -41,6 +41,7 @@ app.engine('.hbs', handlebars.engine);
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
 
+//passport middleware
 app.use((req, res, next) => {
   res.locals.user=req.user;
   next();

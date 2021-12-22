@@ -6,10 +6,10 @@ const productService = require('../services/ProductServeice');
 
 //[GET] /product
 exports.list = async (req, res) => {
-    const { page, size, term } = req.query;
+    const { page, size, term, column, type } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    const data = await productService.listProduct(term, limit, offset);
+    const data = await productService.listProduct(term, limit, offset, column, type);
     const response = getPagingData(data, page, limit);
     res.render('products/product', {
         products: response.tutorials,
@@ -27,10 +27,10 @@ exports.create = (req, res) => {
 
 //[GET] /product/trash
 exports.trash = async (req, res) => {
-    const { page, size, term } = req.query;
+    const { page, size, term, column, type } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    const data = await productService.listProductDeleted(term, limit, offset);
+    const data = await productService.listProductDeleted(term, limit, offset, column, type);
     const response = getPagingData(data, page, limit);
     res.render('products/trash-product', {
         products: response.tutorials,

@@ -6,13 +6,17 @@ const orderRouter = require('./order.js');
 const account_employeeRouter = require('./account_employee.js');
 const account_customerRouter = require('./account_customer.js');
 const feedbackRouter = require('./feedback.js');
-const mapsRouter = require('./maps.js');
 const loginRouter = require('./login.js');
 const logoutRouter = require('./logout.js');
 const profileRouter = require('./profile.js');
 const homeRouter = require('./home.js');
 
+const permissionMiddleware = require('../components/middlewares/PermissionMiddleware');
+const sortMiddleware = require('../components/middlewares/SortMiddleware');
+
 function route(app) {
+      app.use(sortMiddleware); // sort middleware
+
       app.use('/login', loginRouter);
       
       app.use(function (req, res, next) {
@@ -25,13 +29,12 @@ function route(app) {
 
       app.use('/product', productRouter);
       app.use('/shoessize', shoessizeRouter);
-      app.use('/employee', employeeRouter);
+      app.use('/employee', permissionMiddleware, employeeRouter);
       app.use('/customer', customerRouter);
       app.use('/order', orderRouter);
-      app.use('/account_employee', account_employeeRouter);
+      app.use('/account_employee',permissionMiddleware, account_employeeRouter);
       app.use('/account_customer', account_customerRouter);
-      app.use('/feedback', feedbackRouter);
-      app.use('/maps', mapsRouter);
+      app.use('/feedback', permissionMiddleware, feedbackRouter);
 
       app.use('/logout', logoutRouter);
       app.use('/profile', profileRouter);             

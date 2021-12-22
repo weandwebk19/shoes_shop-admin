@@ -64,6 +64,29 @@ function hbsHelpers(hbs) {
           
           return limit * currentPage + 1;
         },
+
+        sortable: (field, sort) => {
+          const sortType = field === sort.column ? sort.type : 'default';
+  
+          const icons = {
+            default: 'fa fa-sort',
+            desc: 'fa fa-sort-amount-desc',
+            asc: 'fa fa-sort-amount-asc'
+          }
+  
+          const types = {
+            default: 'desc',
+            desc: 'asc',
+            asc: 'desc',
+          }
+  
+          const icon = icons[sortType];
+          const type = types[sortType];
+          return `<a href="" class="sort-btn text-dark ml-1" data-field=${field} data-type=${type}>
+          <i class="${icon}"></i>
+          </a>`
+        },
+
       }
   
     });

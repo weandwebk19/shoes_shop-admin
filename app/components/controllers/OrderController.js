@@ -7,15 +7,16 @@ const orderService = require('../services/OrderService');
 
 // [GET] /order
 exports.list = async (req, res) => {
-    const { page, size, term } = req.query;
+    const { page, size, term, column, type } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    let orders = await orderService.listOrder(term, limit, offset);
+    let orders = await orderService.listOrder(term, limit, offset, column, type);
 
     for (let i = 0, j = orders.count; i < j; i++) {
-        const orderProducts = await orderService.listOrderProduct(orders.rows[i].orderid, term);
+        const orderProducts = await orderService.listOrderProduct(orders.rows[i].orderid, term, column, type);
         orders.rows[i].orderProducts = orderProducts;
     }
+
     const response  = getPagingData(orders, page, limit);
 
     res.render('orders/order', { 
@@ -28,13 +29,13 @@ exports.list = async (req, res) => {
 
 //[GET] /order/trash
 exports.trash = async (req, res) => {
-    const { page, size, term } = req.query;
+    const { page, size, term, column, type } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    let orders = await orderService.listOrderDeleted(term, limit, offset);
+    let orders = await orderService.listOrderDeleted(term, limit, offset, column, type);
 
     for (let i = 0, j = orders.count; i < j; i++) {
-        const orderProducts = await orderService.listOrderProductDeleted(orders.rows[i].orderid, term);
+        const orderProducts = await orderService.listOrderProductDeleted(orders.rows[i].orderid, term, column, type);
         orders.rows[i].orderProducts = orderProducts;
     }
     const response  = getPagingData(orders, page, limit);

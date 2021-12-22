@@ -71,12 +71,12 @@
                                     <table class="table text-center">
                                         <thead class="text-uppercase bg-primary">
                                             <tr class="text-white">
-                                                <th>Mã khách hàng</th>
-                                                <th>Username</th>
-                                                <th>Tên khách hàng</th>
-                                                <th>Số điện thoại</th>
-                                                <th>Email</th>
-                                                <th>Địa chỉ</th>
+                                                <th>Mã khách hàng {{{sortable 'customerid' _sort}}}</th>
+                                                <th>Username {{{sortable 'username' _sort}}}</th>
+                                                <th>Tên khách hàng {{{sortable 'name' _sort}}}</th>
+                                                <th>Số điện thoại {{{sortable 'phone' _sort}}}</th>
+                                                <th>Email {{{sortable 'email' _sort}}}</th>
+                                                <th>Địa chỉ {{{sortable 'address' _sort}}}</th>
                                                 <th>Tác vụ</th>
                                             </tr>
                                         </thead>
@@ -91,7 +91,7 @@
                                                 <td>{{this.customer.address}}</td>
                                                 <td>
                                                     <a href="/account_customer/{{this.accountid}}/edit"
-                                                        class="edit-data" title="Chỉnh sửa tài khoản khách hàng">
+                                                        class="edit-data mr-3" title="Chỉnh sửa tài khoản khách hàng">
                                                         <i class="fa fa-edit"></i>
 
                                                         <a href="" class="remove-data" title="Xóa tài khoản khách hàng"
