@@ -17,11 +17,11 @@ exports.list = async (req, res) => {
         orders.rows[i].orderProducts = orderProducts;
     }
 
-    const response  = getPagingData(orders, page, limit);
+    const response = getPagingData(orders, page, limit);
 
-    res.render('orders/order', { 
-        orders: response.tutorials, 
-        totalPages: response.totalPages,  
+    res.render('orders/order', {
+        orders: response.tutorials,
+        totalPages: response.totalPages,
         currentPage: response.currentPage,
         totalItems: response.totalItems,
     });
@@ -38,11 +38,11 @@ exports.trash = async (req, res) => {
         const orderProducts = await orderService.listOrderProductDeleted(orders.rows[i].orderid, term, column, type);
         orders.rows[i].orderProducts = orderProducts;
     }
-    const response  = getPagingData(orders, page, limit);
+    const response = getPagingData(orders, page, limit);
 
-    res.render('orders/trash-order', { 
-        orders: response.tutorials, 
-        totalPages: response.totalPages,  
+    res.render('orders/trash-order', {
+        orders: response.tutorials,
+        totalPages: response.totalPages,
         currentPage: response.currentPage,
         totalItems: response.totalItems,
     });
@@ -60,7 +60,8 @@ exports.store = async (req, res) => {
     const sizes = [].concat(req.body.size);
     const len = productnames.length;
 
-    orderService.checkProductName(productnames).then(async (products) => {
+    try {
+        const products = await orderService.checkProductName(productnames);
         if (products.length == len) {
             let customer = await orderService.findCustomerByPhone(req.body.customerphone);
 
@@ -72,8 +73,8 @@ exports.store = async (req, res) => {
                     address: req.body.customeraddress,
                 });
             }
-            else { 
-                customer = await models.customers.update({
+            else {
+                await models.customers.update({
                     name: req.body.customername,
                     phone: req.body.customerphone,
                     email: req.body.customeremail,
@@ -83,12 +84,17 @@ exports.store = async (req, res) => {
             var newOrder = await models.orders.create({ customerid: customer.customerid });
 
             for (let i = 0; i < len; i++) {
-                await models.order_products.create({
-                    orderid: newOrder.orderid,
-                    productid: products[i].productid,
-                    amount: amounts[i],
-                    size: parseInt(sizes[i]),
-                });
+                try {
+                    await models.order_products.create({
+                        orderid: newOrder.orderid,
+                        productid: products[i].productid,
+                        amount: amounts[i],
+                        size: parseInt(sizes[i]),
+                    });
+                }
+                catch (err) {
+                    res.render('error', { message: `Vui lòng chọn kích thước khác nhau giữa các sản phẩm!` });
+                }
             }
 
             let totalPrice = 0;
@@ -103,8 +109,10 @@ exports.store = async (req, res) => {
             else { res.redirect('/order') }
         }
         else { res.render('error', { message: `Tên sản phẩm chưa đúng! Vui lòng kiểm tra lại!` }) }
-    })
-    .catch(err => { res.render('error', { message: `Tên sản phẩm chưa đúng định dạng! Vui lòng kiểm tra lại!` }) });
+    }
+    catch (err) {
+        res.render('error', { message: `Tên sản phẩm chưa đúng định dạng! Vui lòng kiểm tra lại!` });
+    }
 }
 
 //[DELETE] /order/:id
@@ -133,6 +141,7 @@ exports.edit = async (req, res) => {
 exports.update = async (req, res) => {
     const amounts = [].concat(req.body.amount);
     const sizes = [].concat(req.body.size);
+    const oldSizes = [].concat(req.body.oldsize);
     const productids = [].concat(req.body.productid);
     const len = amounts.length;
 
@@ -146,13 +155,13 @@ exports.update = async (req, res) => {
             address: req.body.customeraddress,
         });
     }
-    else { 
-        customer = await models.customers.update({
+    else {
+        await models.customers.update({
             name: req.body.customername,
             phone: req.body.customerphone,
             email: req.body.customeremail,
             address: req.body.customeraddress,
-        }, { where: { customerid: customer.customerid }});
+        }, { where: { customerid: customer.customerid } });
     }
     await models.orders.update(
         { customerid: customer.customerid },
@@ -161,15 +170,21 @@ exports.update = async (req, res) => {
         });
 
     for (let i = 0; i < len; i++) {
-        await models.order_products.update({
-            //productid: productids[i],
-            amount: amounts[i],
-            size: parseInt(sizes[i]),
-        }, {
-            where: { orderid: req.params.id, 
-                productid: productids[i]
-            }
-        });
+        try{
+            await models.order_products.update({
+                amount: amounts[i],
+                size: parseInt(sizes[i]),
+            }, {
+                where: {
+                    orderid: req.params.id,
+                    productid: productids[i],
+                    size: parseInt(oldSizes[i])
+                }
+            });
+        }
+        catch (err) {
+            res.render('error', { message: `Vui lòng chọn kích thước khác nhau giữa các sản phẩm!` });
+        }
     }
 
     let totalPrice = 0;

@@ -19,14 +19,14 @@ module.exports = function(sequelize, DataTypes) {
         key: 'productid'
       }
     },
-    amount: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1
-    },
     size: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: false,
+      primaryKey: true
+    },
+    amount: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     sequelize,
@@ -41,6 +41,7 @@ module.exports = function(sequelize, DataTypes) {
         fields: [
           { name: "orderid" },
           { name: "productid" },
+          { name: "size" },
         ]
       },
     ]
