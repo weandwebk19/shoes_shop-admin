@@ -93,7 +93,7 @@ exports.store = async (req, res) => {
                     });
                 }
                 catch (err) {
-                    res.render('error', { message: `Vui lòng chọn kích thước khác nhau giữa các sản phẩm!` });
+                   res.render('error', { message: `Sản phẩm bị trùng sẽ không được ghi nhận!` });
                 }
             }
 
@@ -183,7 +183,7 @@ exports.update = async (req, res) => {
             });
         }
         catch (err) {
-            res.render('error', { message: `Vui lòng chọn kích thước khác nhau giữa các sản phẩm!` });
+            res.render('error', { message: `Sản phẩm bị trùng sẽ không được ghi nhận!` });
         }
     }
 
