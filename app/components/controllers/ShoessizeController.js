@@ -43,7 +43,12 @@ exports.trash = async (req, res) => {
 
 // [POST] /shoessize/store
 exports.store = async (req, res) => {
-    await models.shoessize.create(req.body);
+    try {
+        await models.shoessize.create(req.body);
+    }
+    catch (err) {
+        res.render('error', { message: `Kích thước bị trùng sẽ không được ghi nhận!` });
+    }
     res.redirect('/shoessize');
 }
 

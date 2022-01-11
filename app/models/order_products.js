@@ -26,7 +26,13 @@ module.exports = function(sequelize, DataTypes) {
     },
     amount: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true,
+      defaultValue: 1
+    },
+    ispurchase: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false
     }
   }, {
     sequelize,
@@ -36,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
     paranoid: true,
     indexes: [
       {
-        name: "order_products_pkey",
+        name: "orders_products_pkey",
         unique: true,
         fields: [
           { name: "orderid" },
