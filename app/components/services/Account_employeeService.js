@@ -63,9 +63,25 @@ exports.findEmployeeByPhone = (phone) => {
     })
 }
 
+exports.findEmployeeByEmail = (email) => {
+    return models.employees.findOne({
+        where: {
+            email
+        },
+        raw: true
+    })
+}
+
 exports.findAccountById = (id) => {
     return models.account_employees.findOne({
         where: { accountid: id },
+        raw: true,
+    });
+}
+
+exports.findAccountByEmployee = (id) => {
+    return models.account_employees.findOne({
+        where: { employeeid: id },
         raw: true,
     });
 }

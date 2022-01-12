@@ -15,7 +15,7 @@ exports.changePassword = async (req, res) => {
     res.render('profiles/change-password');
 }
 
-//[PUT] /profile/password
+//[PUT] /profile/change-password
 exports.updatePassword = async (req, res) => {
     if (req.body.newPassword !== req.body.confirmPassword) {
         res.status(500).send("Mật khẩu không trùng khớp! Vui lòng nhập lại!");

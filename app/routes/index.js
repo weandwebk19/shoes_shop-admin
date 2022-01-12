@@ -9,36 +9,30 @@ const feedbackRouter = require('./feedback.js');
 const loginRouter = require('./login.js');
 const logoutRouter = require('./logout.js');
 const profileRouter = require('./profile.js');
+const passwordRouter = require('./password.js');
 const homeRouter = require('./home.js');
 
 const permissionMiddleware = require('../components/middlewares/PermissionMiddleware');
 const sortMiddleware = require('../components/middlewares/SortMiddleware');
+const AuthMiddleware = require('../components/middlewares/AuthMiddleware');
 
 function route(app) {
       app.use(sortMiddleware); // sort middleware
 
       app.use('/login', loginRouter);
-      
-      app.use(function (req, res, next) {
-            if (req.user == null) {
-                  res.redirect('/login');
-            } else {
-                  next();
-            }
-      });
+      app.use('/product', AuthMiddleware, productRouter);
+      app.use('/shoessize',AuthMiddleware, shoessizeRouter);
+      app.use('/employee',AuthMiddleware, permissionMiddleware, employeeRouter);
+      app.use('/customer',AuthMiddleware, customerRouter);
+      app.use('/order',AuthMiddleware, orderRouter);
+      app.use('/account_employee',AuthMiddleware,permissionMiddleware, account_employeeRouter);
+      app.use('/account_customer',AuthMiddleware, account_customerRouter);
+      app.use('/feedback',AuthMiddleware, permissionMiddleware, feedbackRouter);
 
-      app.use('/product', productRouter);
-      app.use('/shoessize', shoessizeRouter);
-      app.use('/employee', permissionMiddleware, employeeRouter);
-      app.use('/customer', customerRouter);
-      app.use('/order', orderRouter);
-      app.use('/account_employee',permissionMiddleware, account_employeeRouter);
-      app.use('/account_customer', account_customerRouter);
-      app.use('/feedback', permissionMiddleware, feedbackRouter);
-
-      app.use('/logout', logoutRouter);
-      app.use('/profile', profileRouter);             
-      app.use('/', homeRouter);             
+      app.use('/logout', AuthMiddleware, logoutRouter);
+      app.use('/profile',AuthMiddleware, profileRouter);             
+      app.use('/password-reset',passwordRouter);             
+      app.use('/',AuthMiddleware, homeRouter);             
 }
 
 module.exports = route;
