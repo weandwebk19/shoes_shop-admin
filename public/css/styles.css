@@ -2656,3 +2656,7 @@ table.dataTable thead td {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
 }
+
+.product-img {
+    max-height: 70px;
+}

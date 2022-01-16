@@ -90,14 +90,16 @@
                                                 <td>{{this.customer.email}}</td>
                                                 <td>{{this.customer.address}}</td>
                                                 <td>
-                                                    <a href="/account_customer/{{this.accountid}}/edit"
-                                                        class="edit-data mr-3" title="Chỉnh sửa tài khoản khách hàng">
-                                                        <i class="fa fa-edit"></i>
+                                                    <div class="row justify-content-around">
+                                                        <a href="/account_customer/{{this.accountid}}/edit"
+                                                            class="edit-data mr-3" title="Chỉnh sửa tài khoản khách hàng">
+                                                            <i class="fa fa-edit"></i>
 
-                                                        <a href="" class="remove-data" title="Xóa tài khoản khách hàng"
-                                                            data-id="{{this.accountid}}" data-toggle="modal"
-                                                            data-target="#delete-account_customer-modal"><i
-                                                                class="fa fa-remove"></i></a>
+                                                            <a href="" class="remove-data" title="Xóa tài khoản khách hàng"
+                                                                data-id="{{this.accountid}}" data-toggle="modal"
+                                                                data-target="#delete-account_customer-modal"><i
+                                                                    class="fa fa-remove"></i></a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             {{/each}}

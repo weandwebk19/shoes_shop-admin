@@ -5,7 +5,7 @@ const Op = Sequelize.Op;
 exports.listAccount = (term, limit, offset, column, type) => {
     const condition = term? {[Op.or]: [ {username: {[Op.like]: `%${term}%`}}, 
     {'$employee.name$': {[Op.like]: `%${term}%`}},
-    {'$employee.email':  {[Op.like]: `%${term}%`}},
+    {'$employee.email$':  {[Op.like]: `%${term}%`}},
     {'$employee.phone$': {[Op.like]: `%${term}%`}}]}:null ;
     
     const orderBy = column ? (
@@ -31,7 +31,7 @@ exports.listAccount = (term, limit, offset, column, type) => {
 exports.listAccountDeleted = (term, limit, offset, column, type) => {
     const condition = term? {[Op.or]: [ {username: {[Op.like]: `%${term}%`}}, 
     {'$employee.name$': {[Op.like]: `%${term}%`}},
-    {'$employee.email':  {[Op.like]: `%${term}%`}},
+    {'$employee.email$':  {[Op.like]: `%${term}%`}},
     {'$employee.phone$': {[Op.like]: `%${term}%`}}], deletedAt:{[Op.ne]: null}}:{deletedAt:{[Op.ne]: null}} ;
 
     const orderBy = column ? (

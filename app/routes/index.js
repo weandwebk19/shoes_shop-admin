@@ -5,7 +5,6 @@ const customerRouter = require('./customer.js');
 const orderRouter = require('./order.js');
 const account_employeeRouter = require('./account_employee.js');
 const account_customerRouter = require('./account_customer.js');
-const feedbackRouter = require('./feedback.js');
 const loginRouter = require('./login.js');
 const logoutRouter = require('./logout.js');
 const profileRouter = require('./profile.js');
@@ -27,7 +26,6 @@ function route(app) {
       app.use('/order',AuthMiddleware, orderRouter);
       app.use('/account_employee',AuthMiddleware,permissionMiddleware, account_employeeRouter);
       app.use('/account_customer',AuthMiddleware, account_customerRouter);
-      app.use('/feedback',AuthMiddleware, permissionMiddleware, feedbackRouter);
 
       app.use('/logout', AuthMiddleware, logoutRouter);
       app.use('/profile',AuthMiddleware, profileRouter);             

@@ -31,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ARRAY(DataTypes.TEXT),
       allowNull: true
     },
-    branch: {
+    brand: {
       type: DataTypes.STRING(2048),
       allowNull: true
     }

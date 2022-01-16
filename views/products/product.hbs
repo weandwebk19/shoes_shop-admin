@@ -74,7 +74,7 @@
                                                 <th>Tên sản phẩm {{{sortable 'productname' _sort}}}</th>
                                                 <th>Màu sắc {{{sortable 'color' _sort}}}</th>
                                                 <th>Giá {{{sortable 'price' _sort}}}</th>
-                                                <th>Mô tả {{{sortable 'description' _sort}}}</th>
+                                                <th>Hình ảnh {{{sortable 'image' _sort}}}</th>
                                                 <th>Tình <br> trạng {{{sortable 'status' _sort}}}</th>
                                                 <th>Sửa / Xóa</th>
                                             </tr>
@@ -86,19 +86,26 @@
                                                 <td>{{this.productname}}</td>
                                                 <td>{{this.color}}</td>
                                                 <td>{{this.price}}$</td>
-                                                <td class="product-description">{{this.description}}</td>
+                                                {{!-- <td class="product-description">{{this.description}}</td> --}}
+                                                <td class="row">
+                                                    {{#each this.image}}
+                                                    <div class="col p-0">
+                                                        <img src="{{this}}" class="product-img"/>
+                                                    </div>
+                                                    {{/each}}
+                                                </td>
                                                 <td>{{this.status}}</td>
                                                 <td>
                                                     <div class="row justify-content-around">
-                                                    <a href="/product/{{this.productid}}/edit" class="edit-data"
-                                                        title="Chỉnh sửa sản phẩm">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
+                                                        <a href="/product/{{this.productid}}/edit" class="edit-data"
+                                                            title="Chỉnh sửa sản phẩm">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
 
-                                                    <a href="" class="remove-data" title="Xóa sản phẩm"
-                                                        data-id="{{this.productid}}" data-toggle="modal"
-                                                        data-target="#delete-product-modal"><i
-                                                            class="fa fa-remove"></i></a>
+                                                        <a href="" class="remove-data" title="Xóa sản phẩm"
+                                                            data-id="{{this.productid}}" data-toggle="modal"
+                                                            data-target="#delete-product-modal"><i
+                                                                class="fa fa-remove"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>
