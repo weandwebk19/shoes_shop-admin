@@ -8,7 +8,6 @@ var _order_products = require("./order_products");
 var _orders = require("./orders");
 var _products = require("./products");
 var _shoessize = require("./shoessize");
-var _sliders = require("./sliders");
 var _wishlist = require("./wishlist");
 var _wishlist_products = require("./wishlist_products");
 
@@ -22,7 +21,6 @@ function initModels(sequelize) {
   var orders = _orders(sequelize, DataTypes);
   var products = _products(sequelize, DataTypes);
   var shoessize = _shoessize(sequelize, DataTypes);
-  var sliders = _sliders(sequelize, DataTypes);
   var wishlist = _wishlist(sequelize, DataTypes);
   var wishlist_products = _wishlist_products(sequelize, DataTypes);
 
@@ -63,7 +61,6 @@ function initModels(sequelize) {
     orders,
     products,
     shoessize,
-    sliders,
     wishlist,
     wishlist_products,
   };
