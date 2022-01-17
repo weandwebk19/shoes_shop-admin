@@ -45,6 +45,7 @@ exports.store = async (req, res) => {
     const product = await models.products.create({
         productname: req.body.productname,
         price: req.body.price,
+        brand: req.body.brand,
         color: req.body.color,
         status: req.body.status,
         description: req.body.description,
