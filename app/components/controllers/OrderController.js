@@ -34,7 +34,7 @@ exports.trash = async (req, res) => {
 
     let orders = await orderService.listOrderDeleted(term, limit, offset, column, type);
 
-    for (let i = 0, j = orders.count; i < j; i++) {
+    for (let i = 0, j = orders.rows.length; i < j; i++) {
         const orderProducts = await orderService.listOrderProductDeleted(orders.rows[i].orderid, term, column, type);
         orders.rows[i].orderProducts = orderProducts;
     }
