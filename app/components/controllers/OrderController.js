@@ -12,14 +12,9 @@ exports.list = async (req, res) => {
 
     let orders = await orderService.listOrder(term, limit, offset, column, type);
 
-    for (let i = 0, j = orders.count; i < j; i++) {
-        try {
-            const orderProducts = await orderService.listOrderProduct(orders.rows[i].orderid, term, column, type);
-            orders.rows[i].orderProducts = orderProducts;
-        }
-        catch (err) {
-            console.log(err);
-        }
+    for (let i = 0, j = orders.rows.length; i < j; i++) {
+        const orderProducts = await orderService.listOrderProduct(orders.rows[i].orderid, term, column, type);
+        orders.rows[i].orderProducts = orderProducts;
     }
 
     const response = getPagingData(orders, page, limit);
@@ -84,7 +79,7 @@ exports.store = async (req, res) => {
                     phone: req.body.customerphone,
                     email: req.body.customeremail,
                     address: req.body.customeraddress,
-                }, { where: { customerid: customer.customerid }});
+                }, { where: { customerid: customer.customerid } });
             }
             var newOrder = await models.orders.create({ customerid: customer.customerid });
 
@@ -98,7 +93,7 @@ exports.store = async (req, res) => {
                     });
                 }
                 catch (err) {
-                   res.render('error', { message: `Sản phẩm bị trùng sẽ không được ghi nhận!` });
+                    res.render('error', { message: `Sản phẩm bị trùng sẽ không được ghi nhận!` });
                 }
             }
 
@@ -175,7 +170,7 @@ exports.update = async (req, res) => {
         });
 
     for (let i = 0; i < len; i++) {
-        try{
+        try {
             await models.order_products.update({
                 amount: amounts[i],
                 size: parseInt(sizes[i]),
