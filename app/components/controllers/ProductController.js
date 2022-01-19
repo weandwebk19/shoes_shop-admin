@@ -42,21 +42,26 @@ exports.trash = async (req, res) => {
 
 // [POST] /product/store
 exports.store = async (req, res) => {
-    const product = await models.products.create({
-        productname: req.body.productname,
-        price: req.body.price,
-        brand: req.body.brand,
-        color: req.body.color,
-        status: req.body.status,
-        description: req.body.description,
-        image: [].concat(req.body.image)
-    });
-
-    await models.shoessize.create({
-        productid: product.productid,
-        size: req.body.size,
-        amount: req.body.amount,
-    });
+    try {
+        const product = await models.products.create({
+            productname: req.body.productname,
+            price: req.body.price,
+            brand: req.body.brand,
+            color: req.body.color,
+            status: req.body.status,
+            description: req.body.description,
+            image: [].concat(req.body.image)
+        });
+    
+        await models.shoessize.create({
+            productid: product.productid,
+            size: req.body.size,
+            amount: req.body.amount,
+        });
+    }
+    catch (err) {
+        res.render('error', { message: "Cập nhật không thành công!"});
+    }
     res.redirect('/product');
 }
 
